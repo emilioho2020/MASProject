@@ -15,16 +15,23 @@ import com.google.common.base.Optional;
  * Our implementation of a simple agent in a simple PDP problem : delivering pizzas in time.
  */
 public class Bike extends Vehicle {
-
+    private static final double SPEED = 1000d;
+    private Optional<Parcel> curr;
     /**
      */
     //TODO
-    public Bike(){
-        super(VehicleDTO.builder().build());
-    };
+    public Bike(Point startPosition, int capacity){
+        super(VehicleDTO.builder()
+        .capacity(capacity)
+        .startPosition(startPosition)
+        .speed(SPEED)
+        .build());
+        curr = Optional.absent();
+    }
 
 
     @Override
+    //TODO
     protected void tickImpl(TimeLapse time) {
 
     }
