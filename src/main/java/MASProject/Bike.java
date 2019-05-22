@@ -17,6 +17,7 @@ import com.google.common.base.Optional;
 public class Bike extends Vehicle {
     private static final double SPEED = 1000d;
     private Optional<Parcel> curr;
+    private BehaviourModule behaviormodule = new BehaviourModule();
     /**
      */
     //TODO
@@ -33,6 +34,9 @@ public class Bike extends Vehicle {
     @Override
     //TODO
     protected void tickImpl(TimeLapse time) {
+        final RoadModel rm = getRoadModel();
+        final PDPModel pm = getPDPModel();
 
+        behaviormodule.move(rm.getPosition(this));
     }
 }
