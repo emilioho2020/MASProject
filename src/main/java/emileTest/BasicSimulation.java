@@ -37,7 +37,7 @@ import org.apache.commons.math3.random.RandomGenerator;
  *
  * @author Rinde van Lon
  */
-public final class SimpleExample {
+public final class BasicSimulation {
 
     static final double VEHICLE_SPEED_KMH = 50d;
     static final Point MIN_POINT = new Point(0, 0);
@@ -46,40 +46,30 @@ public final class SimpleExample {
     static final long RANDOM_SEED = 123L;
     static final int NUM_VEHICLES = 200;
 
-    static final int TEST_SPEEDUP = 16;
-    static final long TEST_STOP_TIME = 10 * 60 * 1000;
 
-    private SimpleExample() {}
+    private BasicSimulation() {}
 
     /**
      * Starts the example.
      * @param args This is ignored.
      */
     public static void main(String[] args) {
-        run(true);
+        run();
     }
 
     /**
      * Run the example.
-     * @param testing if <code>true</code> turns on testing mode.
      */
-    public static void run(boolean testing) {
+    public static void run() {
         // configure the GUI. We use separate renderers for the road model and
         // for the drivers. By default the road model is rendered as a square
         // (indicating its boundaries), and the drivers are rendered as red
         // dots.
         View.Builder viewBuilder = View.builder()
                 .with(PlaneRoadModelRenderer.builder())
-                .withTitleAppendix("Simple example")
+                .withTitleAppendix("Basic Sim")
                 .with(RoadUserRenderer.builder());
 
-        if (testing) {
-            viewBuilder = viewBuilder
-                    .withSpeedUp(TEST_SPEEDUP)
-                    .withAutoClose()
-                    .withAutoPlay()
-                    .withSimulatorEndTime(TEST_STOP_TIME);
-        }
 
         // initialize a new Simulator instance
         final Simulator sim = Simulator.builder()
