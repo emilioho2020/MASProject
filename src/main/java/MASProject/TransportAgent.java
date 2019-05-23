@@ -17,7 +17,7 @@ import com.google.common.base.Optional;
 /**
  * Our implementation of a simple agent in a simple PDP problem : delivering pizzas in time.
  */
-public class Bike extends Vehicle implements CommUser {
+public class TransportAgent extends Vehicle implements CommUser {
     private static final double SPEED = 1000d;
     private Optional<Parcel> curr;
     private BehaviourModule behaviormodule = new BehaviourModule();
@@ -31,7 +31,7 @@ public class Bike extends Vehicle implements CommUser {
     /**
      */
     //TODO
-    public Bike(Point startPosition, int capacity){
+    public TransportAgent(Point startPosition, int capacity){
         super(VehicleDTO.builder()
         .capacity(capacity)
         .startPosition(startPosition)
