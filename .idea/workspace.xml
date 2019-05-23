@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2855eb0f-6199-4a5f-9055-1258c8b89f0b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/MASProject/BehaviourModule.java" afterDir="false" />
+    <list default="true" id="2855eb0f-6199-4a5f-9055-1258c8b89f0b" name="Default Changelist" comment="bike skeleton 0.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/Bike.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/Bike.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -20,22 +20,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/TaxiRenderer.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/BehaviourModule.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="142" column="70" selection-start-line="142" selection-start-column="70" selection-end-line="142" selection-end-column="70" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="238">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Bike.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="39" column="50" lean-forward="true" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+            <state relative-caret-position="-390">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,10 +41,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/BehaviourModule.java">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6-sources.jar!/com/github/rinde/rinsim/core/model/pdp/PDPObjectImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+            <state relative-caret-position="1649">
+              <caret line="121" column="22" selection-start-line="121" selection-start-column="22" selection-end-line="121" selection-end-column="22" />
+              <folding>
+                <element signature="e#4101#4102#0" expanded="true" />
+                <element signature="e#4133#4134#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/comm/ExampleCommunicatingAgent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1173">
+              <caret line="57" column="14" lean-forward="true" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/comm/CommExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1003">
+              <caret line="90" column="32" lean-forward="true" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -55,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="35">
-              <caret line="215" column="24" selection-start-line="215" selection-start-column="24" selection-end-line="215" selection-end-column="24" />
+            <state relative-caret-position="-1563">
+              <caret line="114" column="36" lean-forward="true" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -69,27 +88,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="595">
               <caret line="61" column="7" selection-start-line="61" selection-start-column="7" selection-end-line="61" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-ui/4.4.6/rinsim-ui-4.4.6-sources.jar!/com/github/rinde/rinsim/ui/renderers/PlaneRoadModelRenderer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Taxi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="51" selection-start-line="51" selection-end-line="52" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -132,9 +130,9 @@
         <option value="$PROJECT_DIR$/src/main/java/MASProject/TaxiExample.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Taxi.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/TaxiRenderer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/AutoValue_TaxiRenderer_Builder.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/BehaviourModule.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Bike.java" />
       </list>
     </option>
@@ -158,6 +156,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -231,6 +230,14 @@
               <item name="Maven: com.github.rinde:rinsim-example:4.4.6" type="70bed36:NamedLibraryElementNode" />
               <item name="rinsim-example-4.4.6.jar" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="comm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: com.github.rinde:rinsim-example:4.4.6" type="70bed36:NamedLibraryElementNode" />
+              <item name="rinsim-example-4.4.6.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
               <item name="taxi" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -244,7 +251,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -383,7 +389,8 @@
       <workItem from="1558433075108" duration="68000" />
       <workItem from="1558436589050" duration="6097000" />
       <workItem from="1558548582448" duration="5371000" />
-      <workItem from="1558556746667" duration="2331000" />
+      <workItem from="1558556746667" duration="2950000" />
+      <workItem from="1558612877646" duration="2278000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1558366752264</created>
@@ -406,17 +413,24 @@
       <option name="project" value="LOCAL" />
       <updated>1558559018614</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="bike skeleton 0.1">
+      <created>1558559611790</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1558559611790</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42547000" />
+    <option name="totallyTimeSpent" value="45444000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24630873" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966443" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -455,7 +469,8 @@
     <MESSAGE value="test" />
     <MESSAGE value="base simple domain" />
     <MESSAGE value="base simple domain 0.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="base simple domain 0.2" />
+    <MESSAGE value="bike skeleton 0.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="bike skeleton 0.1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/myTest.class" />
@@ -512,13 +527,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/agv/AgvAgent.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/projectTest.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/comm/CommExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/experiment/ExperimentExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -646,6 +654,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/TaxiRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1802">
+          <caret line="142" column="70" selection-start-line="142" selection-start-column="70" selection-end-line="142" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/emileTest/BasicSimulation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
@@ -660,10 +678,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Taxi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="35">
-          <caret line="215" column="24" selection-start-line="215" selection-start-column="24" selection-end-line="215" selection-end-column="24" />
+        <state relative-caret-position="493">
+          <caret line="51" selection-start-line="51" selection-end-line="52" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -672,38 +690,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/BehaviourModule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/TaxiRenderer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="142" column="70" selection-start-line="142" selection-start-column="70" selection-end-line="142" selection-end-column="70" />
+        <state relative-caret-position="-1563">
+          <caret line="114" column="36" lean-forward="true" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Taxi.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/comm/CommExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="51" selection-start-line="51" selection-end-line="52" selection-end-column="38" />
+        <state relative-caret-position="1003">
+          <caret line="90" column="32" lean-forward="true" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6-sources.jar!/com/github/rinde/rinsim/core/model/pdp/PDPObjectImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1649">
+          <caret line="121" column="22" selection-start-line="121" selection-start-column="22" selection-end-line="121" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#4101#4102#0" expanded="true" />
+            <element signature="e#4133#4134#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Bike.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="39" column="50" lean-forward="true" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+        <state relative-caret-position="-390">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/comm/ExampleCommunicatingAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1173">
+          <caret line="57" column="14" lean-forward="true" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
         </state>
       </provider>
     </entry>

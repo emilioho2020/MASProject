@@ -16,6 +16,7 @@
 package MASProject;
 
 import com.github.rinde.rinsim.core.Simulator;
+import com.github.rinde.rinsim.core.model.comm.CommModel;
 import com.github.rinde.rinsim.core.model.pdp.*;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModelBuilders;
@@ -29,6 +30,7 @@ import com.github.rinde.rinsim.geom.Point;
 import com.github.rinde.rinsim.geom.io.DotGraphIO;
 import com.github.rinde.rinsim.geom.io.Filters;
 import com.github.rinde.rinsim.ui.View;
+import com.github.rinde.rinsim.ui.renderers.CommRenderer;
 import com.github.rinde.rinsim.ui.renderers.GraphRoadModelRenderer;
 import com.github.rinde.rinsim.ui.renderers.RoadUserRenderer;
 import org.apache.commons.math3.random.RandomGenerator;
@@ -110,6 +112,7 @@ public final class PizzaExample {
       .addModel(RoadModelBuilders.staticGraph(loadGraph(graphFile)))
       .addModel(DefaultPDPModel.builder())
       .addModel(view)
+      .addModel(CommModel.builder())
       .build();
     final RandomGenerator rng = simulator.getRandomGenerator();
 
@@ -172,7 +175,8 @@ public final class PizzaExample {
         .withImageAssociation(
           Customer.class, "/graphics/flat/person-red-32.png"))
       .with(TaxiRenderer.builder(Language.ENGLISH))
-      .withTitleAppendix("Taxi example");
+      .with(CommRenderer.builder())
+      .withTitleAppendix("Pizza example");
 
     if (m != null && list != null && display != null) {
       view = view.withMonitor(m)
