@@ -44,6 +44,10 @@ import java.util.Map;
 
 import static com.google.common.collect.Maps.newHashMap;
 
+
+//Set<Point> nodes = roadModel.get(GraphRoadModel.class).getGraph().getNodes();
+
+
 /**
  * Example showing a fleet of taxis that have to pickup and transport customers
  * around the city of Leuven.

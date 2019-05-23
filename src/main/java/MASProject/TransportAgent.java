@@ -13,14 +13,18 @@ import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 
 /**
  * Our implementation of a simple agent in a simple PDP problem : delivering pizzas in time.
  */
 public class TransportAgent extends Vehicle implements CommUser {
     private static final double SPEED = 1000d;
+    private static AtomicLong idCounter = new AtomicLong();
     private Optional<Parcel> curr;
     private BehaviourModule behaviormodule = new BehaviourModule();
+    private final String ID;
 
     //Communication
     private final double range = 10;  //TODO set range
@@ -38,6 +42,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         .speed(SPEED)
         .build());
         curr = Optional.absent();
+        ID = createID();
     }
 
 
@@ -67,5 +72,10 @@ public class TransportAgent extends Vehicle implements CommUser {
         device = Optional.of(builder
                 .setReliability(reliability)
                 .build());
+    }
+
+    public static String createID()
+    {
+        return String.valueOf(idCounter.getAndIncrement());
     }
 }
