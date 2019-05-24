@@ -18,6 +18,7 @@ package MASProject;
 import com.github.rinde.rinsim.core.Simulator;
 import com.github.rinde.rinsim.core.model.comm.CommModel;
 import com.github.rinde.rinsim.core.model.pdp.*;
+import com.github.rinde.rinsim.core.model.road.GraphRoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModelBuilders;
 import com.github.rinde.rinsim.core.model.time.TickListener;
@@ -30,17 +31,19 @@ import com.github.rinde.rinsim.geom.Point;
 import com.github.rinde.rinsim.geom.io.DotGraphIO;
 import com.github.rinde.rinsim.geom.io.Filters;
 import com.github.rinde.rinsim.ui.View;
-import com.github.rinde.rinsim.ui.renderers.CommRenderer;
-import com.github.rinde.rinsim.ui.renderers.GraphRoadModelRenderer;
-import com.github.rinde.rinsim.ui.renderers.RoadUserRenderer;
+import com.github.rinde.rinsim.ui.renderers.*;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 
+import Graph.GraphCreator;
+
 import javax.annotation.Nullable;
+import javax.measure.unit.SI;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 import static com.google.common.collect.Maps.newHashMap;
 
@@ -58,22 +61,21 @@ import static com.google.common.collect.Maps.newHashMap;
  */
 public final class PizzaExample {
 
-  private static final int NUM_RESTAURANTS = 1;
-  private static final int NUM_BIKES = 20;
-  private static final int NUM_CUSTOMERS = 30;
+    private static final int NUM_RESTAURANTS = 0;
+    private static final int NUM_BIKES = 2;
+    private static final int NUM_CUSTOMERS = 5;
 
-  // time in ms
-  private static final long SERVICE_DURATION = 60000;
-  private static final int TAXI_CAPACITY = 10;
-  private static final int RESTAURANT_CAPACITY = 100;
+    // time in ms
+    private static final long SERVICE_DURATION = 60000;
+    private static final int TAXI_CAPACITY = 10;
+    private static final int RESTAURANT_CAPACITY = 100;
 
-  private static final int SPEED_UP = 4;
-  private static final int MAX_CAPACITY = 3;
-  private static final double NEW_CUSTOMER_PROB = .007;
+    private static final int SPEED_UP = 4;
+    private static final int MAX_CAPACITY = 3;
+    private static final double NEW_CUSTOMER_PROB = 0.007;
 
-  private static final String MAP_FILE = "/data/maps/leuven-simple.dot";
-  private static final Map<String, Graph<MultiAttributeData>> GRAPH_CACHE =
-    newHashMap();
+    private static final int CARDINALITY = 8;
+    private static final double VEHICLE_LENGTH = 2d;
 
   private PizzaExample() {}
 
@@ -85,35 +87,35 @@ public final class PizzaExample {
   public static void main(@Nullable String[] args) {
     final long endTime = args != null && args.length >= 1 ? Long
       .parseLong(args[0]) : Long.MAX_VALUE;
-
-    final String graphFile = args != null && args.length >= 2 ? args[1]
-      : MAP_FILE;
-    run(endTime, graphFile, null /* new Display() */, null, null);
+    run(endTime, null /* new Display() */, null, null);
   }
 
   /**
    * Run the example.
    */
   public static void run() {
-    run(Long.MAX_VALUE, MAP_FILE, null, null, null);
+    run(Long.MAX_VALUE, null, null, null);
   }
 
   /**
    * Starts the example.
    * @param endTime The time at which simulation should stop.
-   * @param graphFile The graph that should be loaded.
    * @param display The display that should be used to show the ui on.
    * @param m The monitor that should be used to show the ui on.
    * @param list A listener that will receive callbacks from the ui.
    * @return The simulator instance.
    */
-  public static Simulator run(final long endTime,String graphFile,@Nullable Display display, @Nullable Monitor m, @Nullable Listener list) {
+  public static Simulator run(final long endTime, @Nullable Display display, @Nullable Monitor m, @Nullable Listener list) {
 
     final View.Builder view = createGui(display, m, list);
 
-    // use map of leuven
+    // use simple Graph (8*8 fully connected matrix)
     final Simulator simulator = Simulator.builder()
-      .addModel(RoadModelBuilders.staticGraph(loadGraph(graphFile)))
+      .addModel(
+          RoadModelBuilders.dynamicGraph(GraphCreator.createGraph(VEHICLE_LENGTH, CARDINALITY))
+              .withCollisionAvoidance()
+              .withDistanceUnit(SI.METER)
+              .withVehicleLength(VEHICLE_LENGTH))
       .addModel(DefaultPDPModel.builder())
       .addModel(view)
       .addModel(CommModel.builder())
@@ -128,16 +130,22 @@ public final class PizzaExample {
               RESTAURANT_CAPACITY));
     }
     for (int i = 0; i < NUM_BIKES; i++) {
-      simulator.register(new Taxi(roadModel.getRandomPosition(rng),
+      simulator.register(new TransportAgent(roadModel.getRandomPosition(rng),
         TAXI_CAPACITY));
     }
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
+      Point start = roadModel.getRandomPosition(rng);
+      Point stop = roadModel.getRandomPosition(rng);
       simulator.register(new Customer(
-        Parcel.builder(roadModel.getRandomPosition(rng),
-          roadModel.getRandomPosition(rng))
+        Parcel.builder(start, stop)
           .serviceDuration(SERVICE_DURATION)
           .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
           .buildDTO()));
+    }
+
+    Set<Point> nodes = roadModel.get(GraphRoadModel.class).getGraph().getNodes();
+    for(Point node: nodes) {
+      simulator.register(new ResourceAgent(node, roadModel));
     }
 
     simulator.addTickListener(new TickListener() {
@@ -170,7 +178,8 @@ public final class PizzaExample {
       @Nullable Listener list) {
 
     View.Builder view = View.builder()
-      .with(GraphRoadModelRenderer.builder())
+      .with(WarehouseRenderer.builder()
+          .withMargin(VEHICLE_LENGTH))
       .with(RoadUserRenderer.builder()
         .withImageAssociation(
           TaxiBase.class, "/graphics/perspective/tall-building-64.png")
@@ -178,8 +187,10 @@ public final class PizzaExample {
           Taxi.class, "/graphics/flat/taxi-32.png")
         .withImageAssociation(
           Customer.class, "/graphics/flat/person-red-32.png"))
-      .with(TaxiRenderer.builder(Language.ENGLISH))
-      .with(CommRenderer.builder())
+      //.with(TaxiRenderer.builder(Language.ENGLISH))
+      .with(AGVRenderer.builder()
+          .withDifferentColorsForVehicles())
+      //.with(CommRenderer.builder().withMessageCount())
       .withTitleAppendix("Pizza example");
 
     if (m != null && list != null && display != null) {
@@ -194,28 +205,6 @@ public final class PizzaExample {
     }
     return view;
   }
-
-  // load the graph file
-  static Graph<MultiAttributeData> loadGraph(String name) {
-    try {
-      if (GRAPH_CACHE.containsKey(name)) {
-        return GRAPH_CACHE.get(name);
-      }
-      final Graph<MultiAttributeData> g = DotGraphIO
-        .getMultiAttributeGraphIO(
-          Filters.selfCycleFilter())
-        .read(
-          PizzaExample.class.getResourceAsStream(name));
-
-      GRAPH_CACHE.put(name, g);
-      return g;
-    } catch (final FileNotFoundException e) {
-      throw new IllegalStateException(e);
-    } catch (final IOException e) {
-      throw new IllegalStateException(e);
-    }
-  }
-
 
   /**
    * A customer with very permissive time windows.

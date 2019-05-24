@@ -22,7 +22,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
     private final Map<TimeLapse, String> schedule;
     private final RoadModel roadModel;
     //Communication
-    private final double range = 10;  //TODO set range
+    private final double range = 4.2;  //TODO set range
     private final double reliability = 1;
     Optional<CommDevice> device;
 
@@ -52,11 +52,12 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
     @Override
     public void initRoadUser(RoadModel roadModel) {
 
+
     }
 
     @Override
     public void tick(TimeLapse timeLapse) {
-        if(!(device.get().getUnreadCount() > 0)) {
+        /*if(!(device.get().getUnreadCount() > 0)) {
             return;
         }
         List<Message> messages = device.get().getUnreadMessages();
@@ -81,7 +82,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
                     device.get().send(msg, getNextResource(msg, getPosition().get()));
                 }
             }
-        }
+        }*/
     }
 
     @Override
