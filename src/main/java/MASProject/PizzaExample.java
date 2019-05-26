@@ -62,7 +62,7 @@ import static com.google.common.collect.Maps.newHashMap;
 public final class PizzaExample {
 
     private static final int NUM_RESTAURANTS = 0;
-    private static final int NUM_BIKES = 2;
+    private static final int NUM_BIKES = 1;
     private static final int NUM_CUSTOMERS = 5;
 
     // time in ms
@@ -131,7 +131,7 @@ public final class PizzaExample {
     }
     for (int i = 0; i < NUM_BIKES; i++) {
       simulator.register(new TransportAgent(roadModel.getRandomPosition(rng),
-        TAXI_CAPACITY));
+        TAXI_CAPACITY, roadModel));
     }
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
       Point start = roadModel.getRandomPosition(rng);
@@ -147,6 +147,7 @@ public final class PizzaExample {
     for(Point node: nodes) {
       simulator.register(new ResourceAgent(node, roadModel));
     }
+
 
     simulator.addTickListener(new TickListener() {
       @Override

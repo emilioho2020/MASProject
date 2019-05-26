@@ -2,6 +2,8 @@ package MASProject;
 
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
+import SelfExpiringHashMap.SelfExpiringHashMap;
+import SelfExpiringHashMap.SelfExpiringMap;
 import com.github.rinde.rinsim.core.model.comm.*;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadUser;
@@ -10,26 +12,23 @@ import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ResourceAgent implements CommUser, TickListener, RoadUser {
 
     //Fields
     private final Point position;
-    private final Map<TimeLapse, String> schedule;
+    private final SelfExpiringMap<TimeLapse, String> schedule;
     private final RoadModel roadModel;
     //Communication
-    private final double range = 4.2;  //TODO set range
+    private final double range = 4.2;
     private final double reliability = 1;
     Optional<CommDevice> device;
 
     //have to think about using the roadmodel here
     ResourceAgent(Point position, RoadModel rm) {
         this.position = position;
-        schedule = new HashMap<>();
+        schedule = new SelfExpiringHashMap<TimeLapse, String>();
         this.roadModel = rm;
     }
 
@@ -48,21 +47,37 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
                 .build());
     }
 
-    //TODO: need to register objects in order to seatch them in getNextResource method but if so, Transport object may collide with them.
     @Override
     public void initRoadUser(RoadModel roadModel) {
-
-
+        roadModel.addObjectAt(this, position);
     }
 
     @Override
     public void tick(TimeLapse timeLapse) {
-        /*if(!(device.get().getUnreadCount() > 0)) {
+        if(!(device.get().getUnreadCount() > 0)) {
             return;
         }
+
         List<Message> messages = device.get().getUnreadMessages();
         for(Message message : messages) {
             if(message.getContents() instanceof ExplorationMessage){
+                ExplorationMessage msg = (ExplorationMessage) message.getContents();
+                List<Point> points = new ArrayList<>(((ExplorationMessage) message.getContents()).getPath());
+                if(!getPosition().get().equals(points.get(points.size()-1))) {
+                    //System.out.println("Pos of resource agent that picked the message");
+                    //System.out.println(getPosition().get());
+                    CommUser cu = msg.getNextResource(roadModel, getPosition().get());
+                    //System.out.println("Pos of next resource agent");
+                    //System.out.println(cu.getPosition().get());
+                    device.get().send(message.getContents(), cu);
+                }else{
+                    msg.setDestinationReached(true);
+                    //System.out.println("Pos of last resource agent");
+                    //System.out.println(getPosition().get());
+                }
+
+            }
+            /*if(message.getContents() instanceof ExplorationMessage){
                 ExplorationMessage msg =(ExplorationMessage) message.getContents();
                 if(msg.getPath().contains(getPosition().get())) {
                     //if path contains the position of this agent we don't want to broadcast from it
@@ -75,29 +90,18 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
                 IntentionMessage msg = (IntentionMessage) message.getContents();
                 //if schedule already has a reservation in the given TimeLaps send noReservation to source
                 if(schedule.containsKey(msg.getScheduledPath().get(getPosition()))) {
-                    //TODO: make noReservation method to let source know that reservation has failed;proably different kind of msg
                 }
                 else {
                     schedule.put(msg.getScheduledPath().get(getPosition()),msg.getSource());
                     device.get().send(msg, getNextResource(msg, getPosition().get()));
                 }
-            }
-        }*/
+            }*/
+        }
     }
 
     @Override
     public void afterTick(TimeLapse timeLapse) {
 
-    }
-
-    private CommUser getNextResource(IntentionMessage msg, Point point) {
-        Set<ResourceAgent> allAgents = roadModel.getObjectsOfType(ResourceAgent.class);
-        for(ResourceAgent agent : allAgents) {
-            if(agent.getPosition().get().equals(msg.getNextPoint(point))) {
-                return agent;
-            }
-        }
-        return null;
     }
 
 }
