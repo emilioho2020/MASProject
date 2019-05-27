@@ -6,7 +6,6 @@ public class BehaviourModule {
 
     protected BehaviourModule(){}
 
-    //TODO
     protected void move(Point position){
 
     }

@@ -16,6 +16,10 @@ import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
 
+import javax.measure.Measure;
+import javax.measure.quantity.Duration;
+import javax.measure.unit.NonSI;
+import javax.measure.unit.SI;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -27,7 +31,7 @@ public class TransportAgent extends Vehicle implements CommUser {
 
     //Static fields
     private static AtomicLong idCounter = new AtomicLong();
-    private static final double SPEED = 1d;
+    public static final double SPEED_KMH = 1d;
     private static final int NUM_OF_POSSIBILITIES = 3;
 
     //from PDP model
@@ -45,7 +49,7 @@ public class TransportAgent extends Vehicle implements CommUser {
     private final RoadModel roadModel;
 
     //Communication
-    private final double range = 4.2;  //TODO set range
+    private final double range = 4.2;
     private final double reliability = 1;
     Optional<CommDevice> device;
 
@@ -55,14 +59,11 @@ public class TransportAgent extends Vehicle implements CommUser {
     private List<ExplorationMessage> explorationAnts;
     private Optional<IntentionMessage> intentionAnt;
 
-    /**
-     */
-    //TODO
     public TransportAgent(Point startPosition, int capacity, RoadModel rm){
         super(VehicleDTO.builder()
                 .capacity(capacity)
                 .startPosition(startPosition)
-                .speed(SPEED)
+                .speed(SPEED_KMH)
                 .build()
             );
         curr = Optional.absent();
@@ -75,6 +76,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         intentionAnt = Optional.absent();
     }
 
+    //todo here we should consider separate plans for pickup and only after pickup a plan for delivery
     @Override
     protected void tickImpl(TimeLapse time) {
         final RoadModel rm = getRoadModel();
@@ -120,7 +122,6 @@ public class TransportAgent extends Vehicle implements CommUser {
                 // sanity check: if it is not in our cargo AND it is also not on the
                 // RoadModel, we cannot go to curr anymore.
                 clearObjective();
-                return;
 
             } else {
 
@@ -135,7 +136,6 @@ public class TransportAgent extends Vehicle implements CommUser {
                     } catch (Exception e) {
                         System.out.println("No reservation.");
                         clearObjective();
-                        return;
                     }
                 } else {
                     //an intendedPlan exists
@@ -170,21 +170,32 @@ public class TransportAgent extends Vehicle implements CommUser {
             if(alreadyExploring(objective)) { continue;}
             Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(this,objective.getPickupLocation()));
             ExplorationMessage ant = new ExplorationMessage(ID, objective, path);
-            device.get().send(ant, ant.getNextResource(rm, rm.getPosition(this)));
+            CommUser nextResource = ant.getNextResource(rm, rm.getPosition(this));
+
+            double cost = ant.calculateCost(
+                    rm, rm.getPosition(this), nextResource.getPosition().get(),
+                    Measure.valueOf(SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
+            ant.addCost(Measure.valueOf(cost, Duration.UNIT));
+            device.get().send(ant, nextResource);
             explorationAnts.add(ant);
         }
     }
 
-    //sends the intention ant to the preferredPlans destination
+    //sends the intention ant to the preferredPlans destination todo add time
     private void sendIntentionAnt(RoadModel rm) {
         IntentionMessage ant = new IntentionMessage(ID, curr.get(), preferredPlan.get().getSchedule());
         device.get().send(ant, ant.getNextResource(rm, rm.getPosition(this)));
         intentionAnt = Optional.of(ant);
     }
 
-    //TODO: still need to implement this
+    //since the agent may have moved the current location may not be in the plan
+    //all nodes have integer coordinates so we floor the point of the current location,
+    //then we send the ant to the next point.(following getNextResource method)
     private void refreshReservation(RoadModel rm) {
-
+        Point curr = rm.getPosition(this);
+        Point flooredPoint = new Point(Math.floor(curr.x),Math.floor(curr.y));
+        IntentionMessage ant = intentionAnt.get();
+        device.get().send(ant, ant.getNextResource(rm, flooredPoint));
     }
 
     //if ant reaches its destination get its plan and remove ant
@@ -230,9 +241,11 @@ public class TransportAgent extends Vehicle implements CommUser {
         return false;
     }
 
-    //TODO: still need to implement this
+    //get path from plan and follow it.
+    //TODO: probably some more code in how agent follows the schedule
     private void followPlan(RoadModel rm, TimeLapse time) {
-        //rm.followPath(this, path, time);
+        Queue<Point> path = intendedPlan.get().getPath();
+        rm.followPath(this, path, time);
     }
 
     //method to clear the state of the agent

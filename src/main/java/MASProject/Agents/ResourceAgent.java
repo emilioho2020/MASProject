@@ -12,23 +12,28 @@ import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
 
+import javax.measure.Measure;
+import javax.measure.quantity.Duration;
+import javax.measure.unit.NonSI;
+import javax.measure.unit.SI;
 import java.util.*;
 
 public class ResourceAgent implements CommUser, TickListener, RoadUser {
 
+    private final static double TICK_LENGTH = 1000d;
     //Fields
     private final Point position;
-    private final SelfExpiringMap<TimeLapse, String> schedule;
+    private final SelfExpiringMap<TimeSlot, String> schedule;
     private final RoadModel roadModel;
     //Communication
     private final double range = 4.2;
     private final double reliability = 1;
     Optional<CommDevice> device;
 
-    //have to think about using the roadmodel here
-    public ResourceAgent(Point position, RoadModel rm) {
+    //have to think about using the roadModel here
+    ResourceAgent(Point position, RoadModel rm) {
         this.position = position;
-        schedule = new SelfExpiringHashMap<TimeLapse, String>();
+        schedule = new SelfExpiringHashMap<TimeSlot, String>(3000L);
         this.roadModel = rm;
     }
 
@@ -59,49 +64,91 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
         }
 
         List<Message> messages = device.get().getUnreadMessages();
+        //Loop through the received messages
         for(Message message : messages) {
+            //Check if message is ExplorationAnt
             if(message.getContents() instanceof ExplorationMessage){
-                ExplorationMessage msg = (ExplorationMessage) message.getContents();
+                ExplorationMessage ant = (ExplorationMessage) message.getContents();
                 List<Point> points = new ArrayList<>(((ExplorationMessage) message.getContents()).getPath());
+
+                //Add the cost to come to this node to ants plan
+                ant.addToSchedule(getPosition().get(), ant.getCostSoFar());
+
                 if(!getPosition().get().equals(points.get(points.size()-1))) {
-                    //System.out.println("Pos of resource agent that picked the message");
-                    //System.out.println(getPosition().get());
-                    CommUser cu = msg.getNextResource(roadModel, getPosition().get());
-                    //System.out.println("Pos of next resource agent");
-                    //System.out.println(cu.getPosition().get());
-                    device.get().send(message.getContents(), cu);
+                    //current node is not destination
+                    //send to next resource; calculate travel cost
+                    CommUser nextResource = ant.getNextResource(roadModel, getPosition().get());
+                    double cost = ant.calculateCost(
+                            roadModel, roadModel.getPosition(this), nextResource.getPosition().get(),
+                            Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
+                    ant.addCost(Measure.valueOf(cost, Duration.UNIT));
+                    device.get().send(ant, nextResource);
                 }else{
-                    msg.setDestinationReached(true);
-                    //System.out.println("Pos of last resource agent");
-                    //System.out.println(getPosition().get());
+                    //current node is destination
+                    ant.setDestinationReached(true);
                 }
 
             }
-            /*if(message.getContents() instanceof ExplorationMessage){
-                ExplorationMessage msg =(ExplorationMessage) message.getContents();
-                if(msg.getPath().contains(getPosition().get())) {
-                    //if path contains the position of this agent we don't want to broadcast from it
-                    continue;
-                }
-                msg.addPointToPath(getPosition().get());
-                device.get().broadcast(msg);
-            }
-            else if(message.getContents() instanceof IntentionMessage) {
-                IntentionMessage msg = (IntentionMessage) message.getContents();
+            //Check if message is IntentionAnt
+            //todo how to think about how we will handel refreshing a reservation
+            if(message.getContents() instanceof IntentionMessage) {
+                IntentionMessage ant = (IntentionMessage) message.getContents();
+                List<Point> points = new ArrayList<>(ant.getPath());
+
                 //if schedule already has a reservation in the given TimeLaps send noReservation to source
-                if(schedule.containsKey(msg.getScheduledPath().get(getPosition()))) {
+                if (alreadyBusy(ant.getScheduledPath().get(getPosition().get()))) {
+                    ant.setNoReservation(true);
+                } else {
+                    TimeSlot timeSlot = calculateTimeSlot(ant.getScheduledPath().get(getPosition()));
+                    schedule.put(timeSlot, ant.getSource());
                 }
-                else {
-                    schedule.put(msg.getScheduledPath().get(getPosition()),msg.getSource());
-                    device.get().send(msg, getNextResource(msg, getPosition().get()));
+
+                if (!getPosition().get().equals(points.get(points.size() - 1))) {
+                    //current node is not destination
+                    device.get().send(ant, ant.getNextResource(roadModel, getPosition().get()));
+                } else {
+                    ant.setDestinationReached(true);
                 }
-            }*/
+            }
         }
+    }
+
+    //Checks if time provided lives inside a slot
+    private boolean alreadyBusy(Measure<Double,Duration> time) {
+        Set<TimeSlot> timeSlots = schedule.keySet();
+        for(TimeSlot slot : timeSlots) {
+            if(slot.getStartTime() <= time.doubleValue(time.getUnit()) && time.doubleValue(time.getUnit()) < slot.getEndTime()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private TimeSlot calculateTimeSlot(Measure<Double,Duration> time) {
+        double doubleTime = time.doubleValue(time.getUnit());
+        return new TimeSlot(Math.floor(doubleTime),Math.floor(doubleTime)+TICK_LENGTH);
     }
 
     @Override
     public void afterTick(TimeLapse timeLapse) {
 
+    }
+
+    private class TimeSlot {
+        private final double start;
+        private final double end;
+        TimeSlot(double start,double end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        private double getStartTime() {
+            return start;
+        }
+
+        private double getEndTime() {
+            return end;
+        }
     }
 
 }

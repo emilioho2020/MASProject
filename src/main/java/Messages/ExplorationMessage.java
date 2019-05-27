@@ -4,14 +4,21 @@ import MASProject.Agents.ResourceAgent;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
-import com.github.rinde.rinsim.core.model.time.TimeLapse;
+import com.github.rinde.rinsim.core.model.road.RoadModels;
 import com.github.rinde.rinsim.geom.Point;
 
+import javax.measure.Measure;
+import javax.measure.quantity.Duration;
+import javax.measure.quantity.Length;
+import javax.measure.quantity.Velocity;
+import javax.measure.unit.SI;
+import javax.measure.unit.Unit;
 import java.util.*;
 
 public class ExplorationMessage extends SmartMessage {
     private final Queue<Point> path;
-    private final Map<Point,TimeLapse> scheduledPath;
+    private final Map<Point,Measure<Double,Duration>> scheduledPath;
+    private Measure<Double, Duration> costSoFar = Measure.valueOf(0d, SI.SECOND);
     private boolean destinationReached = false;
 
     public ExplorationMessage(String source, Parcel destination, Queue<Point> path) {
@@ -21,13 +28,13 @@ public class ExplorationMessage extends SmartMessage {
         this.path = path;
     }
 
-    public void addToSchedule(Point point, TimeLapse time) {
+    public void addToSchedule(Point point, Measure<Double,Duration> time) {
         scheduledPath.put(point, time);
     }
 
-    public LinkedHashMap<Point,TimeLapse> getScheduledPath() { return (LinkedHashMap<Point,TimeLapse>) scheduledPath; }
+    public LinkedHashMap<Point,Measure<Double,Duration>> getScheduledPath() { return (LinkedHashMap<Point,Measure<Double,Duration>>) scheduledPath; }
 
-    public Point getNextPoint(Point curr) {
+    private Point getNextPoint(Point curr) {
         List<Point> points = new ArrayList<>(path);
         return points.get(points.indexOf(curr)+1);
     }
@@ -38,6 +45,12 @@ public class ExplorationMessage extends SmartMessage {
 
     public boolean isDestinationReached() {
         return destinationReached;
+    }
+
+    public void addCost(Measure<Double,Duration> cost) {
+        Unit<Duration> unit = costSoFar.getUnit();
+        costSoFar = Measure.valueOf(costSoFar.doubleValue(unit) + cost.doubleValue(unit),unit);
+
     }
 
     public void setDestinationReached(boolean destinationReached) {
@@ -52,5 +65,17 @@ public class ExplorationMessage extends SmartMessage {
             }
         }
         return null;
+    }
+
+    public double calculateCost(RoadModel rm, Point start, Point end, Measure<Double, Velocity> speed) {
+        List<Point> rout = new LinkedList<>();
+        rout.add(start);
+        rout.add(end);
+        Measure<Double,Length> distance = rm.getDistanceOfPath(rout);
+        return RoadModels.computeTravelTime(speed, distance, SI.SECOND);
+    }
+
+    public Measure<Double, Duration> getCostSoFar() {
+        return costSoFar;
     }
 }

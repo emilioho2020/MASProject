@@ -127,7 +127,7 @@ public class TaxiRenderer extends AbstractCanvasRenderer {
   // equivalent code by making the class concrete and giving it a 'language'
   // field and a constructor parameter to set it. Don't forget to implement
   // equals() and hashCode().
-//TODO  @AutoValue
+//  @AutoValue
   abstract static class Builder extends
       AbstractModelBuilder<TaxiRenderer, Void> {
 

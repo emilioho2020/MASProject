@@ -198,11 +198,12 @@ public class SelfExpiringHashMap<K, V> implements SelfExpiringMap<K, V> {
     }
 
     /**
-     * Not supported.
+     * {@inheritDoc}
      */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        cleanup();
+        return internalMap.keySet();
     }
 
     /**

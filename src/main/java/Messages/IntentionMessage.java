@@ -4,25 +4,23 @@ import MASProject.Agents.ResourceAgent;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
-import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import javax.measure.Measure;
+import javax.measure.quantity.Duration;
+import java.util.*;
 
 public class IntentionMessage extends SmartMessage {
-    private Map<Point,TimeLapse> scheduledPath;
+    private Map<Point,Measure<Double,Duration>> scheduledPath;
     private boolean destinationReached = false;
     private boolean noReservation = false;
 
-    public IntentionMessage(String source, Parcel destination, Map<Point,TimeLapse> scheduledPath) {
+    public IntentionMessage(String source, Parcel destination, Map<Point, Measure<Double,Duration>> scheduledPath) {
         super(source, destination);
         this.scheduledPath = scheduledPath;
     }
 
-    public Map<Point,TimeLapse> getScheduledPath() {
+    public Map<Point,Measure<Double,Duration>> getScheduledPath() {
         return scheduledPath;
     }
 
@@ -41,7 +39,14 @@ public class IntentionMessage extends SmartMessage {
         return null;
     }
 
-
+    //todo check Collection.addAll
+    public Queue<Point> getPath() {
+        Queue<Point> path = new LinkedList<>();
+        for(Point point : scheduledPath.keySet()) {
+            path.add(point);
+        }
+        return path;
+    }
 
     public boolean isDestinationReached() {
         return destinationReached;
