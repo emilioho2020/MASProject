@@ -1,4 +1,4 @@
-package MASProject;
+package MASProject.Agents;
 
 import com.github.rinde.rinsim.geom.Point;
 

@@ -1,4 +1,4 @@
-package MASProject;
+package MASProject.Agents;
 
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
@@ -26,7 +26,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
     Optional<CommDevice> device;
 
     //have to think about using the roadmodel here
-    ResourceAgent(Point position, RoadModel rm) {
+    public ResourceAgent(Point position, RoadModel rm) {
         this.position = position;
         schedule = new SelfExpiringHashMap<TimeLapse, String>();
         this.roadModel = rm;

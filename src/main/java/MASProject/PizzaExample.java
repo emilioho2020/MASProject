@@ -15,6 +15,9 @@
  */
 package MASProject;
 
+import MASProject.Agents.ResourceAgent;
+import MASProject.Agents.TransportAgent;
+import MASProject.Agents.packageAgent;
 import com.github.rinde.rinsim.core.Simulator;
 import com.github.rinde.rinsim.core.model.comm.CommModel;
 import com.github.rinde.rinsim.core.model.pdp.*;
@@ -24,12 +27,7 @@ import com.github.rinde.rinsim.core.model.road.RoadModelBuilders;
 import com.github.rinde.rinsim.core.model.time.TickListener;
 import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.event.Listener;
-import MASProject.TaxiRenderer.Language;
-import com.github.rinde.rinsim.geom.Graph;
-import com.github.rinde.rinsim.geom.MultiAttributeData;
 import com.github.rinde.rinsim.geom.Point;
-import com.github.rinde.rinsim.geom.io.DotGraphIO;
-import com.github.rinde.rinsim.geom.io.Filters;
 import com.github.rinde.rinsim.ui.View;
 import com.github.rinde.rinsim.ui.renderers.*;
 import org.apache.commons.math3.random.RandomGenerator;
@@ -40,9 +38,6 @@ import Graph.GraphCreator;
 
 import javax.annotation.Nullable;
 import javax.measure.unit.SI;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Map;
 import java.util.Set;
 
 import static com.google.common.collect.Maps.newHashMap;
@@ -129,10 +124,12 @@ public final class PizzaExample {
       simulator.register(new TaxiBase(roadModel.getRandomPosition(rng),
               RESTAURANT_CAPACITY));
     }
+    //initialize transport agents
     for (int i = 0; i < NUM_BIKES; i++) {
       simulator.register(new TransportAgent(roadModel.getRandomPosition(rng),
         TAXI_CAPACITY, roadModel));
     }
+    //initialize tasks
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
       Point start = roadModel.getRandomPosition(rng);
       Point stop = roadModel.getRandomPosition(rng);
@@ -143,12 +140,15 @@ public final class PizzaExample {
           .buildDTO()));
     }
 
+    //set up resource agents
     Set<Point> nodes = roadModel.get(GraphRoadModel.class).getGraph().getNodes();
     for(Point node: nodes) {
       simulator.register(new ResourceAgent(node, roadModel));
     }
 
 
+
+     //randomly add new task
     simulator.addTickListener(new TickListener() {
       @Override
       public void tick(TimeLapse time) {

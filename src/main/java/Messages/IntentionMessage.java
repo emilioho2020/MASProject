@@ -1,6 +1,6 @@
 package Messages;
 
-import MASProject.ResourceAgent;
+import MASProject.Agents.ResourceAgent;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;

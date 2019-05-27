@@ -1,5 +1,6 @@
-package MASProject;
+package MASProject.Agents;
 
+import MASProject.Plan;
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
