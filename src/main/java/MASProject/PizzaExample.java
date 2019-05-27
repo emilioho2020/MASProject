@@ -136,7 +136,7 @@ public final class PizzaExample {
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
       Point start = roadModel.getRandomPosition(rng);
       Point stop = roadModel.getRandomPosition(rng);
-      simulator.register(new Customer(
+      simulator.register(new packageAgent(
         Parcel.builder(start, stop)
           .serviceDuration(SERVICE_DURATION)
           .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
@@ -155,7 +155,7 @@ public final class PizzaExample {
         if (time.getStartTime() > endTime) {
           simulator.stop();
         } else if (rng.nextDouble() < NEW_CUSTOMER_PROB) {
-          simulator.register(new Customer(
+          simulator.register(new packageAgent(
             Parcel
               .builder(roadModel.getRandomPosition(rng),
                 roadModel.getRandomPosition(rng))
@@ -187,7 +187,7 @@ public final class PizzaExample {
         .withImageAssociation(
           Taxi.class, "/graphics/flat/taxi-32.png")
         .withImageAssociation(
-          Customer.class, "/graphics/flat/person-red-32.png"))
+          packageAgent.class, "/graphics/flat/person-red-32.png"))
       //.with(TaxiRenderer.builder(Language.ENGLISH))
       .with(AGVRenderer.builder()
           .withDifferentColorsForVehicles())
@@ -205,18 +205,6 @@ public final class PizzaExample {
         .withAutoClose();
     }
     return view;
-  }
-
-  /**
-   * A customer with very permissive time windows.
-   */
-  static class Customer extends Parcel {
-    Customer(ParcelDTO dto) {
-      super(dto);
-    }
-
-    @Override
-    public void initRoadPDP(RoadModel pRoadModel, PDPModel pPdpModel) {}
   }
 
   // currently has no function
