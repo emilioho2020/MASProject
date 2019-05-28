@@ -174,6 +174,9 @@ public class delegateMAS implements CommUser{
         return agent.getPosition();
     }
 
+    public void removePoint(Point point) {
+        intentionAnt.get().removePoint(point);
+    }
 
     @Override
     public void setCommDevice(CommDeviceBuilder builder) {

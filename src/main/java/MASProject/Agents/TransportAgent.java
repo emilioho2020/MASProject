@@ -33,6 +33,9 @@ public class TransportAgent extends Vehicle {
     private Optional<Plan> reservedPlan;
     //private List<Plan> plans;
 
+    //Needed so that agent can follow this.
+    private Queue<Point> path;
+
     private final String ID;
     private final RoadModel roadModel;
 
@@ -179,23 +182,16 @@ public class TransportAgent extends Vehicle {
     //get path from plan and follow it.
     //TODO: probably some more code in how agent follows the schedule
     private void followPlan(RoadModel rm, TimeLapse time) {
-        Queue<Point> path = reservedPlan.get().getPath();
+        if(path.isEmpty()) {
+            path.addAll(reservedPlan.get().getPath());
+        }
+
         if(Point.Comparators.XY.compare(path.peek(), rm.getPosition(this)) >= 0) {
-            reservedPlan.get().removePoint(path.remove());
-            path = updatePath(path, rm.getPosition(this));
+            Point temp = path.remove();
+            reservedPlan.get().removePoint(temp);
+            delegate.removePoint(temp);
         }
         rm.followPath(this, path, time);
-    }
-
-    //TODO: check this here and above problems
-    private Queue<Point> updatePath(Queue<Point> path, Point p) {
-        Queue<Point> output = new LinkedList<>();
-        for(Point point: path) {
-            if (Point.Comparators.XY.compare(point, p) < 0) {
-                output.add(point);
-            }
-        }
-        return output;
     }
 
     //method to clear the state of the agent
