@@ -1,6 +1,7 @@
 package Messages;
 
 import MASProject.Agents.ResourceAgent;
+import MASProject.Agents.TimeSlot;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
@@ -16,8 +17,8 @@ public class IntentionMessage extends SmartMessage {
     private boolean noReservation = false;
     private boolean refreshIntention = false;
 
-    public IntentionMessage(String source, Parcel destination, Map<Point, Measure<Double,Duration>> scheduledPath) {
-        super(source, destination);
+    public IntentionMessage(String source, Parcel destination, Map<Point, Measure<Double,Duration>> scheduledPath, RoadModel roadModel) {
+        super(source, destination, roadModel);
         this.scheduledPath = scheduledPath;
     }
 
@@ -31,8 +32,8 @@ public class IntentionMessage extends SmartMessage {
     }
 
     //TODO
-    public CommUser getNextResource(RoadModel roadModel, Point point) {
-        Set<ResourceAgent> allAgents = roadModel.getObjectsOfType(ResourceAgent.class);
+    public CommUser getNextResource(Point point) {
+        Set<ResourceAgent> allAgents = getRoadModel().getObjectsOfType(ResourceAgent.class);
         for(ResourceAgent agent : allAgents) {
             if(agent.getPosition().get().equals(getNextPoint(point))) {
                 return agent;
@@ -41,9 +42,8 @@ public class IntentionMessage extends SmartMessage {
         return null;
     }
 
-
-    public CommUser getResourceAt(RoadModel roadModel, Point point) {
-        Set<ResourceAgent> allAgents = roadModel.getObjectsOfType(ResourceAgent.class);
+    public CommUser getResourceAt(Point point) {
+        Set<ResourceAgent> allAgents = getRoadModel().getObjectsOfType(ResourceAgent.class);
         for(ResourceAgent agent : allAgents) {
             if(agent.getPosition().get().equals(point)) {
                 return agent;
@@ -82,5 +82,26 @@ public class IntentionMessage extends SmartMessage {
 
     public void setRefreshIntention(boolean refreshIntention) {
         this.refreshIntention = refreshIntention;
+    }
+
+    @Override
+    public void visit(ResourceAgent resource) {
+        List<Point> points = new ArrayList<>(getPath());
+        Point position = resource.getPosition().get();
+        boolean succ;
+
+        if (refreshIntention){succ = resource.refreshTimeSlot(getScheduledPath().get(position));}
+        else {succ = resource.reserveTimeSlot(getScheduledPath().get(position), getSource());};
+        setNoReservation(!succ);
+
+        if (!resource.getPosition().get().equals(points.get(points.size() - 1))) {
+            //current node is not destination
+            propagate(resource);
+        } else {
+            //current node is destination so set flags for destination reached and
+            //to use ant for refreshing the intention
+            setDestinationReached(true);
+            setRefreshIntention(true);
+        }
     }
 }

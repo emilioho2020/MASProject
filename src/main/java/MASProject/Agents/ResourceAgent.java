@@ -39,24 +39,13 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
         this.roadModel = rm;
     }
 
-    @Override
-    public Optional<Point> getPosition() {
-        return Optional.of(position);
-    }
-
-    @Override
-    public void setCommDevice(CommDeviceBuilder builder) {
-        if (range >= 0) {
-            builder.setMaxRange(range);
-        }
-        device = Optional.of(builder
-                .setReliability(reliability)
-                .build());
-    }
-
-    @Override
-    public void initRoadUser(RoadModel roadModel) {
-        roadModel.addObjectAt(this, position);
+    /**
+     * propagates this message to the next node
+     * @param ant
+     * @param next
+     */
+    public void propagate(SmartMessage ant,CommUser next) { //TODO implement AntAcceptor
+        device.get().send(ant, next);
     }
 
     @Override
@@ -73,41 +62,34 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
         }
     }
 
+
+    /******************************************************************************
+     * Scheduling
+     ***********************************************************************/
+
+
     /**
-     *
-     * @param ant
+     * Tries to reserve given timeSlot
+     * @param duration
+     * @return true if succeeded, false if not
      */
-
-
-    private void handleAnt(IntentionMessage ant){
-        List<Point> points = new ArrayList<>(ant.getPath());
-
+    public boolean reserveTimeSlot(Measure<Double, Duration> duration, String id){
         //if schedule already has a reservation in the given TimeSlot and this message is not a refresh send noReservation to source
-                    if (alreadyBusy(ant.getScheduledPath().get(getPosition().get())) && !ant.isRefreshIntention()) {
-            ant.setNoReservation(true);
+        if (alreadyBusy(duration)) {
+            return false;
         } else {
-            TimeSlot timeSlot = calculateTimeSlot(ant.getScheduledPath().get(getPosition().get()));
-
-            //handles both cases if intention is refresh or not
-            if(schedule.containsKey(timeSlot)) {
-                schedule.renewKey(timeSlot);
-            } else {
-                schedule.put(timeSlot, ant.getSource());
+            TimeSlot timeSlot = calculateTimeSlot(duration);
+            schedule.put(timeSlot, id);
+            return true;
             }
-        }
+    }
 
-                    if (!getPosition().get().equals(points.get(points.size() - 1))) {
-            //current node is not destination
-            device.get().send(ant, ant.getNextResource(roadModel, getPosition().get()));
-        } else {
-            //current node is destination so set flags for destination reached and
-            //to use ant for refreshing the intention
-            ant.setDestinationReached(true);
-            ant.setRefreshIntention(true);
-        }
+    public boolean refreshTimeSlot(Measure<Double, Duration> duration){
+        return true; //TODO
     }
 
     //Checks if time provided lives inside a slot
+    //TODO this is wrong! making use of resource for specific amount of time
     private boolean alreadyBusy(Measure<Double,Duration> time) {
         if(time == null) {return false;}
         Set<TimeSlot> timeSlots = schedule.keySet();
@@ -132,12 +114,25 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
         return roadModel;
     }
 
-    /**
-     * propagates this message to the next node
-     * @param ant
-     * @param next
-     */
-    public void propagate(SmartMessage ant,CommUser next) { //TODO implement AntAcceptor
-        device.get().send(ant, next);
+
+    @Override
+    public Optional<Point> getPosition() {
+        return Optional.of(position);
     }
+
+    @Override
+    public void setCommDevice(CommDeviceBuilder builder) {
+        if (range >= 0) {
+            builder.setMaxRange(range);
+        }
+        device = Optional.of(builder
+                .setReliability(reliability)
+                .build());
+    }
+
+    @Override
+    public void initRoadUser(RoadModel roadModel) {
+        roadModel.addObjectAt(this, position);
+    }
+
 }

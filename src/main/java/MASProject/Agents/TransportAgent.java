@@ -116,7 +116,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         //TODO resend ants!
         if (time.getStartTime() % frequencyOfExploring == 0) {
             //every frequencyOfExploring send ants to explore
-            delegate.explorePossibilities(rm);
+            delegate.explorePossibilities();
         }
         return plans2;
     }
@@ -128,7 +128,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         if(preferredPlan.isPresent()) {
             //if a preferred plan exists set a current objective
             curr = Optional.of(preferredPlan.get().getObjective());
-            delegate.sendIntentionAnt(roadModel, preferredPlan.get());
+            delegate.sendIntentionAnt(preferredPlan.get());
         }
     }
 
@@ -157,7 +157,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         //TODO
         if (time.getStartTime() % frequencyOfCommitting == 0) {
             //every frequencyOfCommitting refresh the reservation
-            delegate.refreshReservation(rm);
+            delegate.refreshReservation();
         }
         if (rm.getPosition(this).equals(curr.get().getDeliveryLocation())) {
             // deliver when we arrive

@@ -76,19 +76,19 @@ public class delegateMAS {
     /**
      * Sends exploration ants to nearest parcels
      * saves explorationAnts in list
-     * @param rm
      */
 
-    public void explorePossibilities(RoadModel rm) {
-        List<Parcel> possibleObjectives = RoadModels.findClosestObjects(rm.getPosition(agent),rm, Parcel.class, NUM_OF_POSSIBILITIES);
+    public void explorePossibilities() {
+        RoadModel rm = getRoadModel();
+        List<Parcel> possibleObjectives = RoadModels.findClosestObjects(getRoadModel().getPosition(agent),rm, Parcel.class, NUM_OF_POSSIBILITIES);
         for(Parcel objective: possibleObjectives) {
             if(alreadyExploring(objective)) { continue;}
             Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getPickupLocation()));
-            ExplorationMessage ant = new ExplorationMessage(ID, objective, path);
-            CommUser nextResource = ant.getNextResource(rm, rm.getPosition(agent));
+            ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
+            CommUser nextResource = ant.getNextResource(rm.getPosition(agent));
 
             double cost = ant.calculateCost(
-                    rm, rm.getPosition(agent), nextResource.getPosition().get(),
+                    rm.getPosition(agent), nextResource.getPosition().get(),
                     Measure.valueOf(SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
             ant.addCost(Measure.valueOf(cost, Duration.UNIT));
             device.get().send(ant, nextResource);
@@ -130,28 +130,27 @@ public class delegateMAS {
 
     /**
      * Sends an intention ant to involved Resource agents
-     * @param rm
      * @param plan
      */
-    public void sendIntentionAnt(RoadModel rm, Plan plan) {
-        IntentionMessage ant = new IntentionMessage(ID, plan.getObjective(), plan.getSchedule());
-        device.get().send(ant, ant.getNextResource(rm, rm.getPosition(agent)));
+    public void sendIntentionAnt(Plan plan) {
+        IntentionMessage ant = new IntentionMessage(ID, plan.getObjective(), plan.getSchedule(), getRoadModel());
+        device.get().send(ant, ant.getNextResource(getRoadModel().getPosition(agent)));
         intentionAnt = Optional.of(ant);
     }
 
     //since the agent may have moved the current location may not be in the plan
     //all nodes have integer coordinates so we floor the point of the current location,
     //then we send the ant to the next point.(following getNextResource method)
-    public void refreshReservation(RoadModel rm) {
-        Point curr = rm.getPosition(agent);
+    public void refreshReservation() {
+        Point curr = getRoadModel().getPosition(agent);
         Point flooredPoint = new Point(Math.floor(curr.x),Math.floor(curr.y));
         IntentionMessage ant = intentionAnt.get();
         List<Point> points = new ArrayList<>(ant.getPath());
-        System.out.println(rm.getPosition(agent) +" "+points.get(points.size() - 1));
+        System.out.println(getRoadModel().getPosition(agent) +" "+points.get(points.size() - 1));
         if(flooredPoint.equals(points.get(points.size() - 1))) {
-            device.get().send(ant, ant.getResourceAt(rm, flooredPoint));
+            device.get().send(ant, ant.getResourceAt(flooredPoint));
         }else{
-            device.get().send(ant, ant.getNextResource(rm, flooredPoint));
+            device.get().send(ant, ant.getNextResource(flooredPoint));
         }
     }
 

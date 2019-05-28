@@ -30,13 +30,14 @@ public class ExplorationMessage extends SmartMessage {
         this.path = path;
     }
 
-    public void addToSchedule(Point point, Measure<Double,Duration> time) {
+    public void addToScheduledPath(Point point, Measure<Double,Duration> time) {
         scheduledPath.put(point, time);
     }
 
     public LinkedHashMap<Point,Measure<Double,Duration>> getScheduledPath() { return (LinkedHashMap<Point,Measure<Double,Duration>>) scheduledPath; }
 
-    private Point getNextPoint(Point curr) {
+    @Override
+    public Point getNextPoint(Point curr) {
         List<Point> points = new ArrayList<>(path);
         return points.get(points.indexOf(curr)+1);
     }
@@ -59,21 +60,15 @@ public class ExplorationMessage extends SmartMessage {
         this.destinationReached = destinationReached;
     }
 
-    public CommUser getNextResource(RoadModel roadModel, Point point) {
-        Set<ResourceAgent> allAgents = roadModel.getObjectsOfType(ResourceAgent.class);
-        for(ResourceAgent agent : allAgents) {
-            if(agent.getPosition().get().equals(getNextPoint(point))) {
-                return agent;
-            }
-        }
-        return null;
-    }
 
-    public double calculateCost(RoadModel rm, Point start, Point end, Measure<Double, Velocity> speed) {
+    /*********************************************************************************************
+     *COSTS
+     *********************************************************************************/
+    public double calculateCost(Point start, Point end, Measure<Double, Velocity> speed) {
         List<Point> rout = new LinkedList<>();
         rout.add(start);
         rout.add(end);
-        Measure<Double,Length> distance = rm.getDistanceOfPath(rout);
+        Measure<Double,Length> distance = getRoadModel().getDistanceOfPath(rout);
         return RoadModels.computeTravelTime(speed, distance, SI.SECOND);
     }
 
@@ -88,14 +83,14 @@ public class ExplorationMessage extends SmartMessage {
         RoadModel roadModel = resource.getRoadModel();
 
         //Add the cost to come to this node to ants plan
-        addToSchedule(position, getCostSoFar());
+        addToScheduledPath(position, getCostSoFar());
 
         if(!position.equals(points.get(points.size()-1))) {
             //current node is not destination
             //send to next resource; calculate travel cost
-            CommUser nextResource = getNextResource(roadModel, position);
+            CommUser nextResource = getNextResource(position);
             double cost = calculateCost(
-                    roadModel, position, nextResource.getPosition().get(),
+                    position, nextResource.getPosition().get(),
                     Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
             addCost(Measure.valueOf(cost, Duration.UNIT));
             propagate(resource);
@@ -103,10 +98,6 @@ public class ExplorationMessage extends SmartMessage {
             //current node is destination
             setDestinationReached(true);
         }
-    }
-
-    public void propagate(ResourceAgent resource){
-        resource.propagate(this, getNextResource(getRoadModel(), resource.getPosition().get()));
     }
 
 }

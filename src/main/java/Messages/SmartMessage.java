@@ -2,9 +2,11 @@ package Messages;
 
 import MASProject.Agents.ResourceAgent;
 import MASProject.delegateMAS.delegateMAS;
+import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.comm.MessageContents;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
+import com.github.rinde.rinsim.geom.Point;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -43,4 +45,21 @@ public abstract class SmartMessage implements MessageContents {
     public RoadModel getRoadModel() {
         return roadModel;
     }
+
+    public CommUser getNextResource(Point point) {
+        Set<ResourceAgent> allAgents = getRoadModel().getObjectsOfType(ResourceAgent.class);
+        for(ResourceAgent agent : allAgents) {
+            if(agent.getPosition().get().equals(getNextPoint(point))) {
+                return agent;
+            }
+        }
+        return null;
+    }
+
+
+    public void propagate(ResourceAgent resource){
+        resource.propagate(this, getNextResource(resource.getPosition().get()));
+    }
+
+    public abstract Point getNextPoint(Point currentLocation);
 }
