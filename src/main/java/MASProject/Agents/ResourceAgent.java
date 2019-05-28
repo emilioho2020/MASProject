@@ -1,7 +1,9 @@
 package MASProject.Agents;
 
+import Messages.AntAcceptor;
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
+import Messages.SmartMessage;
 import SelfExpiringHashMap.SelfExpiringHashMap;
 import SelfExpiringHashMap.SelfExpiringMap;
 import com.github.rinde.rinsim.core.model.comm.*;
@@ -66,57 +68,42 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
         List<Message> messages = device.get().getUnreadMessages();
         //Loop through the received messages
         for(Message message : messages) {
-            //Check if message is ExplorationAnt
-            if(message.getContents() instanceof ExplorationMessage){
-                ExplorationMessage ant = (ExplorationMessage) message.getContents();
-                List<Point> points = new ArrayList<>(((ExplorationMessage) message.getContents()).getPath());
+            SmartMessage ant = (SmartMessage) message.getContents();
+            ant.visit(this);
+        }
+    }
 
-                //Add the cost to come to this node to ants plan
-                ant.addToSchedule(getPosition().get(), ant.getCostSoFar());
+    /**
+     *
+     * @param ant
+     */
 
-                if(!getPosition().get().equals(points.get(points.size()-1))) {
-                    //current node is not destination
-                    //send to next resource; calculate travel cost
-                    CommUser nextResource = ant.getNextResource(roadModel, getPosition().get());
-                    double cost = ant.calculateCost(
-                            roadModel, roadModel.getPosition(this), nextResource.getPosition().get(),
-                            Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
-                    ant.addCost(Measure.valueOf(cost, Duration.UNIT));
-                    device.get().send(ant, nextResource);
-                }else{
-                    //current node is destination
-                    ant.setDestinationReached(true);
-                }
+
+    private void handleAnt(IntentionMessage ant){
+        List<Point> points = new ArrayList<>(ant.getPath());
+
+        //if schedule already has a reservation in the given TimeSlot and this message is not a refresh send noReservation to source
+                    if (alreadyBusy(ant.getScheduledPath().get(getPosition().get())) && !ant.isRefreshIntention()) {
+            ant.setNoReservation(true);
+        } else {
+            TimeSlot timeSlot = calculateTimeSlot(ant.getScheduledPath().get(getPosition().get()));
+
+            //handles both cases if intention is refresh or not
+            if(schedule.containsKey(timeSlot)) {
+                schedule.renewKey(timeSlot);
+            } else {
+                schedule.put(timeSlot, ant.getSource());
             }
-            //Check if message is IntentionAnt
-            if(message.getContents() instanceof IntentionMessage) {
-                IntentionMessage ant = (IntentionMessage) message.getContents();
-                List<Point> points = new ArrayList<>(ant.getPath());
+        }
 
-                //if schedule already has a reservation in the given TimeSlot and this message is not a refresh send noReservation to source
-                if (alreadyBusy(ant.getScheduledPath().get(getPosition().get())) && !ant.isRefreshIntention()) {
-                    ant.setNoReservation(true);
-                } else {
-                    TimeSlot timeSlot = calculateTimeSlot(ant.getScheduledPath().get(getPosition().get()));
-
-                    //handles both cases if intention is refresh or not
-                    if(schedule.containsKey(timeSlot)) {
-                        schedule.renewKey(timeSlot);
-                    } else {
-                        schedule.put(timeSlot, ant.getSource());
-                    }
-                }
-
-                if (!getPosition().get().equals(points.get(points.size() - 1))) {
-                    //current node is not destination
-                    device.get().send(ant, ant.getNextResource(roadModel, getPosition().get()));
-                } else {
-                    //current node is destination so set flags for destination reached and
-                    //to use ant for refreshing the intention
-                    ant.setDestinationReached(true);
-                    ant.setRefreshIntention(true);
-                }
-            }
+                    if (!getPosition().get().equals(points.get(points.size() - 1))) {
+            //current node is not destination
+            device.get().send(ant, ant.getNextResource(roadModel, getPosition().get()));
+        } else {
+            //current node is destination so set flags for destination reached and
+            //to use ant for refreshing the intention
+            ant.setDestinationReached(true);
+            ant.setRefreshIntention(true);
         }
     }
 
@@ -139,24 +126,18 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
 
     @Override
     public void afterTick(TimeLapse timeLapse) {
-
     }
 
-    private class TimeSlot {
-        private final double start;
-        private final double end;
-        TimeSlot(double start,double end) {
-            this.start = start;
-            this.end = end;
-        }
-
-        private double getStartTime() {
-            return start;
-        }
-
-        private double getEndTime() {
-            return end;
-        }
+    public RoadModel getRoadModel(){
+        return roadModel;
     }
 
+    /**
+     * propagates this message to the next node
+     * @param ant
+     * @param next
+     */
+    public void propagate(SmartMessage ant,CommUser next) { //TODO implement AntAcceptor
+        device.get().send(ant, next);
+    }
 }

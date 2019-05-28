@@ -1,6 +1,7 @@
 package Messages;
 
 import MASProject.Agents.ResourceAgent;
+import MASProject.Agents.TransportAgent;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
@@ -11,6 +12,7 @@ import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import javax.measure.quantity.Length;
 import javax.measure.quantity.Velocity;
+import javax.measure.unit.NonSI;
 import javax.measure.unit.SI;
 import javax.measure.unit.Unit;
 import java.util.*;
@@ -21,8 +23,8 @@ public class ExplorationMessage extends SmartMessage {
     private Measure<Double, Duration> costSoFar = Measure.valueOf(0d, SI.SECOND);
     private boolean destinationReached = false;
 
-    public ExplorationMessage(String source, Parcel destination, Queue<Point> path) {
-        super(source, destination);
+    public ExplorationMessage(String source, Parcel destination, Queue<Point> path, RoadModel roadModel) {
+        super(source, destination, roadModel);
         //linked hash map to preserve insertion order
         scheduledPath = new LinkedHashMap<>();
         this.path = path;
@@ -78,4 +80,33 @@ public class ExplorationMessage extends SmartMessage {
     public Measure<Double, Duration> getCostSoFar() {
         return costSoFar;
     }
+
+    @Override
+    public void visit(ResourceAgent resource) {
+        List<Point> points = new ArrayList<Point>(getPath());
+        Point position = resource.getPosition().get();
+        RoadModel roadModel = resource.getRoadModel();
+
+        //Add the cost to come to this node to ants plan
+        addToSchedule(position, getCostSoFar());
+
+        if(!position.equals(points.get(points.size()-1))) {
+            //current node is not destination
+            //send to next resource; calculate travel cost
+            CommUser nextResource = getNextResource(roadModel, position);
+            double cost = calculateCost(
+                    roadModel, position, nextResource.getPosition().get(),
+                    Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
+            addCost(Measure.valueOf(cost, Duration.UNIT));
+            propagate(resource);
+        }else{
+            //current node is destination
+            setDestinationReached(true);
+        }
+    }
+
+    public void propagate(ResourceAgent resource){
+        resource.propagate(this, getNextResource(getRoadModel(), resource.getPosition().get()));
+    }
+
 }
