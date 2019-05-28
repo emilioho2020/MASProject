@@ -23,7 +23,7 @@ import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class delegateMAS implements CommUser{
+public class delegateMAS {
 
     private final TransportAgent agent;
     //Ants
@@ -55,7 +55,11 @@ public class delegateMAS implements CommUser{
         roadModel = rm;
         explorationAnts = new LinkedList<>();
         intentionAnt = Optional.absent();
-        device = Optional.absent();
+
+    }
+
+    public void setDevice(CommDevice device) {
+        this.device = Optional.of(device);
     }
 
     /*************************************************************************
@@ -74,6 +78,7 @@ public class delegateMAS implements CommUser{
      * saves explorationAnts in list
      * @param rm
      */
+
     public void explorePossibilities(RoadModel rm) {
         List<Parcel> possibleObjectives = RoadModels.findClosestObjects(rm.getPosition(agent),rm, Parcel.class, NUM_OF_POSSIBILITIES);
         for(Parcel objective: possibleObjectives) {
@@ -141,7 +146,13 @@ public class delegateMAS implements CommUser{
         Point curr = rm.getPosition(agent);
         Point flooredPoint = new Point(Math.floor(curr.x),Math.floor(curr.y));
         IntentionMessage ant = intentionAnt.get();
-        device.get().send(ant, ant.getNextResource(rm, flooredPoint));
+        List<Point> points = new ArrayList<>(ant.getPath());
+        System.out.println(rm.getPosition(agent) +" "+points.get(points.size() - 1));
+        if(flooredPoint.equals(points.get(points.size() - 1))) {
+            device.get().send(ant, ant.getResourceAt(rm, flooredPoint));
+        }else{
+            device.get().send(ant, ant.getNextResource(rm, flooredPoint));
+        }
     }
 
     /**
@@ -169,23 +180,8 @@ public class delegateMAS implements CommUser{
     }
 
 
-    @Override
-    public Optional<Point> getPosition() {
-        return agent.getPosition();
-    }
-
     public void removePoint(Point point) {
         intentionAnt.get().removePoint(point);
-    }
-
-    @Override
-    public void setCommDevice(CommDeviceBuilder builder) {
-        if (range >= 0) {
-            builder.setMaxRange(range);
-        }
-        device = Optional.of(builder
-                .setReliability(reliability)
-                .build());
     }
 
     protected RoadModel getRoadModel(){

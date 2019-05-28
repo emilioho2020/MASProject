@@ -41,6 +41,7 @@ public class IntentionMessage extends SmartMessage {
         return null;
     }
 
+
     public CommUser getResourceAt(RoadModel roadModel, Point point) {
         Set<ResourceAgent> allAgents = roadModel.getObjectsOfType(ResourceAgent.class);
         for(ResourceAgent agent : allAgents) {
