@@ -86,7 +86,7 @@ public class TransportAgent extends Vehicle implements CommUser {
          */
         if (!curr.isPresent()) {
 
-            List<Plan> plans2 = findPlansToParcel(time, rm);
+            List<Plan> plans2 = findPlansToParcel(time);
             choosePlan(plans2);
         }
         /* In this section we send an intention ant to register the preferred
@@ -108,7 +108,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         }
     }
 
-    private List<Plan> findPlansToParcel(TimeLapse time, RoadModel rm) {
+    private List<Plan> findPlansToParcel(TimeLapse time) {
         //if no objective yet search for one
         //Get results from ants if any
         List<Plan> plans2 = delegate.getExplorationResults();
