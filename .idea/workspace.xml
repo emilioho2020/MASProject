@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2855eb0f-6199-4a5f-9055-1258c8b89f0b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/Agents/packageAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/Agents/packageAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/Plan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/Plan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Messages/SmartMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Messages/SmartMessage.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,115 +21,27 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="734404803">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.55" value="1" />
-          <entry key="project.opened" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="1586" />
-          <entry key="txt" value="155" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="1586" />
-          <entry key="PLAIN_TEXT" value="155" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="class" value="1" />
-          <entry key="java" value="14" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="14" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="122" column="40" lean-forward="true" selection-start-line="122" selection-start-column="40" selection-end-line="122" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-geom/4.4.6/rinsim-geom-4.4.6.jar!/com/github/rinde/rinsim/geom/Point.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
-              <caret line="111" column="37" selection-start-line="111" selection-start-column="23" selection-end-line="111" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+            <state relative-caret-position="-663">
+              <caret line="78" column="9" lean-forward="true" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="9" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#4178#4179#0" expanded="true" />
+                <element signature="e#4236#4237#0" expanded="true" />
+                <element signature="e#7139#7140#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="99" column="85" selection-start-line="99" selection-start-column="85" selection-end-line="99" selection-end-column="85" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1560">
-              <caret line="145" column="25" selection-start-line="145" selection-start-column="25" selection-end-line="145" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Plan.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/packageAgent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="1717">
+              <caret line="119" column="5" selection-start-line="119" selection-start-column="5" selection-end-line="119" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,6 +81,8 @@
       <find>sendIntentionAnt</find>
       <find>alreadyBusy</find>
       <find>intendedPlan</find>
+      <find>getro</find>
+      <find>create</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -194,10 +108,11 @@
         <option value="$PROJECT_DIR$/src/main/java/MASProject/packageAgent.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/Agent.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/packageAgent.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Plan.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java" />
       </list>
     </option>
@@ -226,37 +141,37 @@
           <expand>
             <path>
               <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
+              <item name="Rinsim" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
+              <item name="Rinsim" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
+              <item name="Rinsim" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
+              <item name="Rinsim" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Rinsim" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="MASProject" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
+              <item name="Rinsim" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -265,34 +180,23 @@
             </path>
             <path>
               <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
+              <item name="Rinsim" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Messages" type="462c0819:PsiDirectoryNode" />
+              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
+              <item name="delegateMAS" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="SelfExpiringHashMap" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MASRinsim" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MASProject" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Sources" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -472,7 +376,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31592000" />
+    <option name="totallyTimeSpent" value="41833000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -484,9 +388,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-11" width="1368" height="780" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.06439394" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26442954" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -495,8 +400,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49932885" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.71287876" visible="true" weight="0.38975155" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.4986577" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.71287876" weight="0.38975155" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49621212" weight="0.39906833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -504,7 +409,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.496139" weight="0.32860824" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4993565" weight="0.3298969" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.2871212" side_tool="true" visible="true" weight="0.38975155" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013423" side_tool="true" visible="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.494852" weight="0.32860824" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -522,9 +427,6 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created basic ResourceAgent; made some additions in the Message Hierarchy" />
     <MESSAGE value="Created a simple graph to run experiments; Set up infrastructure of ResourceAgents; made small test in Warehouse scenario." />
@@ -534,83 +436,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Added more logic to TransportAgent and ResourceAgent; Changed classes that contained plan of agent to handle Measures" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/gradientfield/GFParcel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/pdp/VehicleDTO.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/emileTest/SimpleExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-846">
-          <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/emileTest/Agent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="821">
-          <caret line="102" column="9" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/road/MovingRoadUser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/Model.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/road/RoadModel.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="65" column="48" lean-forward="true" selection-start-line="65" selection-start-column="48" selection-end-line="65" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/road/RoadUser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/time/SimulatedTimeModel.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-ui/4.4.6/rinsim-ui-4.4.6.jar!/com/github/rinde/rinsim/ui/renderers/CommRenderer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2565">
-          <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/agv/AgvAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="50" column="41" lean-forward="true" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar!/java/util/ArrayList.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/swt/org.eclipse.swt.gtk.linux.x86_64/4.5.2/org.eclipse.swt.gtk.linux.x86_64-4.5.2.jar!/org/eclipse/swt/widgets/EventTable.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/swt/org.eclipse.swt.gtk.linux.x86_64/4.5.2/org.eclipse.swt.gtk.linux.x86_64-4.5.2.jar!/org/eclipse/swt/widgets/Display.class" />
@@ -664,11 +489,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6-sources.jar!/com/github/rinde/rinsim/core/model/pdp/PDPObjectImpl.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/Messages/SmartMessage.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6-sources.jar!/com/github/rinde/rinsim/core/model/pdp/PDPObjectImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state relative-caret-position="359">
+          <caret line="121" column="22" selection-start-line="121" selection-start-column="22" selection-end-line="121" selection-end-column="22" />
+          <folding>
+            <element signature="e#4101#4102#0" expanded="true" />
+            <element signature="e#4133#4134#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -679,7 +507,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="uml://JAVA/MASProject" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6-sources.jar!/com/github/rinde/rinsim/examples/comm/CommExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="749">
@@ -725,30 +552,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/SelfExpiringHashMap/SelfExpiringHashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2824">
-          <caret line="303" column="1" selection-start-line="303" selection-start-column="1" selection-end-line="303" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="44" column="3" lean-forward="true" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Taxi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="68" column="27" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-geom/4.4.6/rinsim-geom-4.4.6.jar!/com/github/rinde/rinsim/geom/Point.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
@@ -758,8 +561,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="259">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -776,16 +579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Plan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/packageAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -796,10 +589,332 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Messages/SmartMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="24" column="58" lean-forward="true" selection-start-line="24" selection-start-column="58" selection-end-line="24" selection-end-column="58" />
+          <folding>
+            <element signature="e#972#973#0" expanded="true" />
+            <element signature="e#1001#1002#0" expanded="true" />
+            <element signature="e#1039#1040#0" expanded="true" />
+            <element signature="e#1073#1074#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="99" column="85" selection-start-line="99" selection-start-column="85" selection-end-line="99" selection-end-column="85" />
+        <state relative-caret-position="-349">
+          <caret line="69" column="47" selection-start-line="69" selection-start-column="47" selection-end-line="69" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1423#1424#0" expanded="true" />
+            <element signature="e#1467#1468#0" expanded="true" />
+            <element signature="e#1799#1800#0" expanded="true" />
+            <element signature="e#1852#1853#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Taxi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="68" column="27" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/MASProject">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>MASProject</OriginalElement>
+          <nodes>
+            <node x="253.0" y="154.0">MASProject.Agents.packageAgent</node>
+            <node x="0.0" y="154.0">MASProject.Taxi</node>
+            <node x="386.9375" y="338.0">MASProject.TaxiRenderer</node>
+            <node x="11.416666666666686" y="251.0">MASProject.TaxiRenderer.Pred</node>
+            <node x="439.84999999999997" y="0.0">MASProject.Plan</node>
+            <node x="426.0" y="415.0">MASProject.TaxiRenderer.Language</node>
+            <node x="406.0" y="154.0">MASProject.delegateMAS</node>
+            <node x="372.75" y="492.0">MASProject.AutoValue_TaxiRenderer_Builder</node>
+            <node x="364.0" y="77.0">MASProject.Agents.TransportAgent</node>
+            <node x="94.0" y="154.0">MASProject.Agents.ResourceAgent</node>
+            <node x="99.125" y="77.0">MASProject.Agents.ResourceAgent.TimeSlot</node>
+            <node x="312.1384672619048" y="251.0">MASProject.PizzaExample</node>
+            <node x="464.1384672619048" y="251.0">MASProject.TaxiRenderer.Builder</node>
+            <node x="0.0" y="564.0">MASProject.Agents.BehaviourModule</node>
+            <node x="592.0" y="154.0">MASProject.PizzaExample.TaxiBase</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="MASProject.TaxiRenderer" target="MASProject.TaxiRenderer.Language">
+              <point x="16.5" y="13.5" />
+              <point x="469.4375" y="390.0" />
+              <point x="464.625" y="390.0" />
+              <point x="-12.874999999999972" y="-13.5" />
+            </edge>
+            <edge source="MASProject.PizzaExample.TaxiBase" target="MASProject.PizzaExample">
+              <point x="34.33333333333337" y="13.5" />
+              <point x="677.8333333333334" y="231.0" />
+              <point x="435.8884672619048" y="231.0" />
+              <point x="57.75" y="-13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer.Language" target="MASProject.TaxiRenderer">
+              <point x="-38.62499999999997" y="-13.5" />
+              <point x="438.875" y="390.0" />
+              <point x="436.4375" y="390.0" />
+              <point x="-16.5" y="13.5" />
+            </edge>
+            <edge source="MASProject.delegateMAS" target="MASProject.Plan">
+              <point x="41.5" y="-13.5" />
+              <point x="530.5" y="134.0" />
+              <point x="520.5" y="134.0" />
+              <point x="520.5" y="57.0" />
+              <point x="491.6499999999999" y="57.0" />
+              <point x="14.799999999999955" y="13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer.Builder" target="MASProject.TaxiRenderer">
+              <point x="0.0" y="13.5" />
+              <point x="512.1384672619048" y="318.0" />
+              <point x="509.50892857142856" y="318.0" />
+              <point x="56.571428571428555" y="-13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer" target="MASProject.TaxiRenderer.Pred">
+              <point x="-37.71428571428572" y="-13.5" />
+              <point x="415.2232142857143" y="308.0" />
+              <point x="29.916666666666686" y="308.0" />
+              <point x="-18.5" y="13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer.Pred" target="MASProject.TaxiRenderer">
+              <point x="18.5" y="13.5" />
+              <point x="66.91666666666669" y="298.0" />
+              <point x="434.0803571428571" y="298.0" />
+              <point x="-18.85714285714289" y="-13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer.Pred" target="MASProject.Taxi">
+              <point x="0.0" y="-13.5" />
+              <point x="48.416666666666686" y="231.0" />
+              <point x="37.0" y="231.0" />
+              <point x="0.0" y="13.5" />
+            </edge>
+            <edge source="MASProject.Agents.ResourceAgent.TimeSlot" target="MASProject.Agents.ResourceAgent">
+              <point x="38.625" y="13.5" />
+              <point x="189.25" y="134.0" />
+              <point x="191.29999999999995" y="134.0" />
+              <point x="27.799999999999955" y="-13.5" />
+            </edge>
+            <edge source="MASProject.Agents.ResourceAgent" target="MASProject.Agents.ResourceAgent.TimeSlot">
+              <point x="-55.60000000000002" y="-13.5" />
+              <point x="107.89999999999998" y="134.0" />
+              <point x="112.0" y="134.0" />
+              <point x="-38.625" y="13.5" />
+            </edge>
+            <edge source="MASProject.Agents.ResourceAgent" target="MASProject.Agents.TransportAgent">
+              <point x="55.60000000000002" y="-13.5" />
+              <point x="219.10000000000002" y="134.0" />
+              <point x="376.16666666666663" y="134.0" />
+              <point x="-60.83333333333337" y="13.5" />
+            </edge>
+            <edge source="MASProject.PizzaExample" target="MASProject.Agents.TransportAgent">
+              <point x="8.25" y="-13.5" />
+              <point x="386.3884672619048" y="231.0" />
+              <point x="395.5" y="231.0" />
+              <point x="395.5" y="134.0" />
+              <point x="400.5" y="134.0" />
+              <point x="-36.5" y="13.5" />
+            </edge>
+            <edge source="MASProject.delegateMAS" target="MASProject.Agents.TransportAgent">
+              <point x="-69.16666666666674" y="-13.5" />
+              <point x="419.83333333333326" y="134.0" />
+              <point x="424.83333333333337" y="134.0" />
+              <point x="-12.166666666666629" y="13.5" />
+            </edge>
+            <edge source="MASProject.AutoValue_TaxiRenderer_Builder" target="MASProject.TaxiRenderer.Builder">
+              <point x="52.199999999999974" y="-13.5" />
+              <point x="555.45" y="472.0" />
+              <point x="546.0" y="472.0" />
+              <point x="546.0" y="308.0" />
+              <point x="539.5670386904762" y="308.0" />
+              <point x="27.428571428571445" y="13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer" target="MASProject.AutoValue_TaxiRenderer_Builder">
+              <point x="-49.5" y="13.5" />
+              <point x="403.4375" y="390.0" />
+              <point x="415.5" y="390.0" />
+              <point x="415.5" y="472.0" />
+              <point x="398.85" y="472.0" />
+              <point x="-104.39999999999998" y="-13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer" target="MASProject.Taxi">
+              <point x="-56.571428571428555" y="-13.5" />
+              <point x="396.36607142857144" y="318.0" />
+              <point x="0.9166666666666856" y="318.0" />
+              <point x="0.9166666666666856" y="231.0" />
+              <point x="12.333333333333314" y="231.0" />
+              <point x="-24.666666666666686" y="13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer.Builder" target="MASProject.TaxiRenderer.Language">
+              <point x="13.714285714285722" y="13.5" />
+              <point x="525.8527529761905" y="318.0" />
+              <point x="535.0" y="318.0" />
+              <point x="535.0" y="390.0" />
+              <point x="516.125" y="390.0" />
+              <point x="38.62500000000003" y="-13.5" />
+            </edge>
+            <edge source="MASProject.PizzaExample" target="MASProject.Taxi">
+              <point x="-57.75" y="-13.5" />
+              <point x="320.3884672619048" y="231.0" />
+              <point x="61.666666666666686" y="231.0" />
+              <point x="24.666666666666686" y="13.5" />
+            </edge>
+            <edge source="MASProject.PizzaExample" target="MASProject.Agents.packageAgent">
+              <point x="-8.25" y="-13.5" />
+              <point x="369.8884672619048" y="201.0" />
+              <point x="352.0" y="201.0" />
+              <point x="33.0" y="13.5" />
+            </edge>
+            <edge source="MASProject.TaxiRenderer" target="MASProject.TaxiRenderer.Builder">
+              <point x="0.0" y="-13.5" />
+              <point x="452.9375" y="308.0" />
+              <point x="470.9956101190477" y="308.0" />
+              <point x="-41.14285714285714" y="13.5" />
+            </edge>
+            <edge source="MASProject.AutoValue_TaxiRenderer_Builder" target="MASProject.TaxiRenderer.Language">
+              <point x="-52.19999999999999" y="-13.5" />
+              <point x="-25.75" y="13.5" />
+            </edge>
+            <edge source="MASProject.PizzaExample" target="MASProject.PizzaExample.TaxiBase">
+              <point x="24.75" y="-13.5" />
+              <point x="402.8884672619048" y="211.0" />
+              <point x="609.1666666666666" y="211.0" />
+              <point x="-34.33333333333337" y="13.5" />
+            </edge>
+            <edge source="MASProject.Agents.TransportAgent" target="MASProject.delegateMAS">
+              <point x="36.5" y="13.5" />
+              <point x="473.5" y="134.0" />
+              <point x="475.16666666666663" y="134.0" />
+              <point x="-13.833333333333371" y="-13.5" />
+            </edge>
+            <edge source="MASProject.Agents.TransportAgent" target="MASProject.Plan">
+              <point x="-48.66666666666663" y="-13.5" />
+              <point x="388.33333333333337" y="47.0" />
+              <point x="447.24999999999994" y="47.0" />
+              <point x="-29.600000000000023" y="13.5" />
+            </edge>
+            <edge source="MASProject.PizzaExample" target="MASProject.Agents.ResourceAgent">
+              <point x="-41.25" y="-13.5" />
+              <point x="336.8884672619048" y="221.0" />
+              <point x="163.5" y="221.0" />
+              <point x="0.0" y="13.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-159.5" y="186.0" />
+          <SelectedNodes>
+            <node>MASProject.AutoValue_TaxiRenderer_Builder</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Inner Classes</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Plan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="17" column="28" lean-forward="true" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1065#1066#0" expanded="true" />
+            <element signature="e#1099#1100#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/SelfExpiringHashMap/SelfExpiringHashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="2" lean-forward="true" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding>
+            <element signature="e#841#842#0" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#1693#1694#0" expanded="true" />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1803#1804#0" expanded="true" />
+            <element signature="e#1863#1864#0" expanded="true" />
+            <element signature="e#1903#1904#0" expanded="true" />
+            <element signature="e#1939#1940#0" expanded="true" />
+            <element signature="e#1998#1999#0" expanded="true" />
+            <element signature="e#2048#2049#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/src/main/java/mas/messages/Ant.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/papers.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-1530" />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/src/main/java/mas/buildings/Pizzeria.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/src/main/java/mas/models/PizzeriaUser.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/src/main/java/mas/models/PizzeriaEvent.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/src/main/java/mas/messages/DesireAnt.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/src/main/java/mas/models/PizzeriaModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/src/main/java/mas/models/PizzeriaModelBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery/src/main/java/mas/messages/IntentionData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1717">
+          <caret line="119" column="5" selection-start-line="119" selection-start-column="5" selection-end-line="119" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -808,8 +923,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="122" column="40" lean-forward="true" selection-start-line="122" selection-start-column="40" selection-end-line="122" selection-end-column="40" />
+        <state relative-caret-position="-663">
+          <caret line="78" column="9" lean-forward="true" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="9" />
+          <folding>
+            <element signature="e#4178#4179#0" expanded="true" />
+            <element signature="e#4236#4237#0" expanded="true" />
+            <element signature="e#7139#7140#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
