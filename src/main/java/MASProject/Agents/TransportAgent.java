@@ -101,9 +101,19 @@ public class TransportAgent extends Vehicle implements CommUser {
                 // sanity check: if it is not in our cargo AND it is also not on the
                 // RoadModel, we cannot go to curr anymore.
                 clearObjective();
-            } else {
-                if (reservedPlan.isPresent()){followObjective(time, rm, pm);}
-                else setReserved();
+            } else if (inCargo && !reservedPlan.isPresent()) {
+                //make plan
+                //should be same as when no objective
+                setReserved();
+            } else if (inCargo){
+                //follow path
+                followObjective(time, rm, pm);
+            } else if (!inCargo && !reservedPlan.isPresent()){
+                //make plan
+                setReserved();
+            } else if (!inCargo) {
+                //follow plan
+                followObjective(time, rm, pm);
             }
         }
     }
@@ -133,7 +143,7 @@ public class TransportAgent extends Vehicle implements CommUser {
     }
 
     /**
-     * checks whether the plan has successfully been reserved
+     * sets the preferred plan as reserved plan if ant reaches destination
      * @return
      */
     private void setReserved() {
@@ -192,6 +202,7 @@ public class TransportAgent extends Vehicle implements CommUser {
 
     //get path from plan and follow it.
     //TODO: probably some more code in how agent follows the schedule
+    //TODO: better method to compare points
     private void followPlan(RoadModel rm, TimeLapse time, Plan plan) {
         if(path.isEmpty()) {
             path.addAll(plan.getPath());
