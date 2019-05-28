@@ -43,9 +43,6 @@ public class delegateMAS implements CommUser{
     private final double reliability = 1;
     Optional<CommDevice> device;
 
-    //from PDP model
-    private Optional<Parcel> curr;
-
     private final long frequencyOfExploring = 4000L;
     private final long frequencyOfCommitting = 1000L;
 
@@ -58,6 +55,7 @@ public class delegateMAS implements CommUser{
         roadModel = rm;
         explorationAnts = new LinkedList<>();
         intentionAnt = Optional.absent();
+        device = Optional.absent();
     }
 
     /*************************************************************************
@@ -146,8 +144,6 @@ public class delegateMAS implements CommUser{
         device.get().send(ant, ant.getNextResource(rm, flooredPoint));
     }
 
-    //if destination is reached get plan from ant
-
     /**
      *
      * @return boolean indicating whether ant has made reservation yet
@@ -160,11 +156,8 @@ public class delegateMAS implements CommUser{
         return (intentionAnt.get().isDestinationReached());
     }
 
-
-
     //method to clear the state of the agent
     public void clearObjective() {
-        curr = Optional.absent();
         intentionAnt = Optional.absent();
     }
 

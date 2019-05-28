@@ -30,10 +30,8 @@ public class TransportAgent extends Vehicle {
 
     //the plans-from BDI
     private Optional<Plan> preferredPlan;
-    private Optional<Plan> ReservedPlan;
-    private List<Plan> plans;
-    //probably all plans should should contain path from curr location
-    //until pickUpDelivery location.
+    private Optional<Plan> reservedPlan;
+    //private List<Plan> plans;
 
     private final String ID;
     private final RoadModel roadModel;
@@ -54,9 +52,8 @@ public class TransportAgent extends Vehicle {
         curr = Optional.absent();
         ID = createID();
         roadModel = rm;
-        ReservedPlan = Optional.absent();
+        reservedPlan = Optional.absent();
         preferredPlan = Optional.absent();
-        plans = new LinkedList<>();
         delegate = new delegateMAS(this, roadModel);
     }
 
@@ -75,7 +72,8 @@ public class TransportAgent extends Vehicle {
          * the current parcel to pick.
          */
         if (!curr.isPresent()) {
-            findParcel(time, rm);
+            List<Plan> plans2 = findPlansToParcel(time, rm);
+            choosePlan(plans2);
         }
         /* In this section we send an intention ant to register the preferred
          * plan. After registering the agent follows the path and refreshes
@@ -91,36 +89,39 @@ public class TransportAgent extends Vehicle {
                 clearObjective();
             } else {
                 if (hasReserved()){followObjective(time, rm, pm);}
-                else {} //TODO
+                else {}
                 }
         }
     }
 
-    private void findParcel(TimeLapse time, RoadModel rm){
+    private List<Plan> findPlansToParcel(TimeLapse time, RoadModel rm) {
         //if no objective yet search for one
         //Get results from ants if any
-        plans = delegate.getExplorationResults();
+        List<Plan> plans2 = delegate.getExplorationResults();
 
         //TODO resend ants!
-        if(time.getStartTime() % frequencyOfExploring == 0) {
+        if (time.getStartTime() % frequencyOfExploring == 0) {
             //every frequencyOfExploring send ants to explore
             delegate.explorePossibilities(rm);
         }
+        return plans2;
+    }
+
+    private void choosePlan(List<Plan> plans2){
         //evaluate plans if any found
-        evaluatePlans();
+        preferredPlan = evaluatePlans(plans2);
 
         if(preferredPlan.isPresent()) {
             //if a preferred plan exists set a current objective
             curr = Optional.of(preferredPlan.get().getObjective());
-            commitToPlan(preferredPlan.get());
+            delegate.sendIntentionAnt(roadModel, preferredPlan.get());
         }
     }
 
-
-    private void commitToPlan(Plan plan){
-        delegate.sendIntentionAnt(roadModel, plan);
-    }
-
+    /**
+     * checks whether the plan has successfully been reserved
+     * @return
+     */
     private Boolean hasReserved() {
         try {
             return delegate.getIntentionAntResult();
@@ -131,8 +132,14 @@ public class TransportAgent extends Vehicle {
         }
     }
 
+    /**
+     * Follows a successfully reserved path
+     * @param time
+     * @param rm
+     * @param pm
+     */
     private void followObjective(TimeLapse time, RoadModel rm, PDPModel pm){
-        //a ReservedPlan exists
+        //a reservedPlan exists
         //TODO
         if (time.getStartTime() % frequencyOfCommitting == 0) {
             //every frequencyOfCommitting refresh the reservation
@@ -151,26 +158,30 @@ public class TransportAgent extends Vehicle {
         }
     }
 
-    //evaluate by shortest travel time
-    private void evaluatePlans() {
-        if(plans.isEmpty()) {
-            return;
+    /**
+     * @param plans2
+     * @return The best plan according to our heuristics
+     * HEURISTIC: travel time
+     */
+    private Optional<Plan> evaluatePlans(List<Plan> plans2) {
+        if(plans2.isEmpty()) {
+            return Optional.absent();
         }
         List<Double> durations = new LinkedList<>();
-        for(Plan plan : plans) {
+        for(Plan plan : plans2) {
             durations.add(plan.evaluate());
         }
         int minIndex = durations.indexOf(Collections.min(durations));
-        preferredPlan = Optional.of(plans.get(minIndex));
+        return Optional.of(plans2.get(minIndex));
     }
 
 
     //get path from plan and follow it.
     //TODO: probably some more code in how agent follows the schedule
     private void followPlan(RoadModel rm, TimeLapse time) {
-        Queue<Point> path = ReservedPlan.get().getPath();
+        Queue<Point> path = reservedPlan.get().getPath();
         if(Point.Comparators.XY.compare(path.peek(), rm.getPosition(this)) >= 0) {
-            ReservedPlan.get().removePoint(path.remove());
+            reservedPlan.get().removePoint(path.remove());
             path = updatePath(path, rm.getPosition(this));
         }
         rm.followPath(this, path, time);
@@ -191,7 +202,7 @@ public class TransportAgent extends Vehicle {
     private void clearObjective() {
         curr = Optional.absent();
         preferredPlan = Optional.absent();
-        ReservedPlan = Optional.absent();
+        reservedPlan = Optional.absent();
         delegate.clearObjective();
     }
 
