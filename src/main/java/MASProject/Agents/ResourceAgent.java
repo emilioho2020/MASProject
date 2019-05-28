@@ -31,7 +31,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
     Optional<CommDevice> device;
 
     //have to think about using the roadModel here
-    ResourceAgent(Point position, RoadModel rm) {
+    public ResourceAgent(Point position, RoadModel rm) {
         this.position = position;
         schedule = new SelfExpiringHashMap<TimeSlot, String>(3000L);
         this.roadModel = rm;
@@ -87,27 +87,34 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
                     //current node is destination
                     ant.setDestinationReached(true);
                 }
-
             }
             //Check if message is IntentionAnt
-            //todo how to think about how we will handel refreshing a reservation
             if(message.getContents() instanceof IntentionMessage) {
                 IntentionMessage ant = (IntentionMessage) message.getContents();
                 List<Point> points = new ArrayList<>(ant.getPath());
 
-                //if schedule already has a reservation in the given TimeLaps send noReservation to source
-                if (alreadyBusy(ant.getScheduledPath().get(getPosition().get()))) {
+                //if schedule already has a reservation in the given TimeSlot and this message is not a refresh send noReservation to source
+                if (alreadyBusy(ant.getScheduledPath().get(getPosition().get())) && !ant.isRefreshIntention()) {
                     ant.setNoReservation(true);
                 } else {
-                    TimeSlot timeSlot = calculateTimeSlot(ant.getScheduledPath().get(getPosition()));
-                    schedule.put(timeSlot, ant.getSource());
+                    TimeSlot timeSlot = calculateTimeSlot(ant.getScheduledPath().get(getPosition().get()));
+
+                    //handles both cases if intention is refresh or not
+                    if(schedule.containsKey(timeSlot)) {
+                        schedule.renewKey(timeSlot);
+                    } else {
+                        schedule.put(timeSlot, ant.getSource());
+                    }
                 }
 
                 if (!getPosition().get().equals(points.get(points.size() - 1))) {
                     //current node is not destination
                     device.get().send(ant, ant.getNextResource(roadModel, getPosition().get()));
                 } else {
+                    //current node is destination so set flags for destination reached and
+                    //to use ant for refreshing the intention
                     ant.setDestinationReached(true);
+                    ant.setRefreshIntention(true);
                 }
             }
         }
@@ -115,6 +122,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
 
     //Checks if time provided lives inside a slot
     private boolean alreadyBusy(Measure<Double,Duration> time) {
+        if(time == null) {return false;}
         Set<TimeSlot> timeSlots = schedule.keySet();
         for(TimeSlot slot : timeSlots) {
             if(slot.getStartTime() <= time.doubleValue(time.getUnit()) && time.doubleValue(time.getUnit()) < slot.getEndTime()) {

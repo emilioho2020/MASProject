@@ -14,6 +14,7 @@ public class IntentionMessage extends SmartMessage {
     private Map<Point,Measure<Double,Duration>> scheduledPath;
     private boolean destinationReached = false;
     private boolean noReservation = false;
+    private boolean refreshIntention = false;
 
     public IntentionMessage(String source, Parcel destination, Map<Point, Measure<Double,Duration>> scheduledPath) {
         super(source, destination);
@@ -39,14 +40,9 @@ public class IntentionMessage extends SmartMessage {
         return null;
     }
 
-    //todo check Collection.addAll
-    public Queue<Point> getPath() {
-        Queue<Point> path = new LinkedList<>();
-        for(Point point : scheduledPath.keySet()) {
-            path.add(point);
-        }
-        return path;
-    }
+    public Queue<Point> getPath() { return new LinkedList<>(scheduledPath.keySet()); }
+
+    //Getters and Setters
 
     public boolean isDestinationReached() {
         return destinationReached;
@@ -56,11 +52,13 @@ public class IntentionMessage extends SmartMessage {
         this.destinationReached = destinationReached;
     }
 
-    public boolean isNoReservation() {
-        return noReservation;
-    }
+    public boolean isNoReservation() { return noReservation; }
 
     public void setNoReservation(boolean noReservation) {
         this.noReservation = noReservation;
     }
+
+    public boolean isRefreshIntention() { return refreshIntention; }
+
+    public void setRefreshIntention(boolean refreshIntention) { this.refreshIntention = refreshIntention; }
 }

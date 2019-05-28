@@ -26,17 +26,15 @@ public class Plan {
         return objective;
     }
 
-    //todo check Collection.addAll
-    public Queue<Point> getPath() {
-        Queue<Point> path = new LinkedList<>();
-        for(Point point : schedule.keySet()) {
-            path.add(point);
-        }
-        return path;
+    public Queue<Point> getPath() { return new LinkedList<>(schedule.keySet()); }
+
+    //evaluation will be the time of arrival at final node
+    public double evaluate() {
+        List<Measure<Double,Duration>> points = new ArrayList<>( schedule.values());
+        return points.get(points.size()-1).doubleValue(Duration.UNIT);
     }
 
-    //TODO: not sure about evaluatioin metric; temporarily long
-    public long evaluate() {
-        return 0;
+    public void removePoint(Point p) {
+        schedule.remove(p);
     }
 }

@@ -200,21 +200,27 @@ public class TransportAgent extends Vehicle implements CommUser {
 
     //if ant reaches its destination get its plan and remove ant
     private void getExplorationResults() {
+        List<ExplorationMessage> temp = new LinkedList<>();
         for(ExplorationMessage ant : explorationAnts) {
             if(ant.isDestinationReached()) {
                 plans.add(new Plan(ant.getScheduledPath(), ant.getDestination()));
-                explorationAnts.remove(ant);
+                temp.add(ant);
             }
+        }
+        for(ExplorationMessage ant : temp) {
+            explorationAnts.remove(ant);
         }
     }
 
     //if destination is reached get plan from ant
+    //todo check if changing destination reached flag here is good
     private void getIntentionAntResult() throws Exception{
         if(intentionAnt.get().isNoReservation()) {
             throw new Exception();
         }
         if(intentionAnt.get().isDestinationReached()) {
             intendedPlan = Optional.of(preferredPlan.get());
+            intentionAnt.get().setDestinationReached(false);
         }
     }
 
@@ -223,9 +229,8 @@ public class TransportAgent extends Vehicle implements CommUser {
         if(plans.isEmpty()) {
             return;
         }
-        List<Long> durations = new LinkedList<>();
+        List<Double> durations = new LinkedList<>();
         for(Plan plan : plans) {
-            //still need to implement plan.evaluate()
             durations.add(plan.evaluate());
         }
         int minIndex = durations.indexOf(Collections.min(durations));
@@ -245,7 +250,22 @@ public class TransportAgent extends Vehicle implements CommUser {
     //TODO: probably some more code in how agent follows the schedule
     private void followPlan(RoadModel rm, TimeLapse time) {
         Queue<Point> path = intendedPlan.get().getPath();
+        if(Point.Comparators.XY.compare(path.peek(), rm.getPosition(this)) >= 0) {
+            intendedPlan.get().removePoint(path.remove());
+            path = updatePath(path, rm.getPosition(this));
+        }
         rm.followPath(this, path, time);
+    }
+
+    //TODO: check this here and above problems
+    private Queue<Point> updatePath(Queue<Point> path, Point p) {
+        Queue<Point> output = new LinkedList<>();
+        for(Point point: path) {
+            if (Point.Comparators.XY.compare(point, p) < 0) {
+                output.add(point);
+            }
+        }
+        return output;
     }
 
     //method to clear the state of the agent

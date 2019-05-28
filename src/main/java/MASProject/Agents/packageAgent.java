@@ -1,5 +1,6 @@
 package MASProject.Agents;
 
+import com.github.rinde.rinsim.core.model.comm.CommDevice;
 import com.github.rinde.rinsim.core.model.comm.CommDeviceBuilder;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.PDPModel;
@@ -15,6 +16,11 @@ public class packageAgent extends Parcel implements CommUser {
     //private Point deliveryLocation; already in superclass
     private String commitedAgent;
     //private int deliveryTime
+
+    //Communication
+    private final double range = 4.2;
+    private final double reliability = 1;
+    Optional<CommDevice> device;
 
     public packageAgent(ParcelDTO dto) {
         super(dto);
@@ -51,6 +57,11 @@ public class packageAgent extends Parcel implements CommUser {
 
     @Override
     public void setCommDevice(CommDeviceBuilder builder) {
-
+        if (range >= 0) {
+            builder.setMaxRange(range);
+        }
+        device = Optional.of(builder
+                .setReliability(reliability)
+                .build());
     }
 }
