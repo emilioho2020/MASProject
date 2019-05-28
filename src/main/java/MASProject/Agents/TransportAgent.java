@@ -2,6 +2,9 @@ package MASProject.Agents;
 
 import MASProject.Plan;
 import MASProject.delegateMAS.delegateMAS;
+import com.github.rinde.rinsim.core.model.comm.CommDevice;
+import com.github.rinde.rinsim.core.model.comm.CommDeviceBuilder;
+import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.PDPModel;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.pdp.Vehicle;
@@ -18,7 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Our implementation of a simple agent in a simple PDP problem : delivering pizzas in time.
  */
-public class TransportAgent extends Vehicle {
+public class TransportAgent extends Vehicle implements CommUser {
 
     //Static fields
     private static AtomicLong idCounter = new AtomicLong();
@@ -39,6 +42,11 @@ public class TransportAgent extends Vehicle {
     private final String ID;
     private final RoadModel roadModel;
 
+    //Communication
+    private final double range = 4.2;
+    private final double reliability = 1;
+    Optional<CommDevice> device;
+
     //Ants
     private final long frequencyOfExploring = 4000L;
     private final long frequencyOfCommitting = 1000L;
@@ -57,6 +65,8 @@ public class TransportAgent extends Vehicle {
         roadModel = rm;
         reservedPlan = Optional.absent();
         preferredPlan = Optional.absent();
+        path = new LinkedList<>();
+        device = Optional.absent();
         delegate = new delegateMAS(this, roadModel);
     }
 
@@ -75,6 +85,7 @@ public class TransportAgent extends Vehicle {
          * the current parcel to pick.
          */
         if (!curr.isPresent()) {
+
             List<Plan> plans2 = findPlansToParcel(time, rm);
             choosePlan(plans2);
         }
@@ -91,9 +102,9 @@ public class TransportAgent extends Vehicle {
                 // RoadModel, we cannot go to curr anymore.
                 clearObjective();
             } else {
-                if (hasReserved()){followObjective(time, rm, pm);}
-                else {}
-                }
+                if (reservedPlan.isPresent()){followObjective(time, rm, pm);}
+                else setReserved();
+            }
         }
     }
 
@@ -125,13 +136,13 @@ public class TransportAgent extends Vehicle {
      * checks whether the plan has successfully been reserved
      * @return
      */
-    private Boolean hasReserved() {
+    private void setReserved() {
         try {
-            return delegate.getIntentionAntResult();
+            Boolean result = delegate.getIntentionAntResult();
+            if (result){reservedPlan = preferredPlan;}
         } catch (Exception e) {
             System.out.println("No reservation.");
             clearObjective();
-            return false;
         }
     }
 
@@ -153,7 +164,7 @@ public class TransportAgent extends Vehicle {
             pm.deliver(this, curr.get(), time);
         } else {
             // it is still available, go there as fast as possible
-            followPlan(rm, time);
+            followPlan(rm, time, preferredPlan.get());
             if (rm.equalPosition(this, curr.get())) {
                 // pickup customer
                 pm.pickup(this, curr.get(), time);
@@ -181,14 +192,14 @@ public class TransportAgent extends Vehicle {
 
     //get path from plan and follow it.
     //TODO: probably some more code in how agent follows the schedule
-    private void followPlan(RoadModel rm, TimeLapse time) {
+    private void followPlan(RoadModel rm, TimeLapse time, Plan plan) {
         if(path.isEmpty()) {
-            path.addAll(reservedPlan.get().getPath());
+            path.addAll(plan.getPath());
         }
 
         if(Point.Comparators.XY.compare(path.peek(), rm.getPosition(this)) >= 0) {
             Point temp = path.remove();
-            reservedPlan.get().removePoint(temp);
+            plan.removePoint(temp);
             delegate.removePoint(temp);
         }
         rm.followPath(this, path, time);
@@ -213,6 +224,17 @@ public class TransportAgent extends Vehicle {
     public static String createID()
     {
         return String.valueOf(idCounter.getAndIncrement());
+    }
+
+    @Override
+    public void setCommDevice(CommDeviceBuilder builder) {
+        if (range >= 0) {
+            builder.setMaxRange(range);
+        }
+        device = Optional.of(builder
+                .setReliability(reliability)
+                .build());
+        delegate.setDevice(device.get());
     }
 
 }
