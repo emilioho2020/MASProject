@@ -28,12 +28,16 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
     private final double reliability = 1;
     Optional<CommDevice> device;
 
-    //have to think about using the roadModel here
     public ResourceAgent(Point position, RoadModel rm) {
         this.position = position;
         schedule = new SelfExpiringHashMap<TimeSlot, String>(3000L);
         this.roadModel = rm;
     }
+
+
+    /************************************************************************
+     * ANTS
+     *********************************************************************/
 
     /**
      * propagates this message to the next node
@@ -43,6 +47,12 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
     @Override
     public void propagate(SmartMessage ant, AntAcceptor next) { //TODO implement AntAcceptor
         device.get().send(ant, next);
+    }
+
+
+    @Override
+    public void deployAnt(SmartMessage ant) {
+        ant.visit(this);
     }
 
     @Override
@@ -86,15 +96,8 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
     }
 
     //Checks if time provided lives inside a slot
-    //TODO this is wrong! making use of resource for specific amount of time
     private boolean alreadyBusy(Measure<Double,Duration> time) {
-        if(time == null) {return false;}
-        Set<TimeSlot> timeSlots = schedule.keySet();
-        for(TimeSlot slot : timeSlots) {
-            if(slot.getStartTime() <= time.doubleValue(time.getUnit()) && time.doubleValue(time.getUnit()) < slot.getEndTime()) {
-                return true;
-            }
-        }
+        //TODO
         return false;
     }
 
@@ -130,11 +133,6 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
     @Override
     public void initRoadUser(RoadModel roadModel) {
         roadModel.addObjectAt(this, position);
-    }
-
-    @Override
-    public void deployAnt(SmartMessage ant) {
-        ant.visit(this);
     }
 
 }

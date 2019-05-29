@@ -24,7 +24,7 @@ public abstract class SmartMessage implements MessageContents {
     public String getSource() {
         return source;
     }
-ki
+
     public AntAcceptor getDestination() {
         return destination;
     }
