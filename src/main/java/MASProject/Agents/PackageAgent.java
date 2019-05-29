@@ -1,6 +1,7 @@
 package MASProject.Agents;
 
 import Messages.AntAcceptor;
+import Messages.SmartMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
 import com.github.rinde.rinsim.core.model.comm.CommDeviceBuilder;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
@@ -10,13 +11,12 @@ import com.github.rinde.rinsim.core.model.pdp.ParcelDTO;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
 
 public class PackageAgent extends Parcel implements CommUser, AntAcceptor {
 
     private double weight = 0;
     //private Point deliveryLocation; already in superclass
-    private String commitedAgent;
+    private String committedAgent;
     //private int deliveryTime
 
     //Communication
@@ -38,11 +38,11 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor {
     }
 
     private void acceptProposal(String agent){
-        commitedAgent = agent;
+        committedAgent = agent;
     }
 
     public boolean isScheduled(){
-        return commitedAgent != null;
+        return committedAgent != null;
     }
 
 
@@ -65,5 +65,15 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor {
         device = Optional.of(builder
                 .setReliability(reliability)
                 .build());
+    }
+
+    @Override
+    public void deployAnt(SmartMessage ant) {
+
+    }
+
+    @Override
+    public void propagate(SmartMessage ant, AntAcceptor next) {
+
     }
 }

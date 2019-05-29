@@ -32,7 +32,7 @@ public class IntentionMessage extends SmartMessage {
     }
 
     //TODO
-    public CommUser getNextResource(Point point) {
+    public CommUser getNextAcceptor(Point point) {
         Set<ResourceAgent> allAgents = getRoadModel().getObjectsOfType(ResourceAgent.class);
         for(ResourceAgent agent : allAgents) {
             if(agent.getPosition().get().equals(getNextPoint(point))) {

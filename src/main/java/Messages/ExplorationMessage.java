@@ -3,7 +3,6 @@ package Messages;
 import MASProject.Agents.ResourceAgent;
 import MASProject.Agents.TransportAgent;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
-import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModels;
 import com.github.rinde.rinsim.geom.Point;
@@ -92,7 +91,7 @@ public class ExplorationMessage extends SmartMessage {
         if(!position.equals(points.get(points.size()-1))) {
             //current node is not destination
             //send to next resource; calculate travel cost
-            CommUser nextResource = getNextResource(position);
+            CommUser nextResource = getNextAcceptor(position);
             double cost = calculateCost(
                     position, nextResource.getPosition().get(),
                     Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));

@@ -8,7 +8,6 @@ import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
-import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModels;
 import com.github.rinde.rinsim.core.model.time.TimeLapse;
@@ -79,7 +78,7 @@ public class delegateMAS {
                 Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getPickupLocation()));
                 ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
                 ant.setInitialCost(time.getStartTime());
-                CommUser nextResource = ant.getNextResource(rm.getPosition(agent));
+                CommUser nextResource = ant.getNextAcceptor(rm.getPosition(agent));
 
                 double cost = ant.calculateCost(
                         rm.getPosition(agent), nextResource.getPosition().get(),
@@ -93,7 +92,7 @@ public class delegateMAS {
             Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getDeliveryLocation()));
             ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
             ant.setInitialCost(time.getStartTime());
-            CommUser nextResource = ant.getNextResource(rm.getPosition(agent));
+            CommUser nextResource = ant.getNextAcceptor(rm.getPosition(agent));
 
             double cost = ant.calculateCost(
                     rm.getPosition(agent), nextResource.getPosition().get(),
@@ -110,7 +109,7 @@ public class delegateMAS {
         Queue<Point> path = new LinkedList<>(getRoadModel().getShortestPathTo(agent,objective);
         ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
         ant.setInitialCost(time.getStartTime());
-        CommUser nextResource = ant.getNextResource(getRoadModel().getPosition(agent));
+        CommUser nextResource = ant.getNextAcceptor(getRoadModel().getPosition(agent));
         return null;
     }
 
@@ -144,7 +143,7 @@ public class delegateMAS {
     }
 
     //check if objective is already being explored
-    public boolean alreadyExploring(Parcel objective) {
+    public boolean alreadyExploring(PackageAgent objective) {
         for(ExplorationMessage ant : explorationAnts) {
             if(ant.getDestination().equals(objective))
                 return true;
@@ -162,7 +161,7 @@ public class delegateMAS {
      */
     public void sendIntentionAnt(Plan plan) {
         IntentionMessage ant = new IntentionMessage(ID, plan.getObjective(), plan.getSchedule(), getRoadModel());
-        device.get().send(ant, ant.getNextResource(getRoadModel().getPosition(agent)));
+        device.get().send(ant, ant.getNextAcceptor(getRoadModel().getPosition(agent)));
         intentionAnt = Optional.of(ant);
     }
 
@@ -174,7 +173,7 @@ public class delegateMAS {
         if(flooredPoint.equals(points.get(points.size() - 1))) {
             device.get().send(ant, ant.getResourceAt(flooredPoint));
         }else{
-            device.get().send(ant, ant.getNextResource(flooredPoint));
+            device.get().send(ant, ant.getNextAcceptor(flooredPoint));
         }
     }
 

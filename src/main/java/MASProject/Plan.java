@@ -1,19 +1,23 @@
 package MASProject;
 
-import com.github.rinde.rinsim.core.model.pdp.Parcel;
+import MASProject.Agents.PackageAgent;
 import com.github.rinde.rinsim.geom.Point;
 
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import java.util.*;
 
+
+/**
+ *
+ */
 public class Plan {
 
     private final Map<Point, Measure<Double,Duration>> schedule;
-    private final Parcel objective;
+    private final PackageAgent objective;
 
 
-    public Plan(LinkedHashMap<Point,Measure<Double,Duration>> schedule, Parcel objective) {
+    public Plan(LinkedHashMap<Point,Measure<Double,Duration>> schedule, PackageAgent objective) {
         this.schedule = schedule;
         this.objective = objective;
     }
@@ -22,7 +26,7 @@ public class Plan {
         return (LinkedHashMap) schedule;
     }
 
-    public Parcel getObjective() {
+    public PackageAgent getObjective() {
         return objective;
     }
 
