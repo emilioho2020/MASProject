@@ -43,13 +43,8 @@ public abstract class SmartMessage implements MessageContents {
     }
 
     public AntAcceptor getNextAcceptor(Point point) {
-        Set<ResourceAgent> allAgents = getRoadModel().getObjectsOfType(ResourceAgent.class);
-        for(ResourceAgent agent : allAgents) {
-            if(agent.getPosition().get().equals(getNextPoint(point))) {
-                return agent;
-            }
-        }
         return null;
+        //TODO
     }
 
 

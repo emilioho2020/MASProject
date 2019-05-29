@@ -106,7 +106,7 @@ public class delegateMAS {
      */
     //TODO
     public List<Plan> exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time){
-        Queue<Point> path = new LinkedList<>(getRoadModel().getShortestPathTo(agent,objective);
+        Queue<Point> path = new LinkedList<>(getRoadModel().getShortestPathTo(agent,objective));
         ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
         ant.setInitialCost(time.getStartTime());
         CommUser nextResource = ant.getNextAcceptor(getRoadModel().getPosition(agent));
@@ -163,18 +163,6 @@ public class delegateMAS {
         IntentionMessage ant = new IntentionMessage(ID, plan.getObjective(), plan.getSchedule(), getRoadModel());
         device.get().send(ant, ant.getNextAcceptor(getRoadModel().getPosition(agent)));
         intentionAnt = Optional.of(ant);
-    }
-
-    public void refreshReservation() {
-        Point curr = getRoadModel().getPosition(agent);
-        Point flooredPoint = new Point(Math.floor(curr.x),Math.floor(curr.y));
-        IntentionMessage ant = intentionAnt.get();
-        List<Point> points = new ArrayList<>(ant.getPath());
-        if(flooredPoint.equals(points.get(points.size() - 1))) {
-            device.get().send(ant, ant.getResourceAt(flooredPoint));
-        }else{
-            device.get().send(ant, ant.getNextAcceptor(flooredPoint));
-        }
     }
 
     /**

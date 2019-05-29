@@ -31,26 +31,6 @@ public class IntentionMessage extends SmartMessage {
         return points.get(points.indexOf(curr)+1);
     }
 
-    //TODO
-    public CommUser getNextAcceptor(Point point) {
-        Set<ResourceAgent> allAgents = getRoadModel().getObjectsOfType(ResourceAgent.class);
-        for(ResourceAgent agent : allAgents) {
-            if(agent.getPosition().get().equals(getNextPoint(point))) {
-                return agent;
-            }
-        }
-        return null;
-    }
-
-    public CommUser getResourceAt(Point point) {
-        Set<ResourceAgent> allAgents = getRoadModel().getObjectsOfType(ResourceAgent.class);
-        for(ResourceAgent agent : allAgents) {
-            if(agent.getPosition().get().equals(point)) {
-                return agent;
-            }
-        }
-        return null;
-    }
 
     public void removePoint(Point p) {
         scheduledPath.remove(p);
