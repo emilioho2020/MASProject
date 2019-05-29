@@ -17,7 +17,7 @@ public class IntentionMessage extends SmartMessage {
     private boolean noReservation = false;
     private boolean refreshIntention = false;
 
-    public IntentionMessage(String source, Parcel destination, Map<Point, Measure<Double,Duration>> scheduledPath, RoadModel roadModel) {
+    public IntentionMessage(String source, AntAcceptor destination, Map<Point, Measure<Double,Duration>> scheduledPath, RoadModel roadModel) {
         super(source, destination, roadModel);
         this.scheduledPath = scheduledPath;
     }

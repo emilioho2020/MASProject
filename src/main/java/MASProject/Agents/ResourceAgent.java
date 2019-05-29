@@ -1,8 +1,6 @@
 package MASProject.Agents;
 
 import Messages.AntAcceptor;
-import Messages.ExplorationMessage;
-import Messages.IntentionMessage;
 import Messages.SmartMessage;
 import SelfExpiringHashMap.SelfExpiringHashMap;
 import SelfExpiringHashMap.SelfExpiringMap;
@@ -16,11 +14,9 @@ import com.google.common.base.Optional;
 
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
-import javax.measure.unit.NonSI;
-import javax.measure.unit.SI;
 import java.util.*;
 
-public class ResourceAgent implements CommUser, TickListener, RoadUser {
+public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAcceptor {
 
     private final static double TICK_LENGTH = 1000d;
     //Fields
@@ -44,7 +40,8 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
      * @param ant
      * @param next
      */
-    public void propagate(SmartMessage ant,CommUser next) { //TODO implement AntAcceptor
+    @Override
+    public void propagate(SmartMessage ant, AntAcceptor next) { //TODO implement AntAcceptor
         device.get().send(ant, next);
     }
 
@@ -58,7 +55,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
         //Loop through the received messages
         for(Message message : messages) {
             SmartMessage ant = (SmartMessage) message.getContents();
-            ant.visit(this);
+            deployAnt(ant);
         }
     }
 
@@ -133,6 +130,11 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser {
     @Override
     public void initRoadUser(RoadModel roadModel) {
         roadModel.addObjectAt(this, position);
+    }
+
+    @Override
+    public void deployAnt(SmartMessage ant) {
+        ant.visit(this);
     }
 
 }

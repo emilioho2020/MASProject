@@ -23,7 +23,7 @@ public class ExplorationMessage extends SmartMessage {
     private Measure<Double, Duration> costSoFar = Measure.valueOf(0d, SI.SECOND);
     private boolean destinationReached = false;
 
-    public ExplorationMessage(String source, Parcel destination, Queue<Point> path, RoadModel roadModel) {
+    public ExplorationMessage(String source, AntAcceptor destination, Queue<Point> path, RoadModel roadModel) {
         super(source, destination, roadModel);
         //linked hash map to preserve insertion order
         scheduledPath = new LinkedHashMap<>();

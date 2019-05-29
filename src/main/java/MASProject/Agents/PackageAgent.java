@@ -1,5 +1,6 @@
 package MASProject.Agents;
 
+import Messages.AntAcceptor;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
 import com.github.rinde.rinsim.core.model.comm.CommDeviceBuilder;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
@@ -9,8 +10,9 @@ import com.github.rinde.rinsim.core.model.pdp.ParcelDTO;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
 
-public class packageAgent extends Parcel implements CommUser {
+public class PackageAgent extends Parcel implements CommUser, AntAcceptor {
 
     private double weight = 0;
     //private Point deliveryLocation; already in superclass
@@ -22,11 +24,11 @@ public class packageAgent extends Parcel implements CommUser {
     private final double reliability = 1;
     Optional<CommDevice> device;
 
-    public packageAgent(ParcelDTO dto) {
+    public PackageAgent(ParcelDTO dto) {
         super(dto);
     }
 
-    packageAgent(ParcelDTO dto, int w){
+    PackageAgent(ParcelDTO dto, int w){
         super(dto);
         weight = w;
     }

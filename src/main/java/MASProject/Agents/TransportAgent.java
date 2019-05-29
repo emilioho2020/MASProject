@@ -26,7 +26,6 @@ public class TransportAgent extends Vehicle implements CommUser {
     //Static fields
     private static AtomicLong idCounter = new AtomicLong();
     public static final double SPEED_KMH = 1d;
-    private static final int NUM_OF_POSSIBILITIES = 3;
 
     //from PDP model
     private Optional<Parcel> curr;
@@ -34,26 +33,19 @@ public class TransportAgent extends Vehicle implements CommUser {
     //the plans-from BDI
     private Optional<Plan> preferredPlan;
     private Optional<Plan> reservedPlan;
-    //private List<Plan> plans;
 
     //Needed so that agent can follow this.
     private Queue<Point> path;
-
-    private final String ID;
-    private final RoadModel roadModel;
 
     //Communication
     private final double range = 4.2;
     private final double reliability = 1;
     Optional<CommDevice> device;
 
-    //Ants
-    private final long frequencyOfExploring = 4000L;
-    private final long frequencyOfCommitting = 1000L;
 
     delegateMAS delegate;
 
-    public TransportAgent(Point startPosition, int capacity, RoadModel rm){
+    public TransportAgent(Point startPosition, int capacity){
         super(VehicleDTO.builder()
                 .capacity(capacity)
                 .startPosition(startPosition)
@@ -61,13 +53,11 @@ public class TransportAgent extends Vehicle implements CommUser {
                 .build()
             );
         curr = Optional.absent();
-        ID = createID();
-        roadModel = rm;
         reservedPlan = Optional.absent();
         preferredPlan = Optional.absent();
         path = new LinkedList<>();
         device = Optional.absent();
-        delegate = new delegateMAS(this, roadModel);
+        delegate = new delegateMAS(this, getRoadModel());
     }
 
     //todo here we should consider separate plans for pickup and only after pickup a plan for delivery
@@ -85,8 +75,7 @@ public class TransportAgent extends Vehicle implements CommUser {
          * the current parcel to pick.
          */
         if (!curr.isPresent()) {
-
-            List<Plan> plans2 = findPlansToParcel(time,Phase.PickUp);
+            List<Plan> plans2 = findPlansToParcel();
             choosePlan(plans2);
         }
         /* In this section we send an intention ant to register the preferred
@@ -96,44 +85,34 @@ public class TransportAgent extends Vehicle implements CommUser {
         if (curr.isPresent()) {
             //Basically checks if current objective is already delivered
             //if so return to create new plan
-            final boolean inCargo = pm.containerContains(this, curr.get());
-            if (!inCargo && !rm.containsObject(curr.get())) {
+            if (!isDelivering() && !rm.containsObject(curr.get())) {
                 // sanity check: if it is not in our cargo AND it is also not on the
                 // RoadModel, we cannot go to curr anymore.
                 clearObjective();
                 curr = Optional.absent();
-            } else if (inCargo && !reservedPlan.isPresent()) {
+            } else if (isDelivering() && !reservedPlan.isPresent()) {
                 //make plan
                 //should be same as when no objective
                 //todo check here
                 if(!preferredPlan.isPresent()) {
-                    List<Plan> plans3 = findPlansToParcel(time, Phase.Delivery);
+                    List<Plan> plans3 = findPlansToParcel();
                     choosePlan(plans3);
                 }
                 setReserved();
-            } else if (inCargo){
-                //follow path
+            } else if (isDelivering()){
                 followObjective(time, rm, pm);
-            } else if (!inCargo && !reservedPlan.isPresent()){
+            } else if (!isDelivering() && !reservedPlan.isPresent()){
                 //make plan
                 setReserved();
-            } else if (!inCargo) {
+            } else if (!isDelivering()) {
                 //follow plan
                 followObjective(time, rm, pm);
             }
         }
     }
 
-    private List<Plan> findPlansToParcel(TimeLapse time,Phase phase) {
-        //if no objective yet search for one
-        //Get results from ants if any
+    private List<Plan> findPlansToParcel() {
         List<Plan> plans2 = delegate.getExplorationResults();
-
-        //TODO resend ants!
-        if (time.getStartTime() % frequencyOfExploring == 0) {
-            //every frequencyOfExploring send ants to explore
-            delegate.explorePossibilities(phase, time);
-        }
         return plans2;
     }
 
@@ -172,11 +151,6 @@ public class TransportAgent extends Vehicle implements CommUser {
      */
     private void followObjective(TimeLapse time, RoadModel rm, PDPModel pm){
         //a reservedPlan exists
-        //TODO
-        if (time.getStartTime() % frequencyOfCommitting == 0) {
-            //every frequencyOfCommitting refresh the reservation
-            delegate.refreshReservation();
-        }
         if (rm.getPosition(this).equals(curr.get().getDeliveryLocation())) {
             // deliver when we arrive
             pm.deliver(this, curr.get(), time);
@@ -208,7 +182,6 @@ public class TransportAgent extends Vehicle implements CommUser {
         int minIndex = durations.indexOf(Collections.min(durations));
         return Optional.of(plans2.get(minIndex));
     }
-
 
     //get path from plan and follow it.
     //TODO: probably some more code in how agent follows the schedule
@@ -257,6 +230,9 @@ public class TransportAgent extends Vehicle implements CommUser {
         delegate.setDevice(device.get());
     }
 
+    /**
+     * @return
+     */
     public Parcel getCurr() {
         if(curr.isPresent()) {
             return curr.get();
@@ -265,8 +241,10 @@ public class TransportAgent extends Vehicle implements CommUser {
         }
     }
 
-    public enum Phase {
-        PickUp, Delivery;
+    /**
+     * @return true if agent is currently transporting something to it's destingtion
+     */
+    public boolean isDelivering(){
+        return getPDPModel().containerContains(this, curr.get());
     }
-
 }

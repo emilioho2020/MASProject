@@ -1,13 +1,11 @@
 package Messages;
 
-import com.github.rinde.rinsim.core.model.road.RoadModel;
-import com.github.rinde.rinsim.geom.Point;
+import com.github.rinde.rinsim.core.model.comm.CommUser;
 
-public interface AntAcceptor {
+public interface AntAcceptor extends CommUser {
 
-    public void handleAnt(IntentionMessage ant);
+    public void deployAnt(SmartMessage ant);
 
-    public void handleAnt(ExplorationMessage ant);
+    public void propagate(SmartMessage ant, AntAcceptor next);
 
-    public void propagate(SmartMessage ant, RoadModel rm, Point position);
 }

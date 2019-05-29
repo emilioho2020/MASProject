@@ -17,7 +17,7 @@ package MASProject;
 
 import MASProject.Agents.ResourceAgent;
 import MASProject.Agents.TransportAgent;
-import MASProject.Agents.packageAgent;
+import MASProject.Agents.PackageAgent;
 import com.github.rinde.rinsim.core.Simulator;
 import com.github.rinde.rinsim.core.model.comm.CommModel;
 import com.github.rinde.rinsim.core.model.pdp.*;
@@ -133,7 +133,7 @@ public final class PizzaExample {
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
       Point start = roadModel.getRandomPosition(rng);
       Point stop = roadModel.getRandomPosition(rng);
-      simulator.register(new packageAgent(
+      simulator.register(new PackageAgent(
         Parcel.builder(start, stop)
           .serviceDuration(SERVICE_DURATION)
           .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
@@ -155,7 +155,7 @@ public final class PizzaExample {
         if (time.getStartTime() > endTime) {
           simulator.stop();
         } else if (rng.nextDouble() < NEW_CUSTOMER_PROB) {
-          simulator.register(new packageAgent(
+          simulator.register(new PackageAgent(
             Parcel
               .builder(roadModel.getRandomPosition(rng),
                 roadModel.getRandomPosition(rng))
@@ -187,7 +187,7 @@ public final class PizzaExample {
         .withImageAssociation(
           Taxi.class, "/graphics/flat/taxi-32.png")
         .withImageAssociation(
-          packageAgent.class, "/graphics/flat/person-red-32.png"))
+          PackageAgent.class, "/graphics/flat/person-red-32.png"))
       //.with(TaxiRenderer.builder(Language.ENGLISH))
       .with(AGVRenderer.builder()
           .withDifferentColorsForVehicles())

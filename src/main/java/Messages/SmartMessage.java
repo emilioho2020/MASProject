@@ -15,12 +15,12 @@ public abstract class SmartMessage implements MessageContents {
    //better to pass an ID with the messages
     private int id = 0;
     private final String source;
-    private final Parcel destination;
+    private final AntAcceptor destination;
     //private delegateMAS delegate =new delegateMAS();
     //private List<ResourceAgent> path = new ArrayList<>();
     private RoadModel roadModel;
 
-    SmartMessage(String source, Parcel destination, RoadModel rm) {
+    SmartMessage(String source, AntAcceptor destination, RoadModel rm) {
         this.source = source;
         this.destination = destination;
         this.roadModel = rm;
@@ -37,7 +37,7 @@ public abstract class SmartMessage implements MessageContents {
         return source;
     }
 
-    public Parcel getDestination() {
+    public AntAcceptor getDestination() {
         return destination;
     }
     public abstract void visit(ResourceAgent acceptor);

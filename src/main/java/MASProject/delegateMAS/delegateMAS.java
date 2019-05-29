@@ -1,32 +1,26 @@
 package MASProject.delegateMAS;
 
+import MASProject.Agents.PackageAgent;
 import MASProject.Agents.TransportAgent;
 import MASProject.Plan;
+import Messages.AntAcceptor;
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
-import com.github.rinde.rinsim.core.model.comm.CommDeviceBuilder;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
-import com.github.rinde.rinsim.core.model.pdp.PDPModel;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModels;
 import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
-
-import javax.measure.Measure;
-import javax.measure.quantity.Duration;
-import javax.measure.unit.NonSI;
-import javax.measure.unit.SI;
-import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class delegateMAS {
 
+    private static final int NUM_PATHS_EXPLORING = 3;
     private final TransportAgent agent;
-    //Ants
 
     private List<ExplorationMessage> explorationAnts;
     private Optional<IntentionMessage> intentionAnt;
@@ -38,9 +32,6 @@ public class delegateMAS {
     private final String ID;
     private final RoadModel roadModel;
 
-    //Communication
-    private final double range = 4.2;
-    private final double reliability = 1;
     Optional<CommDevice> device;
 
     private final long frequencyOfExploring = 4000L;
@@ -62,25 +53,26 @@ public class delegateMAS {
         this.device = Optional.of(device);
     }
 
+    /**
+     * creates a unique ID for the agent to be used in reservations
+     */
+    public static String createID(){return String.valueOf(idCounter.getAndIncrement());}
+
+    public Point getPosition(){return agent.getPosition().get();}
+
+
     /*************************************************************************
      * EXPLORATION
      *****************************************************************************/
-
-
     /* This method is responsible for exploring the different possible objectives.
      * For each "new" objective a new Exploration Ant is created to be propagated
      * through the ResourceAgents network. The ants are stored in a list so that
      * the results they find can be later evaluated.
      */
-
     /**
-     * Sends exploration ants to nearest parcels
-     * saves explorationAnts in list
-     */
-
-    public void explorePossibilities(TransportAgent.Phase phase, TimeLapse time) {
+    public void explorePossibilities(TimeLapse time, boolean delivering) {
         RoadModel rm = getRoadModel();
-        if(phase == TransportAgent.Phase.PickUp) {
+        if(!delivering) {
             List<Parcel> possibleObjectives = RoadModels.findClosestObjects(getRoadModel().getPosition(agent), rm, Parcel.class, NUM_OF_POSSIBILITIES);
             for(Parcel objective: possibleObjectives) {
                 if(alreadyExploring(objective)) { continue;}
@@ -96,7 +88,7 @@ public class delegateMAS {
                 device.get().send(ant, nextResource);
                 explorationAnts.add(ant);
             }
-        } else if(phase == TransportAgent.Phase.Delivery) {
+        } else if(delivering) {
             Parcel objective = agent.getCurr();
             Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getDeliveryLocation()));
             ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
@@ -111,6 +103,28 @@ public class delegateMAS {
             explorationAnts.add(ant);
         }
 
+    }
+     */
+    //TODO
+    public List<Plan> exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time){
+        Queue<Point> path = new LinkedList<>(getRoadModel().getShortestPathTo(agent,objective);
+        ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
+        ant.setInitialCost(time.getStartTime());
+        CommUser nextResource = ant.getNextResource(getRoadModel().getPosition(agent));
+        return null;
+    }
+
+    //TODO
+    public List<Plan> explorePathsToKNearestParcels(int k, TimeLapse time){
+        List<PackageAgent> possibleObjectives = RoadModels.findClosestObjects(getPosition(), getRoadModel(), PackageAgent.class, k);
+        List<Plan> result = new ArrayList<>();
+        for(PackageAgent objective: possibleObjectives) {
+            if (alreadyExploring(objective)) {
+                continue;
+            }
+            result.addAll(exploreKShortestPathsTo(objective, NUM_PATHS_EXPLORING, time));
+        }
+        return result;
     }
 
     //if ant reaches its destination get its plan and remove ant
@@ -129,7 +143,6 @@ public class delegateMAS {
         return plans;
     }
 
-
     //check if objective is already being explored
     public boolean alreadyExploring(Parcel objective) {
         for(ExplorationMessage ant : explorationAnts) {
@@ -143,8 +156,6 @@ public class delegateMAS {
     /******************************************************************************************
      *  INTENTION
      *************************************************************************************/
-    //sends the intention ant to the preferredPlans destination todo add time
-
     /**
      * Sends an intention ant to involved Resource agents
      * @param plan
@@ -155,9 +166,6 @@ public class delegateMAS {
         intentionAnt = Optional.of(ant);
     }
 
-    //since the agent may have moved the current location may not be in the plan
-    //all nodes have integer coordinates so we floor the point of the current location,
-    //then we send the ant to the next point.(following getNextResource method)
     public void refreshReservation() {
         Point curr = getRoadModel().getPosition(agent);
         Point flooredPoint = new Point(Math.floor(curr.x),Math.floor(curr.y));
@@ -186,20 +194,15 @@ public class delegateMAS {
         }
     }
 
-    //method to clear the state of the agent
+    /**
+     * deletes all ants
+     */
     public void clearObjective() {
         intentionAnt = Optional.absent();
         explorationAnts.clear();
     }
 
-
-    //creates a unique ID for the agent to be used in reservations
-    public static String createID()
-    {
-        return String.valueOf(idCounter.getAndIncrement());
-    }
-
-
+    //TODO what is this
     public void removePoint(Point point) {
         intentionAnt.get().removePoint(point);
     }
