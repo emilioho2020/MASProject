@@ -2,7 +2,7 @@ package MASProject.delegateMAS;
 
 import MASProject.Agents.PackageAgent;
 import MASProject.Agents.TransportAgent;
-import MASProject.Plan;
+import MASProject.Util.Plan;
 import Messages.AntAcceptor;
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
@@ -132,7 +132,7 @@ public class delegateMAS {
         List<Plan> plans = new ArrayList<Plan>();
         for(ExplorationMessage ant : explorationAnts) {
             if(ant.isDestinationReached()) {
-                plans.add(new Plan(ant.getScheduledPath(), ant.getDestination()));
+                plans.add(new Plan(ant.getScheduledPath()));
                 temp.add(ant);
             }
         }
@@ -143,7 +143,7 @@ public class delegateMAS {
     }
 
     //check if objective is already being explored
-    public boolean alreadyExploring(PackageAgent objective) {
+    public boolean alreadyExploring(AntAcceptor objective) {
         for(ExplorationMessage ant : explorationAnts) {
             if(ant.getDestination().equals(objective))
                 return true;
@@ -160,7 +160,7 @@ public class delegateMAS {
      * @param plan
      */
     public void sendIntentionAnt(Plan plan) {
-        IntentionMessage ant = new IntentionMessage(ID, plan.getObjective(), plan.getSchedule(), getRoadModel());
+        IntentionMessage ant = new IntentionMessage(ID, plan.getSchedule(), getRoadModel());
         device.get().send(ant, ant.getNextAcceptor(getRoadModel().getPosition(agent)));
         intentionAnt = Optional.of(ant);
     }

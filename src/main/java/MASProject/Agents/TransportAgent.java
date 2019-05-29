@@ -1,6 +1,6 @@
 package MASProject.Agents;
 
-import MASProject.Plan;
+import MASProject.Util.Plan;
 import MASProject.delegateMAS.delegateMAS;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
 import com.github.rinde.rinsim.core.model.comm.CommDeviceBuilder;

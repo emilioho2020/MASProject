@@ -11,37 +11,35 @@ public abstract class SmartMessage implements MessageContents {
    //better to pass an ID with the messages
     private int id = 0;
     private final String source;
-    private final AntAcceptor destination;
+    //private final AntAcceptor destination;
     //private delegateMAS delegate =new delegateMAS();
-    //private List<ResourceAgent> path = new ArrayList<>();
+    private List<Point> path;
     private RoadModel roadModel;
 
-    SmartMessage(String source, AntAcceptor destination, RoadModel rm) {
+    SmartMessage(String source, RoadModel rm) {
         this.source = source;
-        this.destination = destination;
         this.roadModel = rm;
     }
-/**
-    SmartMessage(int id, String source, Parcel destination, delegateMAS d) {
-        this.id = id;
-        this.source = source;
-        this.destination = destination;
-        this.delegate = d;
-    }
-**/
+
     public String getSource() {
         return source;
     }
-
+ki
     public AntAcceptor getDestination() {
         return destination;
     }
+
     public abstract void visit(ResourceAgent acceptor);
 
     public RoadModel getRoadModel() {
         return roadModel;
     }
 
+    /**
+     *
+     * @param point
+     * @return the next acceptor this ant has to visit
+     */
     public AntAcceptor getNextAcceptor(Point point) {
         return null;
         //TODO

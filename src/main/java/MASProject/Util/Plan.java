@@ -1,4 +1,4 @@
-package MASProject;
+package MASProject.Util;
 
 import MASProject.Agents.PackageAgent;
 import com.github.rinde.rinsim.geom.Point;
@@ -14,21 +14,23 @@ import java.util.*;
 public class Plan {
 
     private final Map<Point, Measure<Double,Duration>> schedule;
-    private final PackageAgent objective;
+    //private final PackageAgent objective;
 
 
-    public Plan(LinkedHashMap<Point,Measure<Double,Duration>> schedule, PackageAgent objective) {
+    public Plan(LinkedHashMap<Point,Measure<Double,Duration>> schedule) {
         this.schedule = schedule;
-        this.objective = objective;
+        //this.objective = objective;
     }
 
     public LinkedHashMap<Point,Measure<Double,Duration>> getSchedule() {
         return (LinkedHashMap) schedule;
     }
 
+    /**
     public PackageAgent getObjective() {
         return objective;
     }
+    */
 
     public Queue<Point> getPath() { return new LinkedList<>(schedule.keySet()); }
 
