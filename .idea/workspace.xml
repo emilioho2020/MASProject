@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2855eb0f-6199-4a5f-9055-1258c8b89f0b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -23,26 +23,33 @@
     <session id="-1331397373">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1718" />
-          <entry key="txt" value="23" />
+          <entry key="java" value="2331" />
+          <entry key="txt" value="62" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1718" />
-          <entry key="PLAIN_TEXT" value="23" />
+          <entry key="JAVA" value="2331" />
+          <entry key="PLAIN_TEXT" value="62" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="2" />
-          <entry key="java" value="7" />
+          <entry key="class" value="8" />
+          <entry key="java" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="2" />
-          <entry key="JAVA" value="7" />
+          <entry key="CLASS" value="8" />
+          <entry key="JAVA" value="9" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -52,7 +59,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="1200">
               <caret line="121" column="5" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -66,7 +73,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Plan.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
+            <state relative-caret-position="405">
               <caret line="38" column="5" selection-start-line="36" selection-start-column="4" selection-end-line="38" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -78,26 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="36" column="60" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="60" />
-              <folding>
-                <element signature="e#841#842#0" expanded="true" />
-                <element signature="e#877#878#0" expanded="true" />
-                <element signature="e#1806#1807#0" expanded="true" />
-                <element signature="e#1845#1846#0" expanded="true" />
-                <element signature="e#2005#2006#0" expanded="true" />
-                <element signature="e#2046#2047#0" expanded="true" />
-                <element signature="e#2115#2116#0" expanded="true" />
-                <element signature="e#2175#2176#0" expanded="true" />
-                <element signature="e#2215#2216#0" expanded="true" />
-                <element signature="e#2251#2252#0" expanded="true" />
-                <element signature="e#2310#2311#0" expanded="true" />
-                <element signature="e#2360#2361#0" expanded="true" />
-                <element signature="e#2449#2450#0" expanded="true" />
-                <element signature="e#2488#2489#0" expanded="true" />
-                <element signature="e#2553#2554#0" expanded="true" />
-                <element signature="e#2609#2610#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="540">
+              <caret line="94" column="32" lean-forward="true" selection-start-line="94" selection-start-column="32" selection-end-line="94" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -108,14 +97,39 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="34" column="37" lean-forward="true" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+            <state relative-caret-position="285">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7714#7715#0" expanded="true" />
-                <element signature="e#7780#7781#0" expanded="true" />
+                <element signature="e#1282#1283#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="214" column="61" selection-start-line="214" selection-start-column="61" selection-end-line="214" selection-end-column="61" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#8413#8414#0" expanded="true" />
+                <element signature="e#8479#8480#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/24.1-android/guava-24.1-android.jar!/com/google/common/base/Present.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
+              <folding>
+                <element signature="e#646#647#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,41 +138,51 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1106">
-              <caret line="86" column="90" selection-start-line="86" selection-start-column="90" selection-end-line="86" selection-end-column="90" />
+            <state relative-caret-position="224">
+              <caret line="182" selection-start-line="182" selection-end-line="182" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2067#2068#0" expanded="true" />
-                <element signature="e#2115#2116#0" expanded="true" />
-                <element signature="e#3860#3866#0" expanded="true" />
-                <element signature="e#6395#6396#0" expanded="true" />
-                <element signature="e#6443#6444#0" expanded="true" />
-                <element signature="e#6554#6555#0" expanded="true" />
-                <element signature="e#6620#6621#0" expanded="true" />
-                <element signature="e#6665#6666#0" expanded="true" />
-                <element signature="e#6718#6719#0" expanded="true" />
-                <element signature="e#6759#6760#0" expanded="true" />
-                <element signature="e#6791#6792#0" expanded="true" />
+                <element signature="e#3934#3940#0" expanded="true" />
+                <element signature="e#7790#7791#0" expanded="true" />
+                <element signature="e#7856#7857#0" expanded="true" />
+                <element signature="e#7901#7902#0" expanded="true" />
+                <element signature="e#7954#7955#0" expanded="true" />
+                <element signature="e#7995#7996#0" expanded="true" />
+                <element signature="e#8027#8028#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/time/TimeLapse.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="267">
+              <caret line="68" selection-start-line="68" selection-end-line="68" />
+              <folding>
+                <element signature="e#1919#1920#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="134" column="7" lean-forward="true" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="7" />
+            <state relative-caret-position="495">
+              <caret line="75" column="34" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1482#1483#0" expanded="true" />
-                <element signature="e#1526#1527#0" expanded="true" />
-                <element signature="e#1858#1859#0" expanded="true" />
-                <element signature="e#1911#1912#0" expanded="true" />
-                <element signature="e#4423#4424#0" expanded="true" />
-                <element signature="e#4455#4456#0" expanded="true" />
-                <element signature="e#4617#4618#0" expanded="true" />
-                <element signature="e#4690#4691#0" expanded="true" />
+                <element signature="e#1586#1587#0" expanded="true" />
+                <element signature="e#1659#1660#0" expanded="true" />
+                <element signature="e#2892#2893#0" expanded="true" />
+                <element signature="e#2926#2927#0" expanded="true" />
+                <element signature="e#3802#3803#0" expanded="true" />
+                <element signature="e#3834#3835#0" expanded="true" />
+                <element signature="e#3893#3894#0" expanded="true" />
+                <element signature="e#3937#3938#0" expanded="true" />
+                <element signature="e#4269#4270#0" expanded="true" />
+                <element signature="e#4322#4323#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -175,16 +199,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>LONELINESS_THRESHOLD</find>
-      <find>getRoadModel</find>
-      <find>graphFile</find>
-      <find>tickImpl</find>
-      <find>Customer</find>
       <find>roadModel</find>
       <find>getposition</find>
       <find>TimeSlot</find>
       <find>getIntentionAntResult</find>
-      <find>refreshReservation</find>
       <find>time</find>
       <find>sendIntentionAnt</find>
       <find>alreadyBusy</find>
@@ -194,17 +212,23 @@
       <find>plans</find>
       <find>System</find>
       <find>nextResource</find>
-      <find>explorePossibilities</find>
       <find>explorationAnts</find>
       <find>Syst</find>
       <find>reservedPlan</find>
       <find>followPlan</find>
       <find>followObjective</find>
       <find>hasReserved</find>
-      <find>Sys</find>
       <find>choosePlan</find>
       <find>evaluatePlans</find>
       <find>setReserved</find>
+      <find>clear</find>
+      <find>findPlansToParcel</find>
+      <find>getExplorationResults</find>
+      <find>refreshReservation</find>
+      <find>visit</find>
+      <find>Sys</find>
+      <find>reserveTimeSlot</find>
+      <find>explorePossibilities</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -231,8 +255,8 @@
         <option value="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/packageAgent.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Plan.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java" />
@@ -258,7 +282,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -407,15 +431,15 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="setComm&#9;PSI&#9;JAVA://emileTest.Agent#setCommDevice&#10;Comparators&#9;PSI&#9;JAVA://com.github.rinde.rinsim.geom.Point.Comparators&#10;Point&#9;PSI&#9;JAVA://com.github.rinde.rinsim.geom.Point&#10;TimeLapse&#9;PSI&#9;JAVA://com.github.rinde.rinsim.core.model.time.TimeLapse&#10;computeDistance&#9;PSI&#9;JAVA://com.github.rinde.rinsim.core.model.road.GraphRoadModelImpl#computeDistanceOnConnection&#10;CommRenderer&#9;PSI&#9;JAVA://com.github.rinde.rinsim.ui.renderers.CommRenderer&#10;Customer&#9;PSI&#9;JAVA://MASProject.PizzaExample.Customer&#10;getObjectsOfType&#9;ACTION&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="refreshReservation&#9;PSI&#9;JAVA://MASProject.delegateMAS.delegateMAS#refreshReservation&#10;setComm&#9;PSI&#9;JAVA://emileTest.Agent#setCommDevice&#10;Comparators&#9;PSI&#9;JAVA://com.github.rinde.rinsim.geom.Point.Comparators&#10;Point&#9;PSI&#9;JAVA://com.github.rinde.rinsim.geom.Point&#10;TimeLapse&#9;PSI&#9;JAVA://com.github.rinde.rinsim.core.model.time.TimeLapse&#10;computeDistance&#9;PSI&#9;JAVA://com.github.rinde.rinsim.core.model.road.GraphRoadModelImpl#computeDistanceOnConnection&#10;CommRenderer&#9;PSI&#9;JAVA://com.github.rinde.rinsim.ui.renderers.CommRenderer&#10;Customer&#9;PSI&#9;JAVA://MASProject.PizzaExample.Customer&#10;getObjectsOfType&#9;ACTION&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559078263610" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559126664685" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -433,122 +457,6 @@
       <recent name="C:\Users\emile\Documents\KUL\Multi-agent systems\Rinsim\src\test\java" />
       <recent name="C:\Users\emile\Documents\KUL\Multi-agent systems\Rinsim\src\main" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/misc.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/Messages/SmartMessage.java</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/MASProject/Agents/TimeSlot.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/Messages/AntAcceptor.java</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -713,7 +621,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559062246138</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="newer skeleton for transport agent">
+      <created>1559078288411</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1559078288411</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -730,8 +645,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18912923" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19134775" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -741,16 +657,16 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4986577" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.572934" weight="0.38931298" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49621212" weight="0.39906833" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.56849694" weight="0.38931298" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49362174" weight="0.39803708" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4980588" weight="0.32824427" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.494731" weight="0.32824427" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4993565" weight="0.3298969" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5069329" side_tool="true" visible="true" weight="0.32824427" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49306712" visible="true" weight="0.32824427" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.43150306" side_tool="true" visible="true" weight="0.39803708" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49306712" weight="0.32824427" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -767,6 +683,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/src/ProjectLastYear/ma2-multi-agent-system-robot-delivery" />
@@ -778,35 +697,32 @@
     <MESSAGE value="Added more logic to TransportAgent and ResourceAgent; Changed classes that contained plan of agent to handle Measures" />
     <MESSAGE value="some stuff" />
     <MESSAGE value="Now it works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Now it works" />
+    <MESSAGE value="newer skeleton for transport agent" />
+    <option name="LAST_COMMIT_MESSAGE" value="newer skeleton for transport agent" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java</url>
+          <line>109</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java</url>
+          <line>157</line>
+          <properties />
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/pdp/Vehicle.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/SelfExpiringHashMap/SelfExpiringHashMapTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/SelfExpiringHashMap/SelfExpiringMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/road/GraphRoadModelImpl.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
           <caret line="224" column="31" lean-forward="true" selection-start-line="224" selection-start-column="31" selection-end-line="224" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/time/TimeLapse.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -871,16 +787,6 @@
       </provider>
     </entry>
     <entry file="uml://JAVA/MASProject" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Plan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="38" column="5" selection-start-line="36" selection-start-column="4" selection-end-line="38" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/SelfExpiringHashMap/SelfExpiringHashMap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -922,25 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6.jar!/com/github/rinde/rinsim/examples/comm/ExampleCommunicatingAgent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="121" column="5" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3115#3116#0" expanded="true" />
-            <element signature="e#3162#3163#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/AutoValue_TaxiRenderer_Builder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -957,91 +844,135 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Messages/AntAcceptor.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="34" column="37" lean-forward="true" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+        <state relative-caret-position="1200">
+          <caret line="121" column="5" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7714#7715#0" expanded="true" />
-            <element signature="e#7780#7781#0" expanded="true" />
+            <element signature="e#3115#3116#0" expanded="true" />
+            <element signature="e#3162#3163#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Plan.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2250">
-          <caret line="160" column="50" selection-start-line="160" selection-start-column="50" selection-end-line="160" selection-end-column="50" />
+        <state relative-caret-position="405">
+          <caret line="38" column="5" selection-start-line="36" selection-start-column="4" selection-end-line="38" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6.jar!/com/github/rinde/rinsim/examples/comm/CommExample.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1106">
-          <caret line="86" column="90" selection-start-line="86" selection-start-column="90" selection-end-line="86" selection-end-column="90" />
+        <state relative-caret-position="90">
+          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-example/4.4.6/rinsim-example-4.4.6.jar!/com/github/rinde/rinsim/examples/comm/ExampleCommunicatingAgent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-210">
+          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="75" column="34" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2067#2068#0" expanded="true" />
-            <element signature="e#2115#2116#0" expanded="true" />
-            <element signature="e#3860#3866#0" expanded="true" />
-            <element signature="e#6395#6396#0" expanded="true" />
-            <element signature="e#6443#6444#0" expanded="true" />
-            <element signature="e#6554#6555#0" expanded="true" />
-            <element signature="e#6620#6621#0" expanded="true" />
-            <element signature="e#6665#6666#0" expanded="true" />
-            <element signature="e#6718#6719#0" expanded="true" />
-            <element signature="e#6759#6760#0" expanded="true" />
-            <element signature="e#6791#6792#0" expanded="true" />
+            <element signature="e#1586#1587#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#2892#2893#0" expanded="true" />
+            <element signature="e#2926#2927#0" expanded="true" />
+            <element signature="e#3802#3803#0" expanded="true" />
+            <element signature="e#3834#3835#0" expanded="true" />
+            <element signature="e#3893#3894#0" expanded="true" />
+            <element signature="e#3937#3938#0" expanded="true" />
+            <element signature="e#4269#4270#0" expanded="true" />
+            <element signature="e#4322#4323#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="36" column="60" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="60" />
+        <state relative-caret-position="540">
+          <caret line="94" column="32" lean-forward="true" selection-start-line="94" selection-start-column="32" selection-end-line="94" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Messages/AntAcceptor.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/time/TimeLapse.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
           <folding>
-            <element signature="e#841#842#0" expanded="true" />
-            <element signature="e#877#878#0" expanded="true" />
-            <element signature="e#1806#1807#0" expanded="true" />
-            <element signature="e#1845#1846#0" expanded="true" />
-            <element signature="e#2005#2006#0" expanded="true" />
-            <element signature="e#2046#2047#0" expanded="true" />
-            <element signature="e#2115#2116#0" expanded="true" />
-            <element signature="e#2175#2176#0" expanded="true" />
-            <element signature="e#2215#2216#0" expanded="true" />
-            <element signature="e#2251#2252#0" expanded="true" />
-            <element signature="e#2310#2311#0" expanded="true" />
-            <element signature="e#2360#2361#0" expanded="true" />
-            <element signature="e#2449#2450#0" expanded="true" />
-            <element signature="e#2488#2489#0" expanded="true" />
-            <element signature="e#2553#2554#0" expanded="true" />
-            <element signature="e#2609#2610#0" expanded="true" />
+            <element signature="e#1919#1920#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="134" column="7" lean-forward="true" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="7" />
+        <state relative-caret-position="285">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1482#1483#0" expanded="true" />
-            <element signature="e#1526#1527#0" expanded="true" />
-            <element signature="e#1858#1859#0" expanded="true" />
-            <element signature="e#1911#1912#0" expanded="true" />
-            <element signature="e#4423#4424#0" expanded="true" />
-            <element signature="e#4455#4456#0" expanded="true" />
-            <element signature="e#4617#4618#0" expanded="true" />
-            <element signature="e#4690#4691#0" expanded="true" />
+            <element signature="e#1282#1283#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/rinde/rinsim-core/4.4.6/rinsim-core-4.4.6.jar!/com/github/rinde/rinsim/core/model/pdp/Vehicle.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/24.1-android/guava-24.1-android.jar!/com/google/common/base/Present.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#646#647#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="182" selection-start-line="182" selection-end-line="182" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3934#3940#0" expanded="true" />
+            <element signature="e#7790#7791#0" expanded="true" />
+            <element signature="e#7856#7857#0" expanded="true" />
+            <element signature="e#7901#7902#0" expanded="true" />
+            <element signature="e#7954#7955#0" expanded="true" />
+            <element signature="e#7995#7996#0" expanded="true" />
+            <element signature="e#8027#8028#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="214" column="61" selection-start-line="214" selection-start-column="61" selection-end-line="214" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8413#8414#0" expanded="true" />
+            <element signature="e#8479#8480#0" expanded="true" />
           </folding>
         </state>
       </provider>

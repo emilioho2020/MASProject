@@ -91,7 +91,7 @@ public class IntentionMessage extends SmartMessage {
         boolean succ;
 
         if (refreshIntention){succ = resource.refreshTimeSlot(getScheduledPath().get(position));}
-        else {succ = resource.reserveTimeSlot(getScheduledPath().get(position), getSource());};
+        else {succ = resource.reserveTimeSlot(getScheduledPath().get(position), getSource());}
         setNoReservation(!succ);
 
         if (!resource.getPosition().get().equals(points.get(points.size() - 1))) {

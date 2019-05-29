@@ -78,13 +78,29 @@ public class delegateMAS {
      * saves explorationAnts in list
      */
 
-    public void explorePossibilities() {
+    public void explorePossibilities(TransportAgent.Phase phase, TimeLapse time) {
         RoadModel rm = getRoadModel();
-        List<Parcel> possibleObjectives = RoadModels.findClosestObjects(getRoadModel().getPosition(agent),rm, Parcel.class, NUM_OF_POSSIBILITIES);
-        for(Parcel objective: possibleObjectives) {
-            if(alreadyExploring(objective)) { continue;}
-            Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getPickupLocation()));
+        if(phase == TransportAgent.Phase.PickUp) {
+            List<Parcel> possibleObjectives = RoadModels.findClosestObjects(getRoadModel().getPosition(agent), rm, Parcel.class, NUM_OF_POSSIBILITIES);
+            for(Parcel objective: possibleObjectives) {
+                if(alreadyExploring(objective)) { continue;}
+                Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getPickupLocation()));
+                ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
+                ant.setInitialCost(time.getStartTime());
+                CommUser nextResource = ant.getNextResource(rm.getPosition(agent));
+
+                double cost = ant.calculateCost(
+                        rm.getPosition(agent), nextResource.getPosition().get(),
+                        Measure.valueOf(SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
+                ant.addCost(Measure.valueOf(cost, Duration.UNIT));
+                device.get().send(ant, nextResource);
+                explorationAnts.add(ant);
+            }
+        } else if(phase == TransportAgent.Phase.Delivery) {
+            Parcel objective = agent.getCurr();
+            Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getDeliveryLocation()));
             ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
+            ant.setInitialCost(time.getStartTime());
             CommUser nextResource = ant.getNextResource(rm.getPosition(agent));
 
             double cost = ant.calculateCost(
@@ -94,6 +110,7 @@ public class delegateMAS {
             device.get().send(ant, nextResource);
             explorationAnts.add(ant);
         }
+
     }
 
     //if ant reaches its destination get its plan and remove ant
@@ -146,7 +163,6 @@ public class delegateMAS {
         Point flooredPoint = new Point(Math.floor(curr.x),Math.floor(curr.y));
         IntentionMessage ant = intentionAnt.get();
         List<Point> points = new ArrayList<>(ant.getPath());
-        System.out.println(getRoadModel().getPosition(agent) +" "+points.get(points.size() - 1));
         if(flooredPoint.equals(points.get(points.size() - 1))) {
             device.get().send(ant, ant.getResourceAt(flooredPoint));
         }else{
@@ -160,15 +176,20 @@ public class delegateMAS {
      * @throws Exception if timeslot already taken
      */
     public Boolean getIntentionAntResult() throws Exception{
-        if(intentionAnt.get().isNoReservation()) {
-            throw new Exception();
+        if(intentionAnt.isPresent()) {
+            if (intentionAnt.get().isNoReservation()) {
+                throw new Exception();
+            }
+            return (intentionAnt.get().isDestinationReached());
+        } else {
+            return false;
         }
-        return (intentionAnt.get().isDestinationReached());
     }
 
     //method to clear the state of the agent
     public void clearObjective() {
         intentionAnt = Optional.absent();
+        explorationAnts.clear();
     }
 
 

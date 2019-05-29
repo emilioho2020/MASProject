@@ -86,7 +86,7 @@ public class TransportAgent extends Vehicle implements CommUser {
          */
         if (!curr.isPresent()) {
 
-            List<Plan> plans2 = findPlansToParcel(time);
+            List<Plan> plans2 = findPlansToParcel(time,Phase.PickUp);
             choosePlan(plans2);
         }
         /* In this section we send an intention ant to register the preferred
@@ -101,9 +101,15 @@ public class TransportAgent extends Vehicle implements CommUser {
                 // sanity check: if it is not in our cargo AND it is also not on the
                 // RoadModel, we cannot go to curr anymore.
                 clearObjective();
+                curr = Optional.absent();
             } else if (inCargo && !reservedPlan.isPresent()) {
                 //make plan
                 //should be same as when no objective
+                //todo check here
+                if(!preferredPlan.isPresent()) {
+                    List<Plan> plans3 = findPlansToParcel(time, Phase.Delivery);
+                    choosePlan(plans3);
+                }
                 setReserved();
             } else if (inCargo){
                 //follow path
@@ -118,7 +124,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         }
     }
 
-    private List<Plan> findPlansToParcel(TimeLapse time) {
+    private List<Plan> findPlansToParcel(TimeLapse time,Phase phase) {
         //if no objective yet search for one
         //Get results from ants if any
         List<Plan> plans2 = delegate.getExplorationResults();
@@ -126,7 +132,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         //TODO resend ants!
         if (time.getStartTime() % frequencyOfExploring == 0) {
             //every frequencyOfExploring send ants to explore
-            delegate.explorePossibilities();
+            delegate.explorePossibilities(phase, time);
         }
         return plans2;
     }
@@ -136,6 +142,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         preferredPlan = evaluatePlans(plans2);
 
         if(preferredPlan.isPresent()) {
+            System.out.println(preferredPlan.get().getSchedule());
             //if a preferred plan exists set a current objective
             curr = Optional.of(preferredPlan.get().getObjective());
             delegate.sendIntentionAnt(preferredPlan.get());
@@ -153,6 +160,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         } catch (Exception e) {
             System.out.println("No reservation.");
             clearObjective();
+            curr = Optional.absent();
         }
     }
 
@@ -172,12 +180,14 @@ public class TransportAgent extends Vehicle implements CommUser {
         if (rm.getPosition(this).equals(curr.get().getDeliveryLocation())) {
             // deliver when we arrive
             pm.deliver(this, curr.get(), time);
+            clearObjective();
         } else {
             // it is still available, go there as fast as possible
             followPlan(rm, time, preferredPlan.get());
             if (rm.equalPosition(this, curr.get())) {
                 // pickup customer
                 pm.pickup(this, curr.get(), time);
+                clearObjective();
             }
         }
     }
@@ -202,7 +212,7 @@ public class TransportAgent extends Vehicle implements CommUser {
 
     //get path from plan and follow it.
     //TODO: probably some more code in how agent follows the schedule
-    //TODO: better method to compare points
+    //TODO: !!!!!!!better method to compare points!!!!!!!!!!!
     private void followPlan(RoadModel rm, TimeLapse time, Plan plan) {
         if(path.isEmpty()) {
             path.addAll(plan.getPath());
@@ -218,7 +228,6 @@ public class TransportAgent extends Vehicle implements CommUser {
 
     //method to clear the state of the agent
     private void clearObjective() {
-        curr = Optional.absent();
         preferredPlan = Optional.absent();
         reservedPlan = Optional.absent();
         delegate.clearObjective();
@@ -246,6 +255,18 @@ public class TransportAgent extends Vehicle implements CommUser {
                 .setReliability(reliability)
                 .build());
         delegate.setDevice(device.get());
+    }
+
+    public Parcel getCurr() {
+        if(curr.isPresent()) {
+            return curr.get();
+        } else {
+            return null;
+        }
+    }
+
+    public enum Phase {
+        PickUp, Delivery;
     }
 
 }

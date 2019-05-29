@@ -30,6 +30,10 @@ public class ExplorationMessage extends SmartMessage {
         this.path = path;
     }
 
+    public void setInitialCost(double cost) {
+        costSoFar = Measure.valueOf(cost,SI.SECOND);
+    }
+
     public void addToScheduledPath(Point point, Measure<Double,Duration> time) {
         scheduledPath.put(point, time);
     }
