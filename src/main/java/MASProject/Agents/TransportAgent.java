@@ -121,7 +121,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         if(preferredPlan.isPresent()) {
             System.out.println(preferredPlan.get().getSchedule());
             //if a preferred plan exists set a current objective
-            currentPackage = Optional.of(preferredPlan.get().getDestination()); //TODO use this variable more efficiently
+            //currentPackage = Optional.of(preferredPlan.get().getDestination()); //TODO use this variable more efficiently
             delegate.sendIntentionAnt(preferredPlan.get());
         }
     }
