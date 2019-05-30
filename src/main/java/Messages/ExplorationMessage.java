@@ -2,6 +2,7 @@ package Messages;
 
 import MASProject.Agents.PackageAgent;
 import MASProject.Agents.ResourceAgent;
+import MASProject.Agents.TimeSlot;
 import MASProject.Agents.TransportAgent;
 import MASProject.Util.AntPlan;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
@@ -18,9 +19,10 @@ import javax.measure.unit.Unit;
 import java.util.*;
 
 public class ExplorationMessage extends SmartMessage {
-    private final LinkedHashMap<AntAcceptor,Measure<Double,Duration>> tempSchedule;
+    private final LinkedHashMap<AntAcceptor, TimeSlot> tempSchedule;
     private final List<AntAcceptor> path;
-    private Measure<Double, Duration> costSoFar = Measure.valueOf(0d, SI.SECOND);
+    private Measure<Double, Duration> startCost;
+    private Measure<Double, Duration> costSoFar;
     private boolean destinationReached = false;
 
     public ExplorationMessage(String source, RoadModel roadModel, List<AntAcceptor> path, PackageAgent objectivePackage) {
@@ -38,7 +40,14 @@ public class ExplorationMessage extends SmartMessage {
     @Override
     public void visit(ResourceAgent resource) {
         //Add the cost to come to this node to ants plan
-        addToScheduledPath(resource, getCostSoFar());
+        double start = startCost.doubleValue(SI.MILLI(SI.SECOND));
+        double end = costSoFar.doubleValue(SI.MILLI(SI.SECOND));
+        double temp = end - start;
+        //if destination is reached reserve last resource for a longer time because it needs time to eplore again and to pickup/deliver
+        double reachedPenalty = resource.equals(getDestination()) ? 20*1000 + 70*1000: 0;
+        //reserve slot for [start + cost/2, start + cost + cost/2]
+        TimeSlot slot = new TimeSlot(start + (temp/2), end + (temp/2) + reachedPenalty);
+        addToScheduledPath(resource, slot);
 
         if(resource.equals(getDestination())){
             setDestinationReached(true);
@@ -48,7 +57,7 @@ public class ExplorationMessage extends SmartMessage {
             double cost = calculateCost(
                     position, getNextAcceptor(resource).getPosition().get(),
                     Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
-            addCost(Measure.valueOf(cost, Duration.UNIT));
+            addCost(Measure.valueOf(cost, SI.MILLI(SI.SECOND)));
             propagate(resource);
         }
     }
@@ -62,11 +71,12 @@ public class ExplorationMessage extends SmartMessage {
      *SCHEDULE
      **************************************************************************/
 
-    public void addToScheduledPath(AntAcceptor acceptor, Measure<Double,Duration> time) {
-        tempSchedule.put(acceptor, time);
+    public void addToScheduledPath(AntAcceptor acceptor,TimeSlot slot) {
+        tempSchedule.put(acceptor, slot);
+        startCost = costSoFar;
     }
 
-    public LinkedHashMap<AntAcceptor,Measure<Double,Duration>> getTempSchedule() { return tempSchedule; }
+    public LinkedHashMap<AntAcceptor,TimeSlot> getTempSchedule() { return tempSchedule; }
 
     public AntPlan createAntPlan() throws RuntimeException{
         if(!isDestinationReached()){throw new RuntimeException("No completed AntPlan yet");}
@@ -89,12 +99,12 @@ public class ExplorationMessage extends SmartMessage {
      *COSTS
      *********************************************************************************/
     //TODO change metric, calculate cost based on ResourceAgent (not points)
-    private double calculateCost(Point start, Point end, Measure<Double, Velocity> speed) {
+    public double calculateCost(Point start, Point end, Measure<Double, Velocity> speed) {
         List<Point> rout = new LinkedList<>();
         rout.add(start);
         rout.add(end);
         Measure<Double,Length> distance = getRoadModel().getDistanceOfPath(rout);
-        return RoadModels.computeTravelTime(speed, distance, SI.SECOND);
+        return RoadModels.computeTravelTime(speed, distance, SI.MILLI(SI.SECOND));
     }
 
     private Measure<Double, Duration> getCostSoFar() {
@@ -102,12 +112,12 @@ public class ExplorationMessage extends SmartMessage {
     }
 
     public void setInitialCost(double cost) {
-        costSoFar = Measure.valueOf(cost,SI.SECOND);
+        startCost = Measure.valueOf(((path.size()*2+1)*1000)+cost,SI.MILLI(SI.SECOND));
     }
 
     public void addCost(Measure<Double,Duration> cost) {
-        Unit<Duration> unit = costSoFar.getUnit();
-        costSoFar = Measure.valueOf(costSoFar.doubleValue(unit) + cost.doubleValue(unit),unit);
+        Unit<Duration> unit = SI.MILLI(SI.SECOND);
+        costSoFar = Measure.valueOf(startCost.doubleValue(unit) + cost.doubleValue(unit),unit);
 
     }
 }

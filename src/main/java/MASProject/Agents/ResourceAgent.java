@@ -73,36 +73,42 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
      ***********************************************************************/
     /**
      * Tries to reserve given timeSlot
-     * @param duration
+     * @param slot
      * @return true if succeeded, false if not
      */
-    //TODO
-    public boolean reserveTimeSlot(Measure<Double, Duration> duration, String id){
+    public boolean reserveTimeSlot(TimeSlot slot, String id){
         //if schedule already has a reservation in the given TimeSlot and this message is not a refresh send noReservation to source
-        if (alreadyBusy(duration)) {
+        if (alreadyBusy(slot)) {
             return false;
         } else {
-            TimeSlot timeSlot = calculateTimeSlot(duration);
-            schedule.put(timeSlot, id);
+            schedule.put(slot, id);
             return true;
             }
     }
 
-    public boolean refreshTimeSlot(Measure<Double, Duration> duration){
-        return true; //TODO
+    //TODO
+    public boolean refreshTimeSlot(TimeSlot slot){
+        return schedule.renewKey(slot);
     }
 
     //Checks if time provided lives inside a slot
-    private boolean alreadyBusy(Measure<Double,Duration> time) {
-        //TODO
+    private boolean alreadyBusy(TimeSlot slot) {
+        Set<TimeSlot> timeSlots = schedule.keySet();
+        for (TimeSlot timeSlot: timeSlots) {
+            //Checking if either start or end time of the provided slot lives inside the schedule
+            if ((timeSlot.getStartTime() <= slot.getStartTime() && slot.getStartTime() < timeSlot.getEndTime()) ||
+                    (timeSlot.getStartTime() <= slot.getEndTime() && slot.getEndTime() < timeSlot.getEndTime())) {
+                return true;
+            }
+        }
         return false;
     }
 
-    //TODO
+    /*
     private TimeSlot calculateTimeSlot(Measure<Double,Duration> time) {
         double doubleTime = time.doubleValue(time.getUnit());
         return new TimeSlot(Math.floor(doubleTime),Math.floor(doubleTime)+TICK_LENGTH);
-    }
+    }*/
 
     /**************************************************************************
      *
@@ -135,6 +141,11 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
     @Override
     public void initRoadUser(RoadModel roadModel) {
         roadModel.addObjectAt(this, position);
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceAgent@"+getPosition().get();
     }
 
 }

@@ -68,6 +68,7 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
                 .build());
     }
 
+    //This should never be called
     @Override
     public void deployAnt(SmartMessage ant) {
         //TODO
@@ -75,6 +76,6 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
 
     @Override
     public void propagate(SmartMessage ant, AntAcceptor next) {
-        //TODO
+        device.get().send(ant,next);
     }
 }

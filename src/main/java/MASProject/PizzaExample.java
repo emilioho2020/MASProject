@@ -19,7 +19,7 @@ import MASProject.Agents.ResourceAgent;
 import MASProject.Agents.TransportAgent;
 import MASProject.Agents.PackageAgent;
 import MASProject.Model.DMASModel;
-import MASProject.Model.DMASNode;
+import MASProject.Util.PathFinder;
 import com.github.rinde.rinsim.core.Simulator;
 import com.github.rinde.rinsim.core.model.comm.CommModel;
 import com.github.rinde.rinsim.core.model.pdp.*;
@@ -42,6 +42,11 @@ import javax.annotation.Nullable;
 import javax.measure.unit.SI;
 import java.util.Set;
 
+import static com.google.common.collect.Maps.newHashMap;
+
+
+//Set<Point> nodes = roadModel.get(GraphRoadModel.class).getGraph().getNodes();
+
 
 /**
  * Example showing a fleet of taxis that have to pickup and transport customers
@@ -54,7 +59,7 @@ import java.util.Set;
 public final class PizzaExample {
 
     private static final int NUM_RESTAURANTS = 0;
-    private static final int NUM_BIKES = 1;
+    private static final int NUM_BIKES = 2;
     private static final int NUM_CUSTOMERS = 5;
 
     // time in ms
@@ -69,7 +74,8 @@ public final class PizzaExample {
     private static final int CARDINALITY = 8;
     private static final double VEHICLE_LENGTH = 2d;
 
-    private static final DMASModel dmasModel = new DMASModel();
+    //This variable holds the position of every resource in the graph
+    public static final DMASModel DMAS_MODEL= new DMASModel();
 
   private PizzaExample() {}
 
@@ -126,20 +132,29 @@ public final class PizzaExample {
     //initialize transport agents
     for (int i = 0; i < NUM_BIKES; i++) {
       simulator.register(new TransportAgent(roadModel.getRandomPosition(rng),
-        TAXI_CAPACITY, dmasModel));
+        TAXI_CAPACITY));
     }
     //initialize tasks
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
-        addPackage(rng, simulator, roadModel);
+      Point start = roadModel.getRandomPosition(rng);
+      Point stop = roadModel.getRandomPosition(rng);
+      simulator.register(new PackageAgent(
+        Parcel.builder(start, stop)
+          .serviceDuration(SERVICE_DURATION)
+          .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
+          .buildDTO()));
     }
 
     //set up resource agents
     Set<Point> nodes = roadModel.get(GraphRoadModel.class).getGraph().getNodes();
     for(Point node: nodes) {
-      ResourceAgent res = new ResourceAgent(node, roadModel);
-      simulator.register(res);
-      dmasModel.register(res);
+       ResourceAgent agent = new ResourceAgent(node, roadModel);
+       //register agent to pathFinder
+        DMAS_MODEL.addAntAcceptor(node, agent);
+        DMAS_MODEL.addLocation(agent, node);
+       simulator.register(agent);
     }
+
 
 
      //randomly add new task
@@ -149,7 +164,13 @@ public final class PizzaExample {
         if (time.getStartTime() > endTime) {
           simulator.stop();
         } else if (rng.nextDouble() < NEW_CUSTOMER_PROB) {
-          addPackage(rng, simulator,roadModel);
+          simulator.register(new PackageAgent(
+            Parcel
+              .builder(roadModel.getRandomPosition(rng),
+                roadModel.getRandomPosition(rng))
+              .serviceDuration(SERVICE_DURATION)
+              .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
+              .buildDTO()));
         }
       }
 
@@ -172,11 +193,11 @@ public final class PizzaExample {
       .with(RoadUserRenderer.builder()
         .withImageAssociation(
           TaxiBase.class, "/graphics/perspective/tall-building-64.png")
-        .withImageAssociation(
-          TransportAgent.class, "/graphics/flat/taxi-32.png")
+        //.withImageAssociation(
+        //  TransportAgent.class, "/graphics/flat/taxi-32.png")
         .withImageAssociation(
           PackageAgent.class, "/graphics/flat/person-red-32.png"))
-      //.with(TaxiRenderer.builder(Language.ENGLISH))
+      .with(TaxiRenderer.builder(TaxiRenderer.Language.ENGLISH))
       .with(AGVRenderer.builder()
           .withDifferentColorsForVehicles())
       //.with(CommRenderer.builder().withMessageCount())
@@ -195,17 +216,6 @@ public final class PizzaExample {
     return view;
   }
 
-  private static void addPackage(RandomGenerator rng, Simulator simulator, RoadModel rm){
-    Point start = rm.getRandomPosition(rng);
-    Point stop = rm.getRandomPosition(rng);
-    PackageAgent pack = new PackageAgent(
-            Parcel.builder(start, stop)
-                    .serviceDuration(SERVICE_DURATION)
-                    .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
-                    .buildDTO());
-    simulator.register(pack);
-    dmasModel.register(pack);
-  }
   // currently has no function
   static class TaxiBase extends Depot {
     TaxiBase(Point position, double capacity) {

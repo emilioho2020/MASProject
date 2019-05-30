@@ -2,17 +2,22 @@ package MASProject.delegateMAS;
 
 import MASProject.Agents.PackageAgent;
 import MASProject.Agents.TransportAgent;
-import MASProject.Model.DMASNode;
+import MASProject.PizzaExample;
 import MASProject.Util.AntPlan;
 import Messages.AntAcceptor;
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
+import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModels;
 import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
+
+import javax.measure.Measure;
+import javax.measure.unit.NonSI;
+import javax.measure.unit.SI;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -28,7 +33,7 @@ public class delegateMAS {
     public static final double SPEED_KMH = 1d;
 
     private final String ID;
-    private final RoadModel roadModel;
+    private RoadModel roadModel;
 
     Optional<CommDevice> device;
 
@@ -39,10 +44,9 @@ public class delegateMAS {
     /*****************************************************************************
      * CONSTRUCTORS
      ********************************************************************************/
-    public delegateMAS(TransportAgent a, RoadModel rm){
+    public delegateMAS(TransportAgent a){
         agent = a;
         ID = createID();
-        roadModel = rm;
         explorationAnts = new LinkedList<>();
         intentionAnt = Optional.absent();
 
@@ -50,6 +54,9 @@ public class delegateMAS {
 
     public void setDevice(CommDevice device) {
         this.device = Optional.of(device);
+    }
+    public void setRoadModel(RoadModel rm) {
+        roadModel = rm;
     }
 
     /**
@@ -63,41 +70,49 @@ public class delegateMAS {
     /*************************************************************************
      * EXPLORATION
      *****************************************************************************/
-
-    //TODO
-    public List<AntPlan> exploreKShortestPathsTo(DMASNode objective, int k, TimeLapse time, PackageAgent objectivePackage){
-        List<AntAcceptor> path = new LinkedList<>(); //TODO find shortest route
+    //should be void return type because ants don't make plans in one tick
+    public void exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time, PackageAgent objectivePackage){
+        List<Point> temp = roadModel.getShortestPathTo(agent,objective); // this is shortest rout but has points instead of AntAcceptors
+        List<AntAcceptor> path = new LinkedList<>();                     // so we convert the points to ant acceptors
+        for(Point point: temp) {                                         //
+            path.add(PizzaExample.DMAS_MODEL.getAntAcceptor(point));     //
+        }                                                                // ugly right :p
         ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path, objectivePackage);
+
+        //Don't look at this
         ant.setInitialCost(time.getStartTime());
-        return null;
+        double cost = ant.calculateCost(
+                agent.getPosition().get(), PizzaExample.DMAS_MODEL.getLocation(ant.getNextAcceptor(path.get(0))),
+                Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
+        ant.addCost(Measure.valueOf(cost,SI.MILLI(SI.SECOND)));
+        ant.propagate(PizzaExample.DMAS_MODEL.getAntAcceptor(getPosition()));
+
+        explorationAnts.add(ant);
     }
 
-    //TODO
-    public List<AntPlan> explorePathsToKNearestParcels(int k, TimeLapse time){
+    public void explorePathsToKNearestParcels(int k, TimeLapse time){
         List<PackageAgent> possibleObjectives = RoadModels.findClosestObjects(getPosition(), getRoadModel(), PackageAgent.class, k);
-        List<AntPlan> result = new ArrayList<>();
         for(PackageAgent objective: possibleObjectives) {
             if (alreadyExploring(objective)) {
                 continue;
             }
-            result.addAll(exploreKShortestPathsTo(objective, NUM_PATHS_EXPLORING, time, objective));
+            exploreKShortestPathsTo(objective, NUM_PATHS_EXPLORING, time, objective);
         }
-        return result;
     }
 
-    //if ant reaches its destination get its plan and remove ant //TODO
+    //if ant reaches its destination get its plan and remove ant
     public List<AntPlan> getExplorationResults() {
         List<ExplorationMessage> temp = new LinkedList<>();
-        List<AntPlan> antPlans = new ArrayList<AntPlan>();
+        List<AntPlan> antPlans = new ArrayList<>();
         for(ExplorationMessage ant : explorationAnts) {
             if(ant.isDestinationReached()) {
                 antPlans.add(ant.createAntPlan());
                 temp.add(ant);
             }
         }
-        for(ExplorationMessage ant : temp) {
-            explorationAnts.remove(ant);
-        }
+        //for(ExplorationMessage ant : temp) {
+        //    explorationAnts.remove(ant);
+        //}
         return antPlans;
     }
 

@@ -61,18 +61,18 @@ public class IntentionMessage extends SmartMessage {
      */
     @Override
     public void visit(ResourceAgent resource) {
-        Point position = resource.getPosition().get();
+        //Point position = resource.getPosition().get();
         boolean succ;
 
-        if (isRefreshIntention()){succ = resource.refreshTimeSlot(getAntPlan().getSchedule().get(position));}
-        else {succ = resource.reserveTimeSlot(getAntPlan().getSchedule().get(position), getSource());}
+        if (isRefreshIntention()){succ = resource.refreshTimeSlot(getAntPlan().getSchedule().get(resource));}
+        else {succ = resource.reserveTimeSlot(getAntPlan().getSchedule().get(resource), getSource());}
         setNoReservation(!succ);
 
         if (resource.equals(getDestination())) {
             //current node is at destination
             setDestinationReached(true);
             setRefreshIntention(true);
-            propagate(resource);
+            //propagate(resource);
         } else {
             propagate(resource);
         }
