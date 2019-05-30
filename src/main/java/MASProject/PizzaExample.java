@@ -135,13 +135,7 @@ public final class PizzaExample {
     }
     //initialize tasks
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
-      Point start = roadModel.getRandomPosition(rng);
-      Point stop = roadModel.getRandomPosition(rng);
-      simulator.register(new PackageAgent(
-        Parcel.builder(start, stop)
-          .serviceDuration(SERVICE_DURATION)
-          .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
-          .buildDTO()));
+        addPackage(rng, simulator, roadModel);
     }
 
     //set up resource agents
@@ -153,7 +147,6 @@ public final class PizzaExample {
     }
 
 
-
      //randomly add new task
     simulator.addTickListener(new TickListener() {
       @Override
@@ -161,13 +154,7 @@ public final class PizzaExample {
         if (time.getStartTime() > endTime) {
           simulator.stop();
         } else if (rng.nextDouble() < NEW_CUSTOMER_PROB) {
-          simulator.register(new PackageAgent(
-            Parcel
-              .builder(roadModel.getRandomPosition(rng),
-                roadModel.getRandomPosition(rng))
-              .serviceDuration(SERVICE_DURATION)
-              .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
-              .buildDTO()));
+          addPackage(rng, simulator,roadModel);
         }
       }
 
@@ -213,12 +200,25 @@ public final class PizzaExample {
     return view;
   }
 
+  private static void addPackage(RandomGenerator rng, Simulator simulator, RoadModel rm){
+    Point start = rm.getRandomPosition(rng);
+    Point stop = rm.getRandomPosition(rng);
+    PackageAgent pack = new PackageAgent(
+            Parcel.builder(start, stop)
+                    .serviceDuration(SERVICE_DURATION)
+                    .neededCapacity(1 + rng.nextInt(MAX_CAPACITY))
+                    .buildDTO());
+    simulator.register(pack);
+    dmasModel.register(pack);
+  }
   // currently has no function
   static class TaxiBase extends Depot {
     TaxiBase(Point position, double capacity) {
       super(position);
       setCapacity(capacity);
     }
+
+
 
     @Override
     public void initRoadPDP(RoadModel pvRoadModel, PDPModel pPdpModel) {}
