@@ -1,5 +1,6 @@
 package MASProject.Util;
 
+import MASProject.Agents.PackageAgent;
 import Messages.AntAcceptor;
 import com.github.rinde.rinsim.geom.Point;
 
@@ -14,9 +15,12 @@ import java.util.*;
 public class AntPlan {
 
     private final Map<AntAcceptor, Measure<Double,Duration>> schedule;
+    private final PackageAgent objectivePackage;
 
-    public AntPlan(LinkedHashMap<AntAcceptor,Measure<Double,Duration>> schedule) {
+    public AntPlan(LinkedHashMap<AntAcceptor,Measure<Double,Duration>> schedule, PackageAgent p)
+    {
         this.schedule = schedule;
+        this.objectivePackage = p;
     }
 
     public LinkedHashMap<Point,Measure<Double,Duration>> getSchedule() {
@@ -28,6 +32,8 @@ public class AntPlan {
     }
 
     public LinkedList<AntAcceptor> getPath() { return new LinkedList<>(schedule.keySet()); }
+
+    public PackageAgent getObjectivePackage(){return objectivePackage;}
 
     //evaluation will be the time of arrival at final node //TODO
     public double evaluate() {

@@ -10,10 +10,12 @@ import java.util.*;
 public abstract class SmartMessage implements MessageContents {
     private final String source;
     private RoadModel roadModel;
+    private final PackageAgent objectivePackage;
 
-    SmartMessage(String source, RoadModel rm) {
+    SmartMessage(String source, RoadModel rm, PackageAgent objectivePackage) {
         this.source = source;
         this.roadModel = rm;
+        this.objectivePackage = objectivePackage;
     }
 
     public String getSource() {
@@ -21,6 +23,8 @@ public abstract class SmartMessage implements MessageContents {
     }
 
     public AntAcceptor getDestination() {return getPath().get(getPath().size()-1);}
+
+    public PackageAgent getObjectivePackage(){return objectivePackage;}
 
     public RoadModel getRoadModel() {return roadModel;}
 

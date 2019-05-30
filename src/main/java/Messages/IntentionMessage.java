@@ -19,10 +19,8 @@ public class IntentionMessage extends SmartMessage {
     private boolean noReservation = false;
     private boolean refreshIntention = false;
 
-    public IntentionMessage(String source,
-                            RoadModel roadModel,
-                            AntPlan antPlan) {
-        super(source, roadModel);
+    public IntentionMessage(String source,RoadModel roadModel, AntPlan antPlan) {
+        super(source, roadModel, antPlan.getObjectivePackage());
         this.antPlan = antPlan;
     }
 

@@ -26,7 +26,6 @@ public class delegateMAS {
 
     private static AtomicLong idCounter = new AtomicLong();
     public static final double SPEED_KMH = 1d;
-    private static final int NUM_OF_POSSIBILITIES = 3;
 
     private final String ID;
     private final RoadModel roadModel;
@@ -66,9 +65,9 @@ public class delegateMAS {
      *****************************************************************************/
 
     //TODO
-    public List<AntPlan> exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time){
+    public List<AntPlan> exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time, PackageAgent objectivePackage){
         List<AntAcceptor> path = new LinkedList<>(); //TODO find shortest route
-        ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path);
+        ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path, objectivePackage);
         ant.setInitialCost(time.getStartTime());
         return null;
     }
@@ -81,7 +80,7 @@ public class delegateMAS {
             if (alreadyExploring(objective)) {
                 continue;
             }
-            result.addAll(exploreKShortestPathsTo(objective, NUM_PATHS_EXPLORING, time));
+            result.addAll(exploreKShortestPathsTo(objective, NUM_PATHS_EXPLORING, time, objective));
         }
         return result;
     }

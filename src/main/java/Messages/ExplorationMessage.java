@@ -23,8 +23,8 @@ public class ExplorationMessage extends SmartMessage {
     private Measure<Double, Duration> costSoFar = Measure.valueOf(0d, SI.SECOND);
     private boolean destinationReached = false;
 
-    public ExplorationMessage(String source, RoadModel roadModel, List<AntAcceptor> path) {
-        super(source, roadModel);
+    public ExplorationMessage(String source, RoadModel roadModel, List<AntAcceptor> path, PackageAgent objectivePackage) {
+        super(source, roadModel,objectivePackage);
         //linked hash map to preserve insertion order
         this.tempSchedule = new LinkedHashMap<>();
         this.path = path;
@@ -70,7 +70,7 @@ public class ExplorationMessage extends SmartMessage {
 
     public AntPlan createAntPlan() throws RuntimeException{
         if(!isDestinationReached()){throw new RuntimeException("No completed AntPlan yet");}
-        else{return new AntPlan(getTempSchedule());}
+        else{return new AntPlan(getTempSchedule(),getObjectivePackage());}
     }
 
     /**********************************************************************************
