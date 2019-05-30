@@ -79,14 +79,7 @@ public class delegateMAS {
         }                                                                // ugly right :p
         ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path, objectivePackage);
 
-        //Don't look at this
-        ant.setInitialCost(time.getStartTime());
-        double cost = ant.calculateCost(
-                agent.getPosition().get(), PizzaExample.DMAS_MODEL.getLocation(ant.getNextAcceptor(path.get(0))),
-                Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
-        ant.addCost(Measure.valueOf(cost,SI.MILLI(SI.SECOND)));
-        ant.propagate(PizzaExample.DMAS_MODEL.getAntAcceptor(getPosition()));
-
+        ant.sendFromTransportAgent(time, getPosition()); //TODO badly written will give problems as soon as we modify something
         explorationAnts.add(ant);
     }
 

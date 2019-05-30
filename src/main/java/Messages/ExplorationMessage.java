@@ -4,9 +4,11 @@ import MASProject.Agents.PackageAgent;
 import MASProject.Agents.ResourceAgent;
 import MASProject.Agents.TimeSlot;
 import MASProject.Agents.TransportAgent;
+import MASProject.PizzaExample;
 import MASProject.Util.AntPlan;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModels;
+import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 
 import javax.measure.Measure;
@@ -61,6 +63,18 @@ public class ExplorationMessage extends SmartMessage {
             propagate(resource);
         }
     }
+
+    public void sendFromTransportAgent(TimeLapse time, Point position){
+        setInitialCost(time.getStartTime());
+        AntAcceptor currentResource = PizzaExample.DMAS_MODEL.getAntAcceptor(position); //TODO this is so bad
+        if (!currentResource.equals(getDestination())){
+            double cost = calculateCost(
+                position, PizzaExample.DMAS_MODEL.getLocation(getNextAcceptor(path.get(0))),
+                Measure.valueOf(TransportAgent.SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
+            addCost(Measure.valueOf(cost,SI.MILLI(SI.SECOND)));
+            propagate(currentResource);} //TODO this is so bad
+    }
+
 
     @Override
     public void visit(PackageAgent packageAgent) {
