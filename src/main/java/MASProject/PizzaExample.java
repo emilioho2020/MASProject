@@ -18,6 +18,8 @@ package MASProject;
 import MASProject.Agents.ResourceAgent;
 import MASProject.Agents.TransportAgent;
 import MASProject.Agents.PackageAgent;
+import MASProject.Model.DMASModel;
+import MASProject.Model.DMASNode;
 import com.github.rinde.rinsim.core.Simulator;
 import com.github.rinde.rinsim.core.model.comm.CommModel;
 import com.github.rinde.rinsim.core.model.pdp.*;
@@ -71,6 +73,8 @@ public final class PizzaExample {
 
     private static final int CARDINALITY = 8;
     private static final double VEHICLE_LENGTH = 2d;
+
+    private static final DMASModel dmasModel = new DMASModel();
 
   private PizzaExample() {}
 
@@ -127,7 +131,7 @@ public final class PizzaExample {
     //initialize transport agents
     for (int i = 0; i < NUM_BIKES; i++) {
       simulator.register(new TransportAgent(roadModel.getRandomPosition(rng),
-        TAXI_CAPACITY));
+        TAXI_CAPACITY, dmasModel));
     }
     //initialize tasks
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
@@ -143,7 +147,9 @@ public final class PizzaExample {
     //set up resource agents
     Set<Point> nodes = roadModel.get(GraphRoadModel.class).getGraph().getNodes();
     for(Point node: nodes) {
-      simulator.register(new ResourceAgent(node, roadModel));
+      ResourceAgent res = new ResourceAgent(node, roadModel);
+      simulator.register(res);
+      dmasModel.register(res);
     }
 
 

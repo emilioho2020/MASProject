@@ -1,5 +1,6 @@
 package MASProject.Agents;
 
+import MASProject.Model.DMASNode;
 import Messages.AntAcceptor;
 import Messages.SmartMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
@@ -12,7 +13,7 @@ import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
 
-public class PackageAgent extends Parcel implements CommUser, AntAcceptor {
+public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASNode {
 
     private double weight = 0;
     //private Point deliveryLocation; already in superclass

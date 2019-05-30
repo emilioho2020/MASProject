@@ -2,12 +2,12 @@ package MASProject.delegateMAS;
 
 import MASProject.Agents.PackageAgent;
 import MASProject.Agents.TransportAgent;
+import MASProject.Model.DMASNode;
 import MASProject.Util.AntPlan;
 import Messages.AntAcceptor;
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
-import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModels;
 import com.github.rinde.rinsim.core.model.time.TimeLapse;
@@ -65,7 +65,7 @@ public class delegateMAS {
      *****************************************************************************/
 
     //TODO
-    public List<AntPlan> exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time, PackageAgent objectivePackage){
+    public List<AntPlan> exploreKShortestPathsTo(DMASNode objective, int k, TimeLapse time, PackageAgent objectivePackage){
         List<AntAcceptor> path = new LinkedList<>(); //TODO find shortest route
         ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path, objectivePackage);
         ant.setInitialCost(time.getStartTime());

@@ -1,5 +1,6 @@
 package MASProject.Agents;
 
+import MASProject.Model.DMASNode;
 import Messages.AntAcceptor;
 import Messages.SmartMessage;
 import SelfExpiringHashMap.SelfExpiringHashMap;
@@ -16,7 +17,7 @@ import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import java.util.*;
 
-public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAcceptor {
+public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAcceptor, DMASNode {
 
     private final static double TICK_LENGTH = 1000d;
     //Fields

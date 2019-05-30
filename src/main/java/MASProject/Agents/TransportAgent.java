@@ -1,6 +1,7 @@
 package MASProject.Agents;
 
 import MASProject.Model.DMASModel;
+import MASProject.Model.DMASNode;
 import MASProject.Util.AntPlan;
 import MASProject.delegateMAS.delegateMAS;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
@@ -40,9 +41,9 @@ public class TransportAgent extends Vehicle implements CommUser {
     delegateMAS delegate;
     private static final int NUM_OF_POSSIBILITIES = 3;
     private static final int NUM_PATHS_EXPLORING = 3;
-    //private static final DMASModel dmasModel ;
+    private final DMASModel dmasModel;
 
-    public TransportAgent(Point startPosition, int capacity){
+    public TransportAgent(Point startPosition, int capacity, DMASModel dmasModel){
         super(VehicleDTO.builder()
                 .capacity(capacity)
                 .startPosition(startPosition)
@@ -54,6 +55,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         preferredPlan = Optional.absent();
         device = Optional.absent();
         delegate = new delegateMAS(this, getRoadModel());
+        this.dmasModel = dmasModel;
     }
 
 
@@ -88,7 +90,7 @@ public class TransportAgent extends Vehicle implements CommUser {
 
     //TODO fix by finding according resource (using DMASMOdel maybe
     private List<AntPlan> findPlansToDeliveryLocation(TimeLapse time){
-        return delegate.exploreKShortestPathsTo(getCurrentPackage().getDeliveryLocation(), NUM_PATHS_EXPLORING, time, getCurrentPackage());
+        return delegate.exploreKShortestPathsTo(dmasModel.getNode(getCurrentPackage().getDeliveryLocation()), NUM_PATHS_EXPLORING, time, getCurrentPackage());
     }
     /**
      * Sets the preferred plan to best plan of given plans
