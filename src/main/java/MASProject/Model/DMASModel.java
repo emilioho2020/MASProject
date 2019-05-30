@@ -1,5 +1,6 @@
 package MASProject.Model;
 
+import MASProject.Agents.ResourceAgent;
 import com.github.rinde.rinsim.geom.Point;
 
 public class DMASModel {
@@ -10,7 +11,10 @@ public class DMASModel {
         return null;
     }
 
-    public getLocation()
+    public Point getLocation(ResourceAgent agent){
+        //TODO
+        return null;
+    }
 
 
 }

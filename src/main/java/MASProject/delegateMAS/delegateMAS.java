@@ -2,7 +2,7 @@ package MASProject.delegateMAS;
 
 import MASProject.Agents.PackageAgent;
 import MASProject.Agents.TransportAgent;
-import MASProject.Util.Plan;
+import MASProject.Util.AntPlan;
 import Messages.AntAcceptor;
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
@@ -33,6 +33,7 @@ public class delegateMAS {
 
     Optional<CommDevice> device;
 
+    //TODO frequency of reconsideration
     private final long frequencyOfExploring = 4000L;
     private final long frequencyOfCommitting = 1000L;
 
@@ -63,60 +64,19 @@ public class delegateMAS {
     /*************************************************************************
      * EXPLORATION
      *****************************************************************************/
-    /* This method is responsible for exploring the different possible objectives.
-     * For each "new" objective a new Exploration Ant is created to be propagated
-     * through the ResourceAgents network. The ants are stored in a list so that
-     * the results they find can be later evaluated.
-     */
-    /**
-    public void explorePossibilities(TimeLapse time, boolean delivering) {
-        RoadModel rm = getRoadModel();
-        if(!delivering) {
-            List<Parcel> possibleObjectives = RoadModels.findClosestObjects(getRoadModel().getPosition(agent), rm, Parcel.class, NUM_OF_POSSIBILITIES);
-            for(Parcel objective: possibleObjectives) {
-                if(alreadyExploring(objective)) { continue;}
-                Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getPickupLocation()));
-                ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
-                ant.setInitialCost(time.getStartTime());
-                CommUser nextResource = ant.getNextAcceptor(rm.getPosition(agent));
 
-                double cost = ant.calculateCost(
-                        rm.getPosition(agent), nextResource.getPosition().get(),
-                        Measure.valueOf(SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
-                ant.addCost(Measure.valueOf(cost, Duration.UNIT));
-                device.get().send(ant, nextResource);
-                explorationAnts.add(ant);
-            }
-        } else if(delivering) {
-            Parcel objective = agent.getCurr();
-            Queue<Point> path = new LinkedList<>(rm.getShortestPathTo(agent,objective.getDeliveryLocation()));
-            ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
-            ant.setInitialCost(time.getStartTime());
-            CommUser nextResource = ant.getNextAcceptor(rm.getPosition(agent));
-
-            double cost = ant.calculateCost(
-                    rm.getPosition(agent), nextResource.getPosition().get(),
-                    Measure.valueOf(SPEED_KMH, NonSI.KILOMETERS_PER_HOUR).to(SI.METERS_PER_SECOND));
-            ant.addCost(Measure.valueOf(cost, Duration.UNIT));
-            device.get().send(ant, nextResource);
-            explorationAnts.add(ant);
-        }
-
-    }
-     */
     //TODO
-    public List<Plan> exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time){
-        Queue<Point> path = new LinkedList<>(getRoadModel().getShortestPathTo(agent,objective));
-        ExplorationMessage ant = new ExplorationMessage(ID, objective, path, getRoadModel());
+    public List<AntPlan> exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time){
+        List<AntAcceptor> path = new LinkedList<>(); //TODO find shortest route
+        ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path);
         ant.setInitialCost(time.getStartTime());
-        CommUser nextResource = ant.getNextAcceptor(getRoadModel().getPosition(agent));
         return null;
     }
 
     //TODO
-    public List<Plan> explorePathsToKNearestParcels(int k, TimeLapse time){
+    public List<AntPlan> explorePathsToKNearestParcels(int k, TimeLapse time){
         List<PackageAgent> possibleObjectives = RoadModels.findClosestObjects(getPosition(), getRoadModel(), PackageAgent.class, k);
-        List<Plan> result = new ArrayList<>();
+        List<AntPlan> result = new ArrayList<>();
         for(PackageAgent objective: possibleObjectives) {
             if (alreadyExploring(objective)) {
                 continue;
@@ -126,23 +86,23 @@ public class delegateMAS {
         return result;
     }
 
-    //if ant reaches its destination get its plan and remove ant
-    public List<Plan> getExplorationResults() {
+    //if ant reaches its destination get its plan and remove ant //TODO
+    public List<AntPlan> getExplorationResults() {
         List<ExplorationMessage> temp = new LinkedList<>();
-        List<Plan> plans = new ArrayList<Plan>();
+        List<AntPlan> antPlans = new ArrayList<AntPlan>();
         for(ExplorationMessage ant : explorationAnts) {
             if(ant.isDestinationReached()) {
-                plans.add(new Plan(ant.getScheduledPath()));
+                antPlans.add(ant.createAntPlan());
                 temp.add(ant);
             }
         }
         for(ExplorationMessage ant : temp) {
             explorationAnts.remove(ant);
         }
-        return plans;
+        return antPlans;
     }
 
-    //check if objective is already being explored
+    //check if objective AntAcceptor is already being explored
     public boolean alreadyExploring(AntAcceptor objective) {
         for(ExplorationMessage ant : explorationAnts) {
             if(ant.getDestination().equals(objective))
@@ -157,11 +117,11 @@ public class delegateMAS {
      *************************************************************************************/
     /**
      * Sends an intention ant to involved Resource agents
-     * @param plan
+     * @param antPlan
      */
-    public void sendIntentionAnt(Plan plan) {
-        IntentionMessage ant = new IntentionMessage(ID, plan.getSchedule(), getRoadModel());
-        device.get().send(ant, ant.getNextAcceptor(getRoadModel().getPosition(agent)));
+    public void sendIntentionAnt(AntPlan antPlan) {
+        IntentionMessage ant = new IntentionMessage(ID, getRoadModel(), antPlan);
+        device.get().send(ant, ant.getFirstAcceptor());
         intentionAnt = Optional.of(ant);
     }
 
@@ -170,7 +130,7 @@ public class delegateMAS {
      * @return boolean indicating whether ant has made reservation yet
      * @throws Exception if timeslot already taken
      */
-    public Boolean getIntentionAntResult() throws Exception{
+    public Boolean isReservationMade() throws Exception{
         if(intentionAnt.isPresent()) {
             if (intentionAnt.get().isNoReservation()) {
                 throw new Exception();
@@ -187,11 +147,6 @@ public class delegateMAS {
     public void clearObjective() {
         intentionAnt = Optional.absent();
         explorationAnts.clear();
-    }
-
-    //TODO what is this
-    public void removePoint(Point point) {
-        intentionAnt.get().removePoint(point);
     }
 
     protected RoadModel getRoadModel(){

@@ -1,6 +1,6 @@
 package MASProject.Agents;
 
-import MASProject.Util.Plan;
+import MASProject.Util.AntPlan;
 import MASProject.delegateMAS.delegateMAS;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
 import com.github.rinde.rinsim.core.model.comm.CommDeviceBuilder;
@@ -28,11 +28,11 @@ public class TransportAgent extends Vehicle implements CommUser {
     public static final double SPEED_KMH = 1d;
 
     //from PDP model
-    private Optional<Parcel> curr;
+    private Optional<PackageAgent> currentPackage;
 
     //the plans-from BDI
-    private Optional<Plan> preferredPlan;
-    private Optional<Plan> reservedPlan;
+    private Optional<AntPlan> preferredPlan;
+    private Optional<AntPlan> reservedPlan;
 
     //Needed so that agent can follow this.
     private Queue<Point> path;
@@ -42,8 +42,8 @@ public class TransportAgent extends Vehicle implements CommUser {
     private final double reliability = 1;
     Optional<CommDevice> device;
 
-
     delegateMAS delegate;
+
 
     public TransportAgent(Point startPosition, int capacity){
         super(VehicleDTO.builder()
@@ -52,7 +52,7 @@ public class TransportAgent extends Vehicle implements CommUser {
                 .speed(SPEED_KMH)
                 .build()
             );
-        curr = Optional.absent();
+        currentPackage = Optional.absent();
         reservedPlan = Optional.absent();
         preferredPlan = Optional.absent();
         path = new LinkedList<>();
@@ -74,28 +74,28 @@ public class TransportAgent extends Vehicle implements CommUser {
          * and pick a preferred plan. The objective of that plan is set as
          * the current parcel to pick.
          */
-        if (!curr.isPresent()) {
-            List<Plan> plans2 = findPlansToParcel();
+        if (!currentPackage.isPresent()) {
+            List<AntPlan> plans2 = findPlansToParcel();
             choosePlan(plans2);
         }
         /* In this section we send an intention ant to register the preferred
          * plan. After registering the agent follows the path and refreshes
          * regularly its current intention.
          */
-        if (curr.isPresent()) {
+        if (currentPackage.isPresent()) {
             //Basically checks if current objective is already delivered
             //if so return to create new plan
-            if (!isDelivering() && !rm.containsObject(curr.get())) {
+            if (!isDelivering() && !rm.containsObject(currentPackage.get())) {
                 // sanity check: if it is not in our cargo AND it is also not on the
-                // RoadModel, we cannot go to curr anymore.
+                // RoadModel, we cannot go to currentPackage anymore.
                 clearObjective();
-                curr = Optional.absent();
+                currentPackage = Optional.absent();
             } else if (isDelivering() && !reservedPlan.isPresent()) {
                 //make plan
                 //should be same as when no objective
                 //todo check here
                 if(!preferredPlan.isPresent()) {
-                    List<Plan> plans3 = findPlansToParcel();
+                    List<AntPlan> plans3 = findPlansToParcel();
                     choosePlan(plans3);
                 }
                 setReserved();
@@ -111,19 +111,19 @@ public class TransportAgent extends Vehicle implements CommUser {
         }
     }
 
-    private List<Plan> findPlansToParcel() {
-        List<Plan> plans2 = delegate.getExplorationResults();
+    private List<AntPlan> findPlansToParcel() {
+        List<AntPlan> plans2 = delegate.getExplorationResults();
         return plans2;
     }
 
-    private void choosePlan(List<Plan> plans2){
+    private void choosePlan(List<AntPlan> plans2){
         //evaluate plans if any found
         preferredPlan = evaluatePlans(plans2);
 
         if(preferredPlan.isPresent()) {
             System.out.println(preferredPlan.get().getSchedule());
             //if a preferred plan exists set a current objective
-            curr = Optional.of(preferredPlan.get().getObjective());
+            currentPackage = Optional.of(preferredPlan.get().getDestination());
             delegate.sendIntentionAnt(preferredPlan.get());
         }
     }
@@ -134,12 +134,12 @@ public class TransportAgent extends Vehicle implements CommUser {
      */
     private void setReserved() {
         try {
-            Boolean result = delegate.getIntentionAntResult();
+            Boolean result = delegate.isReservationMade();
             if (result){reservedPlan = preferredPlan;}
         } catch (Exception e) {
             System.out.println("No reservation.");
             clearObjective();
-            curr = Optional.absent();
+            currentPackage = Optional.absent();
         }
     }
 
@@ -151,16 +151,16 @@ public class TransportAgent extends Vehicle implements CommUser {
      */
     private void followObjective(TimeLapse time, RoadModel rm, PDPModel pm){
         //a reservedPlan exists
-        if (rm.getPosition(this).equals(curr.get().getDeliveryLocation())) {
+        if (rm.getPosition(this).equals(currentPackage.get().getDeliveryLocation())) {
             // deliver when we arrive
-            pm.deliver(this, curr.get(), time);
+            pm.deliver(this, currentPackage.get(), time);
             clearObjective();
         } else {
             // it is still available, go there as fast as possible
             followPlan(rm, time, preferredPlan.get());
-            if (rm.equalPosition(this, curr.get())) {
+            if (rm.equalPosition(this, currentPackage.get())) {
                 // pickup customer
-                pm.pickup(this, curr.get(), time);
+                pm.pickup(this, currentPackage.get(), time);
                 clearObjective();
             }
         }
@@ -171,29 +171,29 @@ public class TransportAgent extends Vehicle implements CommUser {
      * @return The best plan according to our heuristics
      * HEURISTIC: travel time
      */
-    private Optional<Plan> evaluatePlans(List<Plan> plans2) {
+    private Optional<AntPlan> evaluatePlans(List<AntPlan> plans2) {
         if(plans2.isEmpty()) {
             return Optional.absent();
         }
         List<Double> durations = new LinkedList<>();
-        for(Plan plan : plans2) {
-            durations.add(plan.evaluate());
+        for(AntPlan antPlan : plans2) {
+            durations.add(antPlan.evaluate());
         }
         int minIndex = durations.indexOf(Collections.min(durations));
         return Optional.of(plans2.get(minIndex));
     }
 
-    //get path from plan and follow it.
+    //get path from antPlan and follow it.
     //TODO: probably some more code in how agent follows the schedule
     //TODO: !!!!!!!better method to compare points!!!!!!!!!!!
-    private void followPlan(RoadModel rm, TimeLapse time, Plan plan) {
+    private void followPlan(RoadModel rm, TimeLapse time, AntPlan antPlan) {
         if(path.isEmpty()) {
-            path.addAll(plan.getPath());
+            path.addAll(antPlan.getPath());
         }
 
         if(Point.Comparators.XY.compare(path.peek(), rm.getPosition(this)) >= 0) {
             Point temp = path.remove();
-            plan.removePoint(temp);
+            antPlan.removePoint(temp);
             delegate.removePoint(temp);
         }
         rm.followPath(this, path, time);
@@ -233,9 +233,9 @@ public class TransportAgent extends Vehicle implements CommUser {
     /**
      * @return
      */
-    public Parcel getCurr() {
-        if(curr.isPresent()) {
-            return curr.get();
+    public Parcel getCurrentPackage() {
+        if(currentPackage.isPresent()) {
+            return currentPackage.get();
         } else {
             return null;
         }
@@ -245,6 +245,6 @@ public class TransportAgent extends Vehicle implements CommUser {
      * @return true if agent is currently transporting something to it's destingtion
      */
     public boolean isDelivering(){
-        return getPDPModel().containerContains(this, curr.get());
+        return getPDPModel().containerContains(this, currentPackage.get());
     }
 }

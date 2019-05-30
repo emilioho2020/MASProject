@@ -15,6 +15,8 @@
  */
 package MASProject;
 
+import MASProject.Agents.PackageAgent;
+import MASProject.Agents.TransportAgent;
 import com.github.rinde.rinsim.core.model.DependencyProvider;
 import com.github.rinde.rinsim.core.model.ModelBuilder.AbstractModelBuilder;
 import com.github.rinde.rinsim.core.model.pdp.PDPModel;
@@ -73,7 +75,7 @@ public class TaxiRenderer extends AbstractCanvasRenderer {
 
       @Override
       public boolean apply(Entry<RoadUser, Point> input) {
-        return input.getKey() instanceof Taxi;
+        return input.getKey() instanceof TransportAgent;
       }
 
     }
@@ -85,7 +87,7 @@ public class TaxiRenderer extends AbstractCanvasRenderer {
       Maps.filterEntries(roadModel.getObjectsAndPositions(), Pred.INSTANCE);
 
     for (final Entry<RoadUser, Point> entry : map.entrySet()) {
-      final Taxi t = (Taxi) entry.getKey();
+      final TransportAgent t = (TransportAgent) entry.getKey();
       final Point p = entry.getValue();
       final int x = vp.toCoordX(p.x) + X_OFFSET;
       final int y = vp.toCoordY(p.y) + Y_OFFSET;

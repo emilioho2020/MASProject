@@ -1,19 +1,14 @@
 package Messages;
 
+import MASProject.Agents.PackageAgent;
 import MASProject.Agents.ResourceAgent;
 import com.github.rinde.rinsim.core.model.comm.MessageContents;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
-import com.github.rinde.rinsim.geom.Point;
 
 import java.util.*;
 
 public abstract class SmartMessage implements MessageContents {
-   //better to pass an ID with the messages
-    private int id = 0;
     private final String source;
-    //private final AntAcceptor destination;
-    //private delegateMAS delegate =new delegateMAS();
-    private List<Point> path;
     private RoadModel roadModel;
 
     SmartMessage(String source, RoadModel rm) {
@@ -25,30 +20,38 @@ public abstract class SmartMessage implements MessageContents {
         return source;
     }
 
-    public AntAcceptor getDestination() {
-        return destination;
-    }
+    public AntAcceptor getDestination() {return getPath().get(getPath().size()-1);}
 
-    public abstract void visit(ResourceAgent acceptor);
-
-    public RoadModel getRoadModel() {
-        return roadModel;
-    }
+    public RoadModel getRoadModel() {return roadModel;}
 
     /**
-     *
-     * @param point
+     * Returns the acceptor this ant has to visit after the given one
+     * If given acceptor is last one on path, throw exception //TODO
+     * @param acceptor
      * @return the next acceptor this ant has to visit
      */
-    public AntAcceptor getNextAcceptor(Point point) {
-        return null;
-        //TODO
+    public AntAcceptor getNextAcceptor(AntAcceptor acceptor){
+        int currentIndex = getPath().indexOf(acceptor);
+        //if (currentIndex == path.size()-1){throw new Exception("This already is the last acceptor node");}
+        return getPath().get(currentIndex+1);
     }
 
-
-    public void propagate(ResourceAgent resource){
-        resource.propagate(this, getNextAcceptor(resource.getPosition().get()));
+    public void propagate(AntAcceptor acceptor){
+        acceptor.propagate(this, getNextAcceptor(acceptor));
     }
 
-    public abstract Point getNextPoint(Point currentLocation);
+    public AntAcceptor getFirstAcceptor(){
+        return getPath().get(0);
+    }
+
+    /*********************************************************
+     * ABSTRACT
+     ***********************************************************/
+
+    public abstract List<AntAcceptor> getPath();
+
+    public abstract void visit(ResourceAgent resource);
+
+    public abstract void visit(PackageAgent packageAgent);
+
 }

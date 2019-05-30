@@ -34,6 +34,19 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
         this.roadModel = rm;
     }
 
+    @Override
+    public void tick(TimeLapse timeLapse) {
+        if(!(device.get().getUnreadCount() > 0)) {
+            return;
+        }
+
+        List<Message> messages = device.get().getUnreadMessages();
+        //Loop through the received messages
+        for(Message message : messages) {
+            SmartMessage ant = (SmartMessage) message.getContents();
+            deployAnt(ant);
+        }
+    }
 
     /************************************************************************
      * ANTS
@@ -54,21 +67,6 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
     public void deployAnt(SmartMessage ant) {
         ant.visit(this);
     }
-
-    @Override
-    public void tick(TimeLapse timeLapse) {
-        if(!(device.get().getUnreadCount() > 0)) {
-            return;
-        }
-
-        List<Message> messages = device.get().getUnreadMessages();
-        //Loop through the received messages
-        for(Message message : messages) {
-            SmartMessage ant = (SmartMessage) message.getContents();
-            deployAnt(ant);
-        }
-    }
-
 
     /******************************************************************************
      * Scheduling
@@ -105,6 +103,10 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
         double doubleTime = time.doubleValue(time.getUnit());
         return new TimeSlot(Math.floor(doubleTime),Math.floor(doubleTime)+TICK_LENGTH);
     }
+
+    /**************************************************************************
+     *
+     ***********************************/
 
     @Override
     public void afterTick(TimeLapse timeLapse) {

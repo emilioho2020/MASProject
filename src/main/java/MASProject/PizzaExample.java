@@ -127,7 +127,7 @@ public final class PizzaExample {
     //initialize transport agents
     for (int i = 0; i < NUM_BIKES; i++) {
       simulator.register(new TransportAgent(roadModel.getRandomPosition(rng),
-        TAXI_CAPACITY, roadModel));
+        TAXI_CAPACITY));
     }
     //initialize tasks
     for (int i = 0; i < NUM_CUSTOMERS; i++) {
@@ -185,7 +185,7 @@ public final class PizzaExample {
         .withImageAssociation(
           TaxiBase.class, "/graphics/perspective/tall-building-64.png")
         .withImageAssociation(
-          Taxi.class, "/graphics/flat/taxi-32.png")
+          TransportAgent.class, "/graphics/flat/taxi-32.png")
         .withImageAssociation(
           PackageAgent.class, "/graphics/flat/person-red-32.png"))
       //.with(TaxiRenderer.builder(Language.ENGLISH))

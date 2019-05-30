@@ -1,7 +1,9 @@
 package Messages;
 
+import MASProject.Agents.PackageAgent;
 import MASProject.Agents.ResourceAgent;
 import MASProject.Agents.TimeSlot;
+import MASProject.Util.AntPlan;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
@@ -12,31 +14,19 @@ import javax.measure.quantity.Duration;
 import java.util.*;
 
 public class IntentionMessage extends SmartMessage {
-    private Map<Point,Measure<Double,Duration>> scheduledPath;
+    private AntPlan antPlan;
     private boolean destinationReached = false;
     private boolean noReservation = false;
     private boolean refreshIntention = false;
 
-    public IntentionMessage(String source, Map<Point, Measure<Double,Duration>> scheduledPath, RoadModel roadModel) {
+    public IntentionMessage(String source,
+                            RoadModel roadModel,
+                            AntPlan antPlan) {
         super(source, roadModel);
-        this.scheduledPath = scheduledPath;
+        this.antPlan = antPlan;
     }
 
-    public Map<Point,Measure<Double,Duration>> getScheduledPath() {
-        return scheduledPath;
-    }
-
-    public Point getNextPoint(Point curr) {
-        List<Point> points = new ArrayList<>(scheduledPath.keySet());
-        return points.get(points.indexOf(curr)+1);
-    }
-
-
-    public void removePoint(Point p) {
-        scheduledPath.remove(p);
-    }
-
-    public Queue<Point> getPath() { return new LinkedList<>(scheduledPath.keySet()); }
+    public AntPlan getAntPlan(){return antPlan;}
 
     //Getters and Setters
 
@@ -56,32 +46,42 @@ public class IntentionMessage extends SmartMessage {
         this.noReservation = noReservation;
     }
 
-    public boolean isRefreshIntention() {
-        return refreshIntention;
-    }
+    public boolean isRefreshIntention() {return refreshIntention;}
 
     public void setRefreshIntention(boolean refreshIntention) {
         this.refreshIntention = refreshIntention;
     }
 
     @Override
+    public List<AntAcceptor> getPath() {return getAntPlan().getPath();}
+
+    /**
+     * reserves timeSlot in resource and checks if it has arrived.
+     * If not arrived, propagate
+     * If reservation failed, set NoReservation to true
+     * @param resource
+     */
+    @Override
     public void visit(ResourceAgent resource) {
-        List<Point> points = new ArrayList<>(getPath());
         Point position = resource.getPosition().get();
         boolean succ;
 
-        if (refreshIntention){succ = resource.refreshTimeSlot(getScheduledPath().get(position));}
-        else {succ = resource.reserveTimeSlot(getScheduledPath().get(position), getSource());}
+        if (isRefreshIntention()){succ = resource.refreshTimeSlot(getAntPlan().getSchedule().get(position));}
+        else {succ = resource.reserveTimeSlot(getAntPlan().getSchedule().get(position), getSource());}
         setNoReservation(!succ);
 
-        if (!resource.getPosition().get().equals(points.get(points.size() - 1))) {
-            //current node is not destination
-            propagate(resource);
-        } else {
-            //current node is destination so set flags for destination reached and
-            //to use ant for refreshing the intention
+        if (resource.equals(getDestination())) {
+            //current node is at destination
             setDestinationReached(true);
             setRefreshIntention(true);
+            propagate(resource);
+        } else {
+            propagate(resource);
         }
+    }
+
+    @Override
+    public void visit(PackageAgent packageAgent) {
+        //TODO commit to package
     }
 }
