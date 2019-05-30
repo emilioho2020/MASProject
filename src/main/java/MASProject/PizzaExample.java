@@ -42,11 +42,6 @@ import javax.annotation.Nullable;
 import javax.measure.unit.SI;
 import java.util.Set;
 
-import static com.google.common.collect.Maps.newHashMap;
-
-
-//Set<Point> nodes = roadModel.get(GraphRoadModel.class).getGraph().getNodes();
-
 
 /**
  * Example showing a fleet of taxis that have to pickup and transport customers
@@ -217,8 +212,6 @@ public final class PizzaExample {
       super(position);
       setCapacity(capacity);
     }
-
-
 
     @Override
     public void initRoadPDP(RoadModel pvRoadModel, PDPModel pPdpModel) {}

@@ -1,4 +1,4 @@
-package SelfExpiringHashMap;
+package MASProject.Util.SelfExpiringHashMap;
 
 /*
  * Copyright (c) 2018 Pierantonio Cangianiello

@@ -1,4 +1,4 @@
-package SelfExpiringHashMap;
+package MASProject.Util.SelfExpiringHashMap;
 
 /*
  * Copyright (c) 2018 Pierantonio Cangianiello
@@ -25,7 +25,6 @@ package SelfExpiringHashMap;
  */
 import java.util.Collection;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
