@@ -60,7 +60,6 @@ public class TransportAgent extends Vehicle implements CommUser {
         delegate = new delegateMAS(this, getRoadModel());
     }
 
-    //todo here we should consider separate plans for pickup and only after pickup a plan for delivery
     @Override
     protected void tickImpl(TimeLapse time) {
         final RoadModel rm = getRoadModel();
@@ -93,7 +92,6 @@ public class TransportAgent extends Vehicle implements CommUser {
             } else if (isDelivering() && !reservedPlan.isPresent()) {
                 //make plan
                 //should be same as when no objective
-                //todo check here
                 if(!preferredPlan.isPresent()) {
                     List<AntPlan> plans3 = findPlansToParcel();
                     choosePlan(plans3);
@@ -123,7 +121,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         if(preferredPlan.isPresent()) {
             System.out.println(preferredPlan.get().getSchedule());
             //if a preferred plan exists set a current objective
-            currentPackage = Optional.of(preferredPlan.get().getDestination());
+            currentPackage = Optional.of(preferredPlan.get().getDestination()); //TODO use this variable more efficiently
             delegate.sendIntentionAnt(preferredPlan.get());
         }
     }
@@ -171,6 +169,7 @@ public class TransportAgent extends Vehicle implements CommUser {
      * @return The best plan according to our heuristics
      * HEURISTIC: travel time
      */
+    //TODO
     private Optional<AntPlan> evaluatePlans(List<AntPlan> plans2) {
         if(plans2.isEmpty()) {
             return Optional.absent();
@@ -184,19 +183,8 @@ public class TransportAgent extends Vehicle implements CommUser {
     }
 
     //get path from antPlan and follow it.
-    //TODO: probably some more code in how agent follows the schedule
-    //TODO: !!!!!!!better method to compare points!!!!!!!!!!!
     private void followPlan(RoadModel rm, TimeLapse time, AntPlan antPlan) {
-        if(path.isEmpty()) {
-            path.addAll(antPlan.getPath());
-        }
-
-        if(Point.Comparators.XY.compare(path.peek(), rm.getPosition(this)) >= 0) {
-            Point temp = path.remove();
-            antPlan.removePoint(temp);
-            delegate.removePoint(temp);
-        }
-        rm.followPath(this, path, time);
+        //TODO
     }
 
     //method to clear the state of the agent
@@ -242,7 +230,7 @@ public class TransportAgent extends Vehicle implements CommUser {
     }
 
     /**
-     * @return true if agent is currently transporting something to it's destingtion
+     * @return true if agent is currently transporting something to it's destination
      */
     public boolean isDelivering(){
         return getPDPModel().containerContains(this, currentPackage.get());

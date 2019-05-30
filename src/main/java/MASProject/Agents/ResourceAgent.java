@@ -58,10 +58,9 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
      * @param next
      */
     @Override
-    public void propagate(SmartMessage ant, AntAcceptor next) { //TODO implement AntAcceptor
+    public void propagate(SmartMessage ant, AntAcceptor next) {
         device.get().send(ant, next);
     }
-
 
     @Override
     public void deployAnt(SmartMessage ant) {
@@ -71,13 +70,12 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
     /******************************************************************************
      * Scheduling
      ***********************************************************************/
-
-
     /**
      * Tries to reserve given timeSlot
      * @param duration
      * @return true if succeeded, false if not
      */
+    //TODO
     public boolean reserveTimeSlot(Measure<Double, Duration> duration, String id){
         //if schedule already has a reservation in the given TimeSlot and this message is not a refresh send noReservation to source
         if (alreadyBusy(duration)) {
@@ -99,6 +97,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
         return false;
     }
 
+    //TODO
     private TimeSlot calculateTimeSlot(Measure<Double,Duration> time) {
         double doubleTime = time.doubleValue(time.getUnit());
         return new TimeSlot(Math.floor(doubleTime),Math.floor(doubleTime)+TICK_LENGTH);
