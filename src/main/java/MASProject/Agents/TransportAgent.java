@@ -113,7 +113,9 @@ public class TransportAgent extends Vehicle implements CommUser {
     private void setReserved() {
         try {
             Boolean result = delegate.isReservationMade();
-            if (result){reservedPlan = preferredPlan;}
+            if (result){
+                reservedPlan = preferredPlan;
+                currentPackage = Optional.of(reservedPlan.get().getObjectivePackage());}
         } catch (Exception e) {
             System.out.println("No reservation.");
             clearObjective();
