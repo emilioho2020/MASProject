@@ -7,13 +7,19 @@ import com.github.rinde.rinsim.core.model.comm.CommDevice;
 import com.github.rinde.rinsim.core.model.comm.CommDeviceBuilder;
 import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.pdp.PDPModel;
+import com.github.rinde.rinsim.core.model.pdp.PDPModelEvent;
 import com.github.rinde.rinsim.core.model.pdp.Parcel;
 import com.github.rinde.rinsim.core.model.pdp.ParcelDTO;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
+import com.github.rinde.rinsim.core.model.time.TickListener;
+import com.github.rinde.rinsim.core.model.time.TimeLapse;
+import com.github.rinde.rinsim.event.Event;
+import com.github.rinde.rinsim.event.Listener;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
+import static com.google.common.base.Verify.verify;
 
-public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASNode {
+public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASNode, TickListener, Listener {
 
     private double weight = 0;
     //private Point deliveryLocation; already in superclass
@@ -24,6 +30,9 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
     private final double range = 4.2;
     private final double reliability = 1;
     Optional<CommDevice> device;
+
+    private int waitTime = 0;
+    private int travelTime = 0;
 
     public PackageAgent(ParcelDTO dto) {
         super(dto);
@@ -48,7 +57,9 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
 
 
     @Override
-    public void initRoadPDP(RoadModel pRoadModel, PDPModel pPdpModel) {}
+    public void initRoadPDP(RoadModel pRoadModel, PDPModel pPdpModel) {
+        pPdpModel.getEventAPI().addListener(this, PDPModel.PDPModelEventType.END_DELIVERY);
+    }
 
     @Override
     public Optional<Point> getPosition() {
@@ -77,5 +88,29 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
     @Override
     public void propagate(SmartMessage ant, AntAcceptor next) {
         device.get().send(ant,next);
+    }
+
+    @Override
+    public void tick(TimeLapse timeLapse) {
+        PDPModel.ParcelState ps = getPDPModel().getParcelState(this);
+        if(ps == PDPModel.ParcelState.ANNOUNCED || ps == PDPModel.ParcelState.AVAILABLE) {
+            waitTime ++;
+        }
+        if(ps == PDPModel.ParcelState.IN_CARGO) {
+            travelTime ++;
+        }
+    }
+
+    @Override
+    public void afterTick(TimeLapse timeLapse) {
+
+    }
+
+    @Override
+    public void handleEvent(Event e) {
+
+        if(e.getEventType() == PDPModel.PDPModelEventType.END_DELIVERY) {
+
+        }
     }
 }

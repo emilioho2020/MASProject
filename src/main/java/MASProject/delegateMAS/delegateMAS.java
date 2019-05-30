@@ -74,13 +74,40 @@ public class delegateMAS {
     public void exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time, PackageAgent objectivePackage){
         List<Point> temp = roadModel.getShortestPathTo(agent,objective); // this is shortest rout but has points instead of AntAcceptors
         List<AntAcceptor> path = new LinkedList<>();                     // so we convert the points to ant acceptors
-        for(Point point: temp) {                                         //
-            path.add(PizzaExample.DMAS_MODEL.getAntAcceptor(point));     //
-        }                                                                // ugly right :p
+        for(Point point: temp) {
+            //fixed here
+            if(!goodPoint(point)) {
+                continue;
+            }
+            path.add(PizzaExample.DMAS_MODEL.getAntAcceptor(point));
+        }
         ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path, objectivePackage);
 
-        ant.sendFromTransportAgent(time, getPosition()); //TODO badly written will give problems as soon as we modify something
+        //fixed here
+        Point currPos = getPosition();
+        if(!goodPoint(currPos)){
+            currPos = repairPoint(currPos);
+        }
+        ant.sendFromTransportAgent(time, currPos); //TODO badly written will give problems as soon as we modify something
         explorationAnts.add(ant);
+    }
+
+    public boolean goodPoint(Point point) {
+        return (point.x % 4 == 0) && (point.y % 4 == 0);
+    }
+
+    public Point repairPoint(Point point) {
+        double x = point.x;
+        double y = point.y;
+
+        if (x % 4 != 0) {
+            x = x - (x % 4) + 4;
+        }
+        if (y % 4 != 0) {
+            y = y - (y % 4) + 4;
+        }
+        System.out.println(x+" "+y);
+        return new Point(x, y);
     }
 
     public void explorePathsToKNearestParcels(int k, TimeLapse time){
