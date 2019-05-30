@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2855eb0f-6199-4a5f-9055-1258c8b89f0b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/MASProject/Statistics/Statistic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/Agents/PackageAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/Agents/PackageAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/Statistics/Statistic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/Statistics/Statistic.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,26 +55,26 @@
     <session id="734404803">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="5922" />
-          <entry key="txt" value="29" />
+          <entry key="java" value="7087" />
+          <entry key="txt" value="70" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5922" />
-          <entry key="PLAIN_TEXT" value="29" />
+          <entry key="JAVA" value="7087" />
+          <entry key="PLAIN_TEXT" value="70" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="6" />
-          <entry key="java" value="36" />
+          <entry key="java" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="6" />
-          <entry key="JAVA" value="36" />
+          <entry key="JAVA" value="37" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -97,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="123" column="7" lean-forward="true" selection-start-line="123" selection-start-column="7" selection-end-line="123" selection-end-column="7" />
+            <state relative-caret-position="85">
+              <caret line="168" column="30" selection-start-line="168" selection-start-column="30" selection-end-line="168" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3246#3247#0" expanded="true" />
@@ -149,8 +148,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
+            <state relative-caret-position="-1030">
+              <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
               <folding>
                 <element signature="e#1813#1814#0" expanded="true" />
                 <element signature="e#1862#1863#0" expanded="true" />
@@ -173,10 +172,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="91" column="37" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/PackageAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1425">
-              <caret line="112" selection-start-line="112" selection-end-line="112" />
+            <state relative-caret-position="257">
+              <caret line="115" column="77" selection-start-line="115" selection-start-column="77" selection-end-line="115" selection-end-column="77" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1226#1227#0" expanded="true" />
@@ -186,7 +197,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Messages/SmartMessage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="200">
@@ -199,39 +210,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Statistics/Statistic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
+            <state relative-caret-position="227">
+              <caret line="80" column="78" selection-start-line="80" selection-start-column="78" selection-end-line="80" selection-end-column="78" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#238#239#0" expanded="true" />
                 <element signature="e#281#282#0" expanded="true" />
                 <element signature="e#339#340#0" expanded="true" />
                 <element signature="e#361#362#0" expanded="true" />
-                <element signature="e#429#430#0" expanded="true" />
-                <element signature="e#450#451#0" expanded="true" />
-                <element signature="e#502#503#0" expanded="true" />
-                <element signature="e#525#526#0" expanded="true" />
-                <element signature="e#571#572#0" expanded="true" />
-                <element signature="e#595#596#0" expanded="true" />
-                <element signature="e#562#563#0" expanded="true" />
-                <element signature="e#583#584#0" expanded="true" />
+                <element signature="e#1200#1201#0" expanded="true" />
+                <element signature="e#1253#1254#0" expanded="true" />
                 <element signature="e#706#707#0" expanded="true" />
                 <element signature="e#730#731#0" expanded="true" />
-                <element signature="e#776#777#0" expanded="true" />
-                <element signature="e#800#801#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="915">
-              <caret line="82" column="10" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -247,7 +241,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>clear</find>
       <find>findPlansToParcel</find>
       <find>getExplorationResults</find>
       <find>refreshReservation</find>
@@ -266,17 +259,18 @@
       <find>reservedPlan</find>
       <find>roadModel</find>
       <find>delegate</find>
-      <find>explorePathsToKNearestParcels</find>
       <find>deployAnt</find>
       <find>addCost</find>
       <find>explorationAnts</find>
       <find>propagate</find>
       <find>preferredPlan</find>
-      <find>waitTime</find>
       <find>calculateCost</find>
       <find>getDestination</find>
       <find>getPlansToObjective</find>
       <find>Sys</find>
+      <find>explorePathsToKNearestParcels</find>
+      <find>waitTime</find>
+      <find>endTime</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -313,13 +307,13 @@
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Model/DMASModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Util/AntPlan.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" />
         <option value="$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/PackageAgent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/MASProject/Statistics/Statistic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java" />
         <option value="$PROJECT_DIR$/src/main/java/Messages/SmartMessage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/PackageAgent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MASProject/Statistics/Statistic.java" />
       </list>
     </option>
   </component>
@@ -453,7 +447,7 @@
     <property name="SearchEverywhereHistoryKey" value="refreshReservation&#9;PSI&#9;JAVA://MASProject.delegateMAS.delegateMAS#refreshReservation&#10;setComm&#9;PSI&#9;JAVA://emileTest.Agent#setCommDevice&#10;Comparators&#9;PSI&#9;JAVA://com.github.rinde.rinsim.geom.Point.Comparators&#10;Point&#9;PSI&#9;JAVA://com.github.rinde.rinsim.geom.Point&#10;TimeLapse&#9;PSI&#9;JAVA://com.github.rinde.rinsim.core.model.time.TimeLapse&#10;computeDistance&#9;PSI&#9;JAVA://com.github.rinde.rinsim.core.model.road.GraphRoadModelImpl#computeDistanceOnConnection&#10;CommRenderer&#9;PSI&#9;JAVA://com.github.rinde.rinsim.ui.renderers.CommRenderer&#10;Customer&#9;PSI&#9;JAVA://MASProject.PizzaExample.Customer&#10;getObjectsOfType&#9;ACTION&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559254127985" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559256664272" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -763,7 +757,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559239381179</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fixed bug of no agent in resource">
+      <created>1559254172754</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1559254172754</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -782,7 +783,7 @@
     <frame x="-1" y="-11" width="1602" height="912" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22844273" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22844273" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -792,7 +793,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49227798" weight="0.32860824" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.56177604" visible="true" weight="0.38917527" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.56177604" visible="true" weight="0.38917527" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49227798" weight="0.3969072" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -860,7 +861,8 @@
     <MESSAGE value="Now it works" />
     <MESSAGE value="newer skeleton for transport agent" />
     <MESSAGE value="Working example with 2 agents" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working example with 2 agents" />
+    <MESSAGE value="Fixed bug of no agent in resource" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug of no agent in resource" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/examplesInternet/project/model/AntAgent.java" />
@@ -1072,16 +1074,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-420">
-          <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="915">
@@ -1103,44 +1095,6 @@
           <folding>
             <element signature="e#655#656#0" expanded="true" />
             <element signature="e#702#703#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/PackageAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="112" selection-start-line="112" selection-end-line="112" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1226#1227#0" expanded="true" />
-            <element signature="e#1252#1253#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Statistics/Statistic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#238#239#0" expanded="true" />
-            <element signature="e#281#282#0" expanded="true" />
-            <element signature="e#339#340#0" expanded="true" />
-            <element signature="e#361#362#0" expanded="true" />
-            <element signature="e#429#430#0" expanded="true" />
-            <element signature="e#450#451#0" expanded="true" />
-            <element signature="e#502#503#0" expanded="true" />
-            <element signature="e#525#526#0" expanded="true" />
-            <element signature="e#571#572#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#562#563#0" expanded="true" />
-            <element signature="e#583#584#0" expanded="true" />
-            <element signature="e#706#707#0" expanded="true" />
-            <element signature="e#730#731#0" expanded="true" />
-            <element signature="e#776#777#0" expanded="true" />
-            <element signature="e#800#801#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1173,8 +1127,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
+        <state relative-caret-position="-1030">
+          <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
           <folding>
             <element signature="e#1813#1814#0" expanded="true" />
             <element signature="e#1862#1863#0" expanded="true" />
@@ -1188,14 +1142,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="123" column="7" lean-forward="true" selection-start-line="123" selection-start-column="7" selection-end-line="123" selection-end-column="7" />
+        <state relative-caret-position="85">
+          <caret line="168" column="30" selection-start-line="168" selection-start-column="30" selection-end-line="168" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3246#3247#0" expanded="true" />
             <element signature="e#3301#3302#0" expanded="true" />
             <element signature="e#6945#6946#0" expanded="true" />
             <element signature="e#7011#7012#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/PackageAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="115" column="77" selection-start-line="115" selection-start-column="77" selection-end-line="115" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1226#1227#0" expanded="true" />
+            <element signature="e#1252#1253#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1207,6 +1173,34 @@
           <folding>
             <element signature="e#1454#1455#0" expanded="true" />
             <element signature="e#1521#1522#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="91" column="37" selection-start-line="91" selection-start-column="37" selection-end-line="91" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Statistics/Statistic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="80" column="78" selection-start-line="80" selection-start-column="78" selection-end-line="80" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#238#239#0" expanded="true" />
+            <element signature="e#281#282#0" expanded="true" />
+            <element signature="e#339#340#0" expanded="true" />
+            <element signature="e#361#362#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+            <element signature="e#1253#1254#0" expanded="true" />
+            <element signature="e#706#707#0" expanded="true" />
+            <element signature="e#730#731#0" expanded="true" />
           </folding>
         </state>
       </provider>

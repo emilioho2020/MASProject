@@ -1,6 +1,7 @@
 package MASProject.Agents;
 
 import MASProject.Model.DMASNode;
+import MASProject.PizzaExample;
 import Messages.AntAcceptor;
 import Messages.SmartMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
@@ -17,6 +18,8 @@ import com.github.rinde.rinsim.event.Event;
 import com.github.rinde.rinsim.event.Listener;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
+import org.apache.commons.lang3.tuple.Pair;
+
 import static com.google.common.base.Verify.verify;
 
 public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASNode, TickListener, Listener {
@@ -110,7 +113,7 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
     public void handleEvent(Event e) {
 
         if(e.getEventType() == PDPModel.PDPModelEventType.END_DELIVERY) {
-
+            PizzaExample.STATISTIC.registerRecord(Pair.of(waitTime,travelTime));
         }
     }
 }

@@ -19,6 +19,7 @@ import MASProject.Agents.ResourceAgent;
 import MASProject.Agents.TransportAgent;
 import MASProject.Agents.PackageAgent;
 import MASProject.Model.DMASModel;
+import MASProject.Statistics.Statistic;
 import MASProject.Util.PathFinder;
 import com.github.rinde.rinsim.core.Simulator;
 import com.github.rinde.rinsim.core.model.comm.CommModel;
@@ -77,6 +78,8 @@ public final class PizzaExample {
     //This variable holds the position of every resource in the graph
     public static final DMASModel DMAS_MODEL= new DMASModel();
 
+    public static final Statistic STATISTIC = new Statistic();
+
   private PizzaExample() {}
 
   /**
@@ -86,7 +89,7 @@ public final class PizzaExample {
    */
   public static void main(@Nullable String[] args) {
     final long endTime = args != null && args.length >= 1 ? Long
-      .parseLong(args[0]) : Long.MAX_VALUE;
+      .parseLong(args[0]) : 1000*7000;
     run(endTime, null /* new Display() */, null, null);
   }
 
@@ -163,6 +166,7 @@ public final class PizzaExample {
       public void tick(TimeLapse time) {
         if (time.getStartTime() > endTime) {
           simulator.stop();
+          STATISTIC.printStatistics();
         } else if (rng.nextDouble() < NEW_CUSTOMER_PROB) {
           simulator.register(new PackageAgent(
             Parcel
