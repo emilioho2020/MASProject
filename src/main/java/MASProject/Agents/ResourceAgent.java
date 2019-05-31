@@ -100,6 +100,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
                     (timeSlot.getStartTime() <= slot.getEndTime() && slot.getEndTime() < timeSlot.getEndTime()) ||
                     (slot.getStartTime() <= timeSlot.getStartTime() && timeSlot.getStartTime() < slot.getEndTime()) ||
                     (slot.getStartTime() <= timeSlot.getEndTime() && timeSlot.getEndTime() < slot.getEndTime())) {
+                System.out.println(position+" "+timeSlots);
                 return true;
             }
         }
