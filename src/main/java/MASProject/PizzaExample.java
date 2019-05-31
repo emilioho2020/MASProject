@@ -89,7 +89,7 @@ public final class PizzaExample {
    */
   public static void main(@Nullable String[] args) {
     final long endTime = args != null && args.length >= 1 ? Long
-      .parseLong(args[0]) : Long.MAX_VALUE;//1000*7000;
+      .parseLong(args[0]) : 1000*4000;
     run(endTime, null /* new Display() */, null, null);
   }
 

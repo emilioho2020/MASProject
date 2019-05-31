@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2855eb0f-6199-4a5f-9055-1258c8b89f0b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -19,13 +20,13 @@
     <session id="-1331397373">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3597" />
+          <entry key="java" value="3600" />
           <entry key="txt" value="155" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3597" />
+          <entry key="JAVA" value="3600" />
           <entry key="PLAIN_TEXT" value="155" />
         </counts>
       </usages-collector>
@@ -95,7 +96,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3075">
@@ -123,11 +124,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="68" column="55" selection-start-line="68" selection-start-column="55" selection-end-line="68" selection-end-column="55" />
+            <state relative-caret-position="300">
+              <caret line="91" column="34" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -225,11 +226,11 @@
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Plan.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/packageAgent.java" />
         <option value="$PROJECT_DIR$/src/main/java/Messages/IntentionMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" />
         <option value="$PROJECT_DIR$/src/main/java/Messages/ExplorationMessage.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/TransportAgent.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/delegateMAS/delegateMAS.java" />
         <option value="$PROJECT_DIR$/src/main/java/MASProject/Agents/ResourceAgent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java" />
       </list>
     </option>
   </component>
@@ -393,7 +394,7 @@
     <property name="SearchEverywhereHistoryKey" value="Experiment&#9;PSI&#9;JAVA://com.github.rinde.rinsim.experiment.Experiment&#10;refreshReservation&#9;PSI&#9;JAVA://MASProject.delegateMAS.delegateMAS#refreshReservation&#10;setComm&#9;PSI&#9;JAVA://emileTest.Agent#setCommDevice&#10;Comparators&#9;PSI&#9;JAVA://com.github.rinde.rinsim.geom.Point.Comparators&#10;Point&#9;PSI&#9;JAVA://com.github.rinde.rinsim.geom.Point&#10;TimeLapse&#9;PSI&#9;JAVA://com.github.rinde.rinsim.core.model.time.TimeLapse&#10;computeDistance&#9;PSI&#9;JAVA://com.github.rinde.rinsim.core.model.road.GraphRoadModelImpl#computeDistanceOnConnection&#10;CommRenderer&#9;PSI&#9;JAVA://com.github.rinde.rinsim.ui.renderers.CommRenderer&#10;Customer&#9;PSI&#9;JAVA://MASProject.PizzaExample.Customer&#10;getObjectsOfType&#9;ACTION&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559312780191" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559314299068" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -746,7 +747,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559312497388</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="instant messages; badPackages list">
+      <created>1559312961988</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1559312961988</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -775,7 +783,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4986577" weight="0.32824427" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5668331" weight="0.38931298" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.5668331" visible="true" weight="0.38931298" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49362174" weight="0.39803708" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1012,16 +1020,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="68" column="55" selection-start-line="68" selection-start-column="55" selection-end-line="68" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/Agents/PackageAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1043,6 +1041,16 @@
           <folding>
             <element signature="e#3310#3311#0" expanded="true" />
             <element signature="e#3365#3366#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MASProject/PizzaExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="91" column="34" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
