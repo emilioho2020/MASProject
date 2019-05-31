@@ -31,7 +31,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
 
     public ResourceAgent(Point position, RoadModel rm) {
         this.position = position;
-        schedule = new SelfExpiringHashMap<TimeSlot, String>(2000L);
+        schedule = new SelfExpiringHashMap<TimeSlot, String>(4000L);
         this.roadModel = rm;
     }
 
@@ -60,7 +60,8 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
      */
     @Override
     public void propagate(SmartMessage ant, AntAcceptor next) {
-        device.get().send(ant, next);
+        //device.get().send(ant, next);
+        next.deployAnt(ant);
     }
 
     @Override

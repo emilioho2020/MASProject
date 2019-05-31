@@ -76,10 +76,11 @@ public class delegateMAS {
         List<AntAcceptor> path = new LinkedList<>();                     // so we convert the points to ant acceptors
         for(Point point: temp) {
             //fixed here
+            Point newPoint = point;
             if(!goodPoint(point)) {
-                continue;
+                newPoint = repairPoint(point);
             }
-            path.add(PizzaExample.DMAS_MODEL.getAntAcceptor(point));
+            path.add(PizzaExample.DMAS_MODEL.getAntAcceptor(newPoint));
         }
         ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path, objectivePackage);
 
@@ -88,7 +89,7 @@ public class delegateMAS {
         if(!goodPoint(currPos)){
             currPos = repairPoint(currPos);
         }
-        ant.sendFromTransportAgent(time, currPos); //TODO badly written will give problems as soon as we modify something
+        ant.sendFromTransportAgent(time, PizzaExample.DMAS_MODEL.getLocation(path.get(0))); //TODO badly written will give problems as soon as we modify something
         explorationAnts.add(ant);
     }
 
@@ -101,10 +102,10 @@ public class delegateMAS {
         double y = point.y;
 
         if (x % 4 != 0) {
-            x = x - (x % 4) + 4;
+            x = x - (x % 4);
         }
         if (y % 4 != 0) {
-            y = y - (y % 4) + 4;
+            y = y - (y % 4);
         }
         System.out.println(x+" "+y);
         return new Point(x, y);
@@ -112,6 +113,11 @@ public class delegateMAS {
 
     public void explorePathsToKNearestParcels(int k, TimeLapse time){
         List<PackageAgent> possibleObjectives = RoadModels.findClosestObjects(getPosition(), getRoadModel(), PackageAgent.class, k);
+        for (PackageAgent objective: agent.badPackages) {
+            if(possibleObjectives.contains(objective)){
+                possibleObjectives.remove(objective);
+            }
+        }
         for(PackageAgent objective: possibleObjectives) {
             if (alreadyExploring(objective)) {
                 continue;
@@ -139,7 +145,7 @@ public class delegateMAS {
     //check if objective AntAcceptor is already being explored
     public boolean alreadyExploring(AntAcceptor objective) {
         for(ExplorationMessage ant : explorationAnts) {
-            if(ant.getDestination().equals(objective))
+            if(ant.getDestination().equals(objective) || agent.badPackages.contains(objective))
                 return true;
         }
         return false;

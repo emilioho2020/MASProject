@@ -26,6 +26,7 @@ public class TransportAgent extends Vehicle implements CommUser {
     public static final double SPEED_KMH = 1d;
 
     private Optional<PackageAgent> currentPackage;
+    public List<PackageAgent> badPackages = new LinkedList<>();
 
     //the plans-from BDI
     private Optional<AntPlan> preferredPlan;
@@ -131,6 +132,7 @@ public class TransportAgent extends Vehicle implements CommUser {
             if (result){reservedPlan = preferredPlan;}
         } catch (Exception e) {
             System.out.println("No reservation.");
+            badPackages.add(currentPackage.get());
             clearObjective();
             //currentPackage = Optional.absent();
         }
