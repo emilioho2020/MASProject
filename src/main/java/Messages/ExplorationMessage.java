@@ -46,7 +46,7 @@ public class ExplorationMessage extends SmartMessage {
         double end = costSoFar.doubleValue(SI.MILLI(SI.SECOND));
         double temp = end - start;
         //if destination is reached reserve last resource for a longer time because it needs time to eplore again and to pickup/deliver
-        double reachedPenalty = resource.equals(getDestination()) ? 20*1000 + 70*1000: 0;
+        double reachedPenalty = resource.equals(getDestination()) ? 30*1000 + 70*1000: 0;
         //reserve slot for [start + cost/2, start + cost + cost/2]
         TimeSlot slot = new TimeSlot(start + (temp/2), end + (temp/2) + reachedPenalty);
         addToScheduledPath(resource, slot);

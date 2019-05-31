@@ -132,7 +132,7 @@ public class TransportAgent extends Vehicle implements CommUser {
         } catch (Exception e) {
             System.out.println("No reservation.");
             clearObjective();
-            currentPackage = Optional.absent();
+            //currentPackage = Optional.absent();
         }
     }
 

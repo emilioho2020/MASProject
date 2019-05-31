@@ -31,7 +31,7 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
 
     public ResourceAgent(Point position, RoadModel rm) {
         this.position = position;
-        schedule = new SelfExpiringHashMap<TimeSlot, String>(3000L);
+        schedule = new SelfExpiringHashMap<TimeSlot, String>(2000L);
         this.roadModel = rm;
     }
 
@@ -97,7 +97,9 @@ public class ResourceAgent implements CommUser, TickListener, RoadUser, AntAccep
         for (TimeSlot timeSlot: timeSlots) {
             //Checking if either start or end time of the provided slot lives inside the schedule
             if ((timeSlot.getStartTime() <= slot.getStartTime() && slot.getStartTime() < timeSlot.getEndTime()) ||
-                    (timeSlot.getStartTime() <= slot.getEndTime() && slot.getEndTime() < timeSlot.getEndTime())) {
+                    (timeSlot.getStartTime() <= slot.getEndTime() && slot.getEndTime() < timeSlot.getEndTime()) ||
+                    (slot.getStartTime() <= timeSlot.getStartTime() && timeSlot.getStartTime() < slot.getEndTime()) ||
+                    (slot.getStartTime() <= timeSlot.getEndTime() && timeSlot.getEndTime() < slot.getEndTime())) {
                 return true;
             }
         }
