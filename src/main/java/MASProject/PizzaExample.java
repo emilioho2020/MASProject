@@ -20,7 +20,6 @@ import MASProject.Agents.TransportAgent;
 import MASProject.Agents.PackageAgent;
 import MASProject.Model.DMASModel;
 import MASProject.Statistics.Statistic;
-import MASProject.Util.PathFinder;
 import com.github.rinde.rinsim.core.Simulator;
 import com.github.rinde.rinsim.core.model.comm.CommModel;
 import com.github.rinde.rinsim.core.model.pdp.*;
