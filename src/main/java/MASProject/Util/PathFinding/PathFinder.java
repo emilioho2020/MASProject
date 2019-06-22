@@ -14,7 +14,7 @@ public class PathFinder {
     }
 
     public static List<List<Point>> findKPenaltyPaths(RoadModel rm, Point start, Point destination, int k){
-        PenaltyHeuristic heur = new PenaltyHeuristic();
+        PenaltyHeuristicV2 heur = new PenaltyHeuristicV2();
         System.out.println("Searching"+ k + "penalty driven routes from point " + start + "to point " + destination);
         List<List<Point>> S = new ArrayList<>();
         int numFails = 0;
@@ -30,10 +30,11 @@ public class PathFinder {
                 S.add(p);
                 numFails = 0;}
 
-            for(Point point : p){
+            for(int i = 0; i < p.size()-1; i++){
+                Point point = p.get(i);
                 double beta = Math.random();
                 if (beta < alpha){
-                    heur.addPenalty(point);
+                    heur.addPenalty(point,p.get(i+1));
                 }
             }
         }
