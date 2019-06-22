@@ -1,21 +1,30 @@
 package MASProject.Statistics;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.github.rinde.rinsim.core.model.time.TickListener;
+import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-public class Statistic {
+public class Statistic implements TickListener{
     //Pair<waitTime,travelTime>
     private final List<Pair<Integer,Integer>> records;
+    private int deliveries = 0;
+    private TimeLapse currTime;
+    private final Map<Long,Integer> plot;
 
     public Statistic() {
         records = new LinkedList<>();
+        plot = new LinkedHashMap<>();
+        plot.put(0L,deliveries);
     }
 
     public void registerRecord(Pair<Integer,Integer> record) {
         records.add(record);
+        deliveries++;
     }
 
     public List<Integer> getWaitingTimes() {
@@ -87,5 +96,28 @@ public class Statistic {
         System.out.println("            Max waiting time: "+computeMaxWaitingTime());
         System.out.println("            Max travel time: "+computeMaxTravelTime());
         System.out.println("%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%");
+    }
+
+    public void printPlot(){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(plot);
+            System.out.println(json);
+            System.out.println(deliveries);
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
+    }
+
+    //Not able to record events when they happen here
+    @Override
+    public void tick(TimeLapse timeLapse) {
+        System.out.println("smthhhhhh");
+        plot.put(timeLapse.getEndTime(),deliveries);
+    }
+
+    @Override
+    public void afterTick(TimeLapse timeLapse) {
+
     }
 }

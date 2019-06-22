@@ -22,7 +22,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import static com.google.common.base.Verify.verify;
 
-public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASNode, TickListener, Listener {
+public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASNode, TickListener{
 
     private double weight = 0;
     //private Point deliveryLocation; already in superclass
@@ -36,6 +36,8 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
 
     private int waitTime = 0;
     private int travelTime = 0;
+
+    private boolean executed = false;
 
     public PackageAgent(ParcelDTO dto) {
         super(dto);
@@ -61,7 +63,6 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
 
     @Override
     public void initRoadPDP(RoadModel pRoadModel, PDPModel pPdpModel) {
-        pPdpModel.getEventAPI().addListener(this, PDPModel.PDPModelEventType.END_DELIVERY);
     }
 
     @Override
@@ -101,19 +102,17 @@ public class PackageAgent extends Parcel implements CommUser, AntAcceptor, DMASN
         }
         if(ps == PDPModel.ParcelState.IN_CARGO) {
             travelTime ++;
+        }// fixed here for correct statistics
+        if(ps == PDPModel.ParcelState.DELIVERED) {
+            if(!executed) {
+                PizzaExample.STATISTIC.registerRecord(Pair.of(waitTime, travelTime));
+                executed = true;
+            }
         }
     }
 
     @Override
     public void afterTick(TimeLapse timeLapse) {
 
-    }
-
-    @Override
-    public void handleEvent(Event e) {
-
-        if(e.getEventType() == PDPModel.PDPModelEventType.END_DELIVERY) {
-            PizzaExample.STATISTIC.registerRecord(Pair.of(waitTime,travelTime));
-        }
     }
 }

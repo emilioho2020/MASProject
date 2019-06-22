@@ -70,12 +70,15 @@ public class delegateMAS {
     //should be void return type because ants don't make plans in one tick
     public void exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time, PackageAgent objectivePackage){
         //List<Point> temp = roadModel.getShortestPathTo(agent,objective); // this is shortest rout but has points instead of AntAcceptors
+
+        Random rng = new Random();
+
         Point thisPosition = repairPoint(this.getPosition());
         Point objPosition = repairPoint(objective.getPosition().get());
         List<List<Point>> pathsList = PathFinder.findKPenaltyPaths(roadModel,thisPosition,objPosition,3);
         for(List<Point> temp : pathsList) {
             List<AntAcceptor> path = new LinkedList<>();                     // so we convert the points to ant acceptors
-            for (Point point : temp) {
+            for (Point point : /*pathsList.get(rng.nextInt(pathsList.size()))*/temp) {
                 //fixed here
                 Point newPoint = point;
                 if (!goodPoint(point)) {

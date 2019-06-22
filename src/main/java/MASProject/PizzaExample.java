@@ -59,8 +59,8 @@ import static com.google.common.collect.Maps.newHashMap;
 public final class PizzaExample {
 
     private static final int NUM_RESTAURANTS = 0;
-    private static final int NUM_BIKES = 5;
-    private static final int NUM_CUSTOMERS = 10;
+    private static final int NUM_BIKES = 2;
+    private static final int NUM_CUSTOMERS = 5;
 
     // time in ms
     private static final long SERVICE_DURATION = 60000;
@@ -166,6 +166,7 @@ public final class PizzaExample {
         if (time.getStartTime() > endTime) {
           simulator.stop();
           STATISTIC.printStatistics();
+          STATISTIC.printPlot();
         } else if (rng.nextDouble() < NEW_CUSTOMER_PROB) {
           simulator.register(new PackageAgent(
             Parcel
