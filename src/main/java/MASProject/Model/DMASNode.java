@@ -7,5 +7,5 @@ import com.google.common.base.Optional;
 //User of the DMASModel
 public interface DMASNode {
 
-    public Optional<Point> getPosition();
+    Optional<Point> getPosition();
 }

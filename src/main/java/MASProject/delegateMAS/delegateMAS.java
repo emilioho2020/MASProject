@@ -4,20 +4,17 @@ import MASProject.Agents.PackageAgent;
 import MASProject.Agents.TransportAgent;
 import MASProject.PizzaExample;
 import MASProject.Util.AntPlan;
+import MASProject.Util.PathFinding.PathFinder;
 import Messages.AntAcceptor;
 import Messages.ExplorationMessage;
 import Messages.IntentionMessage;
 import com.github.rinde.rinsim.core.model.comm.CommDevice;
-import com.github.rinde.rinsim.core.model.comm.CommUser;
 import com.github.rinde.rinsim.core.model.road.RoadModel;
 import com.github.rinde.rinsim.core.model.road.RoadModels;
 import com.github.rinde.rinsim.core.model.time.TimeLapse;
 import com.github.rinde.rinsim.geom.Point;
 import com.google.common.base.Optional;
 
-import javax.measure.Measure;
-import javax.measure.unit.NonSI;
-import javax.measure.unit.SI;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -72,25 +69,30 @@ public class delegateMAS {
      *****************************************************************************/
     //should be void return type because ants don't make plans in one tick
     public void exploreKShortestPathsTo(AntAcceptor objective, int k, TimeLapse time, PackageAgent objectivePackage){
-        List<Point> temp = roadModel.getShortestPathTo(agent,objective); // this is shortest rout but has points instead of AntAcceptors
-        List<AntAcceptor> path = new LinkedList<>();                     // so we convert the points to ant acceptors
-        for(Point point: temp) {
-            //fixed here
-            Point newPoint = point;
-            if(!goodPoint(point)) {
-                newPoint = repairPoint(point);
+        //List<Point> temp = roadModel.getShortestPathTo(agent,objective); // this is shortest rout but has points instead of AntAcceptors
+        Point thisPosition = repairPoint(this.getPosition());
+        Point objPosition = repairPoint(objective.getPosition().get());
+        List<List<Point>> pathsList = PathFinder.findKPenaltyPaths(roadModel,thisPosition,objPosition,3);
+        for(List<Point> temp : pathsList) {
+            List<AntAcceptor> path = new LinkedList<>();                     // so we convert the points to ant acceptors
+            for (Point point : temp) {
+                //fixed here
+                Point newPoint = point;
+                if (!goodPoint(point)) {
+                    newPoint = repairPoint(point);
+                }
+                path.add(PizzaExample.DMAS_MODEL.getAntAcceptor(newPoint));
             }
-            path.add(PizzaExample.DMAS_MODEL.getAntAcceptor(newPoint));
-        }
-        ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path, objectivePackage);
+            ExplorationMessage ant = new ExplorationMessage(ID, getRoadModel(), path, objectivePackage);
 
-        //fixed here
-        Point currPos = getPosition();
-        if(!goodPoint(currPos)){
-            currPos = repairPoint(currPos);
+            //fixed here
+            Point currPos = getPosition();
+            if (!goodPoint(currPos)) {
+                currPos = repairPoint(currPos);
+            }
+            ant.sendFromTransportAgent(time, PizzaExample.DMAS_MODEL.getLocation(path.get(0))); //TODO badly written will give problems as soon as we modify something
+            explorationAnts.add(ant);
         }
-        ant.sendFromTransportAgent(time, PizzaExample.DMAS_MODEL.getLocation(path.get(0))); //TODO badly written will give problems as soon as we modify something
-        explorationAnts.add(ant);
     }
 
     public boolean goodPoint(Point point) {
